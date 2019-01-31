@@ -183,8 +183,8 @@ class App extends Component {//
               {props.storeApp.title}
             </div>
             <div className={classes.appFilters}>
-              <div className={`${classes.secondaryFilter} blue`}>Моделируемый вариант рассчёта: <span>{props.storeBlocks.gv_var_x_var_2}</span></div>
-              <div className={`${classes.secondaryFilter} red`}>Плановый вариант рассчёта: <span>{props.storeBlocks.gv_var_rasch}</span></div>
+              <div className={`${classes.secondaryFilter} blue`}>Моделируемый вариант расчёта: <span>{props.storeBlocks.gv_var_x_var_2}</span></div>
+              <div className={`${classes.secondaryFilter} red`}>Плановый вариант расчёта: <span>{props.storeBlocks.gv_var_rasch}</span></div>
             </div>
           </header>
           <div className={classes.appBody}>
@@ -204,7 +204,7 @@ class App extends Component {//
                 </div>
               </div>
               <div className={classes.appAsideInner}>
-                <div className={classes.primaryTitle}>Группа драйверов</div>
+                <div className={classes.primaryTitle}>Фильтры</div>
                 {
                   updateScroll >= 0
                     ? <div className={classes.collapseWrapper}>

@@ -94,6 +94,13 @@ class StepSlider extends Component {
         fixPosLeft = value <= props.settings.min + 5;
 
       console.log(isNaN(parseFloat(this.props.m_prirost)));
+      let circlePos = Number(props.b_prirost.replace("-", "")) * (props.settings.max - props.settings.min) / 100;
+      if (circlePos < 0) {
+        circlePos = 0;
+      }
+      if (circlePos > 100){
+        circlePos = 100;
+      }
 
     return (
       <div className={baseClasses.root} ref={this.root}>
@@ -137,7 +144,7 @@ class StepSlider extends Component {
         <div className={baseClasses.values}>
           <span>{props.settings.min}</span>
           <div
-              style={{transform: `translateX(${Number(props.b_prirost.replace("-", "")) * (props.settings.max - props.settings.min) / 100}%)`}}
+              style={{transform: `translateX(${circlePos}%)`}}
               className={baseClasses.defaultCircleWrapper}
           >
             <div className={baseClasses.defaultCircle} />

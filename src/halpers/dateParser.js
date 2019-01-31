@@ -19,6 +19,7 @@ let constructStructure = function(odata, cat, group){
     odata.forEach(date => {
         includesDate(res, date.key, date.text, group);
     });
+    res = sort(res);
     let obj = {text:"", key:"", children:res, group:group};
     odata.forEach(item => {
         if (item.key === cat){
@@ -26,11 +27,12 @@ let constructStructure = function(odata, cat, group){
             obj.key = item.key;
         }
     });
+    console.log(obj);
     return [obj]
 };
 
 let includesDate = function(res, key, text, group){
-    //console.log(">>> IN");
+    //console.log(">>> IN");//
     //console.log(key);
     switch(key.length){
         case 4:

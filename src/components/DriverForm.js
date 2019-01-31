@@ -143,12 +143,12 @@ class DriverForm extends Component {
             typeof props.values.baseLarge === "string"
               ? <div className={classes.rightValue}>
                   <div className={classes.rightValueItem}>
-                    <section><span style={{background: "#3498DB"}} />{this.valueLimit(props.values.model, 4)}<Arrow style={this.arrowController(this.props.values.arrowModel)} className={classes.arrow} /></section>
-                    <section>{String(this.valueLimit(props.values.modelLarge, 4))+" %"}</section>
+                      <section><span style={{background: "#3498DB"}} /><div>{this.valueLimit(props.values.model, 4)}</div><Arrow style={this.arrowController(this.props.values.arrowModel)} className={classes.arrow} /></section>
+                    <section>{String(this.valueLimit(props.values.modelLarge, 4))}</section>
                   </div>
                   <div className={classes.rightValueItem}>
-                    <section><span style={{background: "#EB5763"}} />{this.valueLimit(props.values.base, 4)}<Arrow style={this.arrowController(this.props.values.arrowPlan)} className={classes.arrow} /></section>
-                    <section>{String(this.valueLimit(props.values.baseLarge, 4))+" %"}</section>
+                      <section><span style={{background: "#EB5763"}} /><div>{this.valueLimit(props.values.base, 4)}</div><Arrow style={this.arrowController(this.props.values.arrowPlan)} className={classes.arrow} /></section>
+                    <section>{String(this.valueLimit(props.values.baseLarge, 4))}</section>
                   </div>
                 </div>
               : null
@@ -162,12 +162,12 @@ class DriverForm extends Component {
                       return (
                         <div key={i}>
                           <div className={classes.rightValueItem}>
-                            <section><span style={{background: "#3498DB"}} />{this.valueLimit(props.values.model[i], 4)}<Arrow style={this.arrowController(this.props.values.arrowModel[i])} className={classes.arrow} /></section>
-                            <section>{String(this.valueLimit(props.values.modelLarge[i], 4))+" %"}</section>
+                              <section><span style={{background: "#3498DB"}} /><div>{this.valueLimit(props.values.model[i], 4)}</div><Arrow style={this.arrowController(this.props.values.arrowModel[i])} className={classes.arrow} /></section>
+                            <section>{String(this.valueLimit(props.values.modelLarge[i], 4))}</section>
                           </div>
                           <div className={classes.rightValueItem}>
-                            <section><span style={{background: "#EB5763"}} />{this.valueLimit(props.values.base[i], 4)}<Arrow style={this.arrowController(this.props.values.arrowPlan[i])} className={classes.arrow} /></section>
-                            <section>{String(this.valueLimit(props.values.baseLarge[i], 4))+" %"}</section>
+                              <section><span style={{background: "#EB5763"}} /><div>{this.valueLimit(props.values.base[i], 4)}</div><Arrow style={this.arrowController(this.props.values.arrowPlan[i])} className={classes.arrow} /></section>
+                            <section>{String(this.valueLimit(props.values.baseLarge[i], 4))}</section>
                           </div>
                         </div>
                       )
@@ -220,11 +220,12 @@ const styles = theme => ({
     lineHeight: "normal",
     fontSize: 14,
     color:" #8797C0",
+    textAlign: "right",
     "& section:first-child": {
-      fontSize: 24,
+      fontSize: 22,
       position: "relative",
       color:" #fff",
-      display: 'flex',
+        display: "flex",
       "& span": {
         width: 8,
         height: 8,
@@ -233,7 +234,11 @@ const styles = theme => ({
         marginLeft: -13,
         display: "block",
         borderRadius: "50%"
-      }
+      },
+        "& div": {
+          textAlign: "right",
+            width: "100%"
+        }
     }
   },
   rightBlock: {
