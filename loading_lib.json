@@ -1,0 +1,10 @@
+{
+  "context": "sdk",
+  "bo": false,
+  "paths": {
+    "main": "$$path$$main",
+    "bundle": "$$path$$build/dist/bundle"
+  },
+  "shim": {
+  }
+}

@@ -1,0 +1,12 @@
+*~
+.ftppass
+
+node_modules/
+.idea
+
+secret/
+build/
+Gruntfile.js
+src/index.js
+data.json
+build/local_api/data.json
