@@ -98,7 +98,7 @@ class Collapse extends Component {
 
 const styles = theme => ({
   CollapseWrapper: {
-    padding: 15,
+    padding: " 0 15px 0 15px",
     position: "relative"
   },
   CollapseItem: {

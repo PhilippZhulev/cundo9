@@ -23,7 +23,7 @@ const MainScheme = function (props, data) {
         },
         {
           width: "100%",
-          height: "calc(100% - 180px)",
+          height: "calc(100% - 133px)",
           childrens: [
             {
               width: "100%",
@@ -49,26 +49,6 @@ const MainScheme = function (props, data) {
               width: "100%",
               height: 255,
               titleState: false,
-              slider: data.drivers[0],
-              binding: "inputKd",
-              title: data.driversData[2].text,
-              values: {
-                base:  data.driversData[2].plan_raschet,
-                model:  data.driversData[2].model_raschet,
-                baseLarge: data.driversData[2].plan_baza,
-                modelLarge: data.driversData[2].model_baza,
-                arrowPlan: data.driversData[2].plan_dinamika,
-                arrowModel: data.driversData[2].model_dinamika,
-                b_prirost:  data.driversData[2].plan_prirost,
-                m_prirost:  data.driversData[2].model_prirost,
-                info: data.driversData[2].text,
-              },
-              components: ["driverForm"]
-            },
-            {
-              width: "100%",
-              height: 255,
-              titleState: false,
               slider: data.drivers[3],
               binding: "inputKomp",
               title: data.driversData[1].text,
@@ -85,6 +65,26 @@ const MainScheme = function (props, data) {
               },
               components: ["driverForm"]
             },
+              {
+                  width: "100%",
+                  height: 255,
+                  titleState: false,
+                  slider: data.drivers[0],
+                  binding: "inputKd",
+                  title: data.driversData[2].text,
+                  values: {
+                      base:  data.driversData[2].plan_raschet,
+                      model:  data.driversData[2].model_raschet,
+                      baseLarge: data.driversData[2].plan_baza,
+                      modelLarge: data.driversData[2].model_baza,
+                      arrowPlan: data.driversData[2].plan_dinamika,
+                      arrowModel: data.driversData[2].model_dinamika,
+                      b_prirost:  data.driversData[2].plan_prirost,
+                      m_prirost:  data.driversData[2].model_prirost,
+                      info: data.driversData[2].text,
+                  },
+                  components: ["driverForm"]
+              },
             {
               width: "100%",
               height: 255,

@@ -102,13 +102,13 @@ class MainPage extends Component {
           </div>
         )
       },
-      {
-        id:"groupTitle",
-        index: 0,
-        view: (
-          <div className={classes.primaryTitle}>{item.primaryTitle}</div>
-        )
-      },
+      // {
+      //   id:"groupTitle",
+      //   index: 0,
+      //   view: (
+      //     <div className={classes.primaryTitle}>{item.primaryTitle}</div>
+      //   )
+      // },
       {
         id:"groupForm",
         index: 2,

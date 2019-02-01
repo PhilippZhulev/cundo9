@@ -193,18 +193,18 @@ class App extends Component {//
                 <div className={classes.btnMenu} onClick={() => this.setState({menu: !this.state.menu})}>
                   <MenuIcon className={classes.menuArrow} />
                 </div>
-                <div className={classes.btnMenu}>
-                  <SettingsIcon className={classes.menuIcon} />
-                </div>
-                <div className={classes.btnMenu}>
-                  <InfoIcon className={classes.menuIcon} />
-                </div>
-                <div className={classes.btnMenu}>
-                  <FeedbackIcon className={classes.menuIcon} />
-                </div>
+                {/*<div className={classes.btnMenu}>*/}
+                  {/*<SettingsIcon className={classes.menuIcon} />*/}
+                {/*</div>*/}
+                {/*<div className={classes.btnMenu}>*/}
+                  {/*<InfoIcon className={classes.menuIcon} />*/}
+                {/*</div>*/}
+                {/*<div className={classes.btnMenu}>*/}
+                  {/*<FeedbackIcon className={classes.menuIcon} />*/}
+                {/*</div>*/}
               </div>
               <div className={classes.appAsideInner}>
-                <div className={classes.primaryTitle}>Фильтры</div>
+                {/*<div className={classes.primaryTitle}>Фильтры</div>*/}
                 {
                   updateScroll >= 0
                     ? <div className={classes.collapseWrapper}>
@@ -222,33 +222,32 @@ class App extends Component {//
                           {
                             this.state.collapse === true  ?
                               <div>
+                                  <div className={`${classes.secondaryTitle} ${classes.secondaryTitleLegend}`}>Плановый вариант</div>
+                                  <Collapse
+                                      active={this.state.rasch}
+                                      onClick={(event, id, item) => this.handleBlock(event, id, item, "1", "rasch")}
+                                      items={versionParse(props.storeBlocks.version, props.storeBlocks.gv_var_rasch, "gv_var_rasch")}
+                                  />
+                                  <div className={classes.separatorWrapper}>
+                                      <div className={classes.separator} />
+                                  </div>
+                                  <div className={`${classes.secondaryTitle}`}>Общие фильтры</div>
                                   <Collapse
                                     active={this.state.blocksGosp}
                                     onClick={(event, id, item) => this.handleBlock(event, id, item, "0", "blocksGosp")}
                                     items={ierarchyParse(props.storeBlocks.gosb, props.storeBlocks.gv_gosb, "gv_gosb")}
                                   />
-                                  <div className={classes.separatorWrapper}>
-                                    <div className={classes.separator} />
-                                  </div>
-                                  <div className={`${classes.secondaryTitle} ${classes.secondaryTitleLegend}`}>Плановый вариант</div>
-                                  <Collapse
-                                    active={this.state.rasch}
-                                    onClick={(event, id, item) => this.handleBlock(event, id, item, "1", "rasch")}
-                                    items={versionParse(props.storeBlocks.version, props.storeBlocks.gv_var_rasch, "gv_var_rasch")}
-                                  />
-                                  <div className={`${classes.secondaryTitle}`}>Даты</div>
                                   <Collapse
                                     active={this.state.period}
                                     onClick={(event, id, item) => this.handleBlock(event, id, item, "2", "period")}
                                     items={dateParse(props.storeBlocks.period, props.storeBlocks.gv_period, "gv_period")}
                                   />
-                                  <div className={`${classes.secondaryTitle}`}>Бизнес-блоки</div>
                                   <Collapse
                                     active={this.state.block}
                                     onClick={(event, id, item) => this.handleBlock(event, id, item, "3", "block")}
                                     items={bizParse(props.storeBlocks.biz, props.storeBlocks.gv_biz_block, "gv_biz_block")}
                                   />
-                                  <div className={`${classes.secondaryTitle}`}>Дополнительные фильтры</div>
+                                  <div className={`${classes.secondaryTitle}`}>Дополнительные фильтры КД</div>
                                   <Collapse
                                     active={this.state.ndo}
                                     onClick={(event, id, item) => this.handleBlock(event, id, item, "4", "ndo")}
@@ -522,7 +521,7 @@ const styles = theme => ({
     color: theme.palette.primary.group,
   },
   separatorWrapper: {
-    padding: "20px 15px 20px 15px"
+    padding: "15px 15px 0px 15px"
   },
   separator: {
     width: "100%",
@@ -534,7 +533,8 @@ const styles = theme => ({
     fontSize: 16,
     marginTop: 15,
     color: theme.palette.primary.titles,
-    padding: "0 15px"
+    padding: "0 15px",
+      marginBottom: 15
   },
   secondaryTitleLegend: {
     "&:before": {
