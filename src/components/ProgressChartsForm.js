@@ -16,6 +16,17 @@ class ProgressChartsForm extends Component {
     this.setState({ anchorEl: event.currentTarget });
   };
 
+  trueMain = items => {
+      let max = -1;
+      items.forEach((item) => {
+          if(Math.abs(item.value) > max){
+              max = Math.abs(item.value);
+          }
+      });
+      return max
+
+  };
+
   handleBlock = (name, val) => {
     if(this.props.id === 2) {
       this.props.bindAnaliticSelect({kdValue: val, kdName: name});
@@ -123,10 +134,10 @@ class ProgressChartsForm extends Component {
             : null
         }
         <div className={classes.chartItem}>
-          <ProgressChart mainValue={props.items.mainValue} secondaryValue={props.items.secondaryValue} items={props.items.m}/>
+          <ProgressChart mainValue={props.items.mainValue} secondaryValue={props.items.secondaryValue} items={props.items.m} trueMain={this.trueMain(props.items.m)}/>
         </div>
         <div className={classes.chartItem}>
-          <ProgressChart mainValue={props.items.mainValue} secondaryValue={props.items.secondaryValue} items={props.items.p}/>
+          <ProgressChart mainValue={props.items.mainValue} secondaryValue={props.items.secondaryValue} items={props.items.p} trueMain={this.trueMain(props.items.p)}/>
         </div>
         <div className={classes.bottomBlock}>
           <div className={`${classes.bottomValueItem} ${classes.bottomValueItemFirst}`}>

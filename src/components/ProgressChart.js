@@ -5,14 +5,27 @@ import Arrow from "@material-ui/icons/ArrowDownward";
 
 class ProgressChart extends Component {
 
-  chartCalc = (item) => {
-    const result = Number(String(item.value).replace("-", ""))  / this.props.mainValue * 100;
-    return  result >= 30 ? 30 : result;
-  };
+  // chartCalc = (item) => {
+  //   const result = Math.abs(Number(item.value) / this.props.mainValue * 100);
+  //   return  result >= 30 ? 30 : result;
+  // };
+  //
+  // chartWidth = (item) => {
+  //   return Math.abs(Number(item.value) / this.props.mainValue * 100) > 100 ? 100 : Math.abs(item.value / this.props.mainValue * 100)
+  // };
 
-  chartWidth = (item) => {
-    return item.value / this.props.mainValue * 100 > 100 ? 100 : item.value / this.props.mainValue * 100
-  };
+    chartCalc = (item) => {
+        console.log(item.value);
+        console.log(this.props.trueMain);
+        alert("Вопрос про базовое значение в графике");
+        const result = Math.abs(Number(item.value) / this.props.trueMain * 100); //<--- Здесь какое базовое значение? почему бралось this.props.mainValue?
+        if (Number(item.value) < 0){
+            return result > 30 ? 30 : result
+        }
+        else{
+            return result > 100 ? 100 : result
+        }
+    };
 
     thousandsSeparator = (string) => {
         let res = string;
@@ -64,10 +77,8 @@ class ProgressChart extends Component {
               className={`${classes.chartInner} ${item.value < 0 ? classes.chartInnerMinus : ""}`}
               style={{
                 background: item.color,
-                width: item.value >= 0
-                  ? this.chartWidth(item) < 0 ? 30 : this.chartWidth(item) + "%"
-                  : this.chartCalc(item) > 100 ? 100 : this.chartCalc(item),
-                transform: item.value < 0 ? `translateX(-${this.chartCalc(item) > 30 ? 30 : this.chartCalc(item)}px)` : "",
+                width: this.chartCalc(item),
+                transform: item.value < 0 ? `translateX(-${this.chartCalc(item)}px)` : "",
               }}
             />
 
