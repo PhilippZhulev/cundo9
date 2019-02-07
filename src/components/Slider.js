@@ -12,12 +12,12 @@ class StepSlider extends Component {
     this.thumb = React.createRef();
 
     if(this.props.storeDriversData[this.props.settings.id] === null) {
-      this.props.bindDriversData({[this.props.settings.id] : this.props.settings.value})
+      this.props.bindDriversData({[this.props.settings.id] :  isNaN(parseFloat(this.props.m_prirost)) ? 0 : parseFloat(this.props.m_prirost)})
     }
   }
 
   state = {
-    value: isNaN(parseFloat(this.props.m_prirost)) ? 0 : parseFloat(this.props.m_prirost),
+    value: this.props.storeDriversData[this.props.settings.id],
     prev: null,
     thumb: 0,
     offset: "",
