@@ -154,6 +154,29 @@ class App extends Component {//
       }
     };
 
+  handleFilters = () => {
+    this.props.bindPreloader({longPreloader: true});
+    const REQ = LumiraRequest("DATA_UPDATE");
+
+    REQ.set("tech6", () => {
+      console.log("ОТПРАВЛЕН ЗАПРОС В ЛЮМИРУ...");
+      if(this.props.storeValues.value2.length !== 0) {
+        return `obr,komp,${this.props.storeValues.value2},${this.props.storeDriversData["vesCOM04"]},${this.props.storeDriversData["vesCMP01"]}`
+      }else if(this.props.storeValues.value1.length !== 0) {
+        return `obr,kd,${this.props.storeValues.value1},${this.props.storeDriversData["vesCOM04"]},${this.props.storeDriversData["vesCOM05"]},${this.props.storeDriversData["vesCOM06"]}`
+      }else {
+        return "pr"
+      }
+    });
+
+    this.props.bindDriversData({
+      COM05: null,
+      COM06: null,
+      COM04: null,
+      CMP01: null,
+    });
+  };
+
     render() {
       const props = this.props,
         { classes } = props;
@@ -198,7 +221,7 @@ class App extends Component {//
           <div className={classes.appBody}>
             <aside className={`${classes.appSideBar} ${(this.state.menu === true) ? "active" : ""}`}>
               <div className={classes.smartMenu}>
-                <div className={classes.btnMenu} onClick={() => this.setState({menu: !this.state.menu})}>
+                <div className={classes.btnMenu} onClick={() => {this.setState({menu: !this.state.menu}); console.log(this.props.storeValues)}}>
                   <MenuIcon className={classes.menuArrow} />
                 </div>
                 {/*<div className={classes.btnMenu}>*/}
@@ -259,7 +282,7 @@ class App extends Component {//
                                   <Collapse
                                     active={this.state.ndo}
                                     onClick={(event, id, item) => this.handleBlock(event, id, item, "4", "ndo")}
-                                    items={ndoParse(props.storeBlocks.ndo, props.storeBlocks.gv_ndo, "gv_ndo")} //<---------------------- или gv_biz_block?}
+                                    items={ndoParse(props.storeBlocks.ndo, props.storeBlocks.gv_ndo, "gv_ndo")} //<---------------------- или gv_biz_block?
                                   />
                                 <Collapse
                                     active={this.state.direction}
@@ -281,6 +304,7 @@ class App extends Component {//
                 }
                 <div className={classes.buttonPanel}>
                   <Button onClick={() => this.handleButtons("save")} text={"Сохранить"}/>
+                  <Button onClick={this.handleFilters} text={"Рассчитать"} />
                   <Button onClick={() => this.handleButtons("load")} classes={{wrapper: classes.btnWrapper}} text={"К последнему сохранению"}/>
                   <Button onClick={() => this.handleButtons("last_load")} type={"red"}  text={"Плановый вариант"}/>
                 </div>
@@ -300,6 +324,13 @@ class App extends Component {//
 }
 
 const styles = theme => ({
+  btn: {
+    width: 128,
+    height: 40
+  },
+  wrapper: {
+    padding: "0 0"
+  },
       titleWrapper:{
         //display: "flex",
         borderBottom: `1px solid ${theme.palette.primary.headerSeparator}`,

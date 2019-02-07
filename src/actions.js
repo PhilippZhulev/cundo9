@@ -15,3 +15,4 @@ export const bindDrivers = createAction('ACTION_DRIVERS');
 export const bindActiveBlock = createAction('ACTION_DRIVERS');
 export const bindDriversData = createAction('ACTION_DRIVERS_DATA');
 export const bindPreloader = createAction('ACTION_PRELOADER');
+export const bindValues = createAction("ACTION_VALUES");

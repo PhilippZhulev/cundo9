@@ -51,7 +51,6 @@ class MainPage extends Component {
   }
 
   components = (classes) => (item, parentClasses) => {
-    console.log(item);
     return [
       {
         id:"btn",

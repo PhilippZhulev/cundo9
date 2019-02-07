@@ -50,7 +50,7 @@ class GroupForm extends Component {
       <div className={classes.root}>
         <div className={classes.inputWrapperFirst}>
           <Input
-            onChange={(e) => this.setState({value1 : e.target.value})}
+            onChange={(e) => {this.setState({value1 : e.target.value}); this.props.bindValues({value1 : e.target.value})}}
             onKeyUp={(e) => this.keyUpInput(e, "inputKomp")}
             disabled={this.props.storeGroup.inputKd}
             label={"КД"}
@@ -59,17 +59,19 @@ class GroupForm extends Component {
         </div>
         <div className={classes.inputWrapperLast}>
             <Input
-              onChange={(e) =>
-              this.setState({value2 : e.target.value})}
+              onChange={(e) => {
+                this.setState({value2 : e.target.value});
+                this.props.bindValues({value2 : e.target.value});
+              }}
               onKeyUp={(e) => this.keyUpInput(e, "inputKd")}
               disabled={this.props.storeGroup.inputKomp}
               label={"Компенсация"}
               type={"number"}
               value={this.state.value2}/>
         </div>
-        <div className={classes.btnWrapper}>
-          <Button onClick={this.handleFilters} text={"Рассчитать"} classes={{root: classes.btn, wrapper: classes.wrapper}} />
-        </div>
+        {/*<div className={classes.btnWrapper}>*/}
+          {/*<Button onClick={this.handleFilters} text={"Рассчитать"} classes={{root: classes.btn, wrapper: classes.wrapper}} />*/}
+        {/*</div>*/}
       </div>
     )
   }

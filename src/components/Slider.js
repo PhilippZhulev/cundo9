@@ -103,7 +103,6 @@ class StepSlider extends Component {
     let fixPosRight = value >= props.settings.max - 5,
         fixPosLeft = value <= props.settings.min + 5;
 
-      console.log(isNaN(parseFloat(this.props.m_prirost)));
       let circlePos = Number(props.b_prirost.replace("-", "")) * (props.settings.max - props.settings.min) / 100;
       if (circlePos < 0) {
         circlePos = 0;

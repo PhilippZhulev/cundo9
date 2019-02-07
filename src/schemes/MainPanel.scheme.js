@@ -5,6 +5,7 @@ const MainScheme = function (props, data) {
   /*
   Схема структуры главного экрана
   */
+  console.log(data);
   return [
     {
       media: [

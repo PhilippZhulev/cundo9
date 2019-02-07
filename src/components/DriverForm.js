@@ -105,6 +105,7 @@ class DriverForm extends Component {
       {classes} = props;
 
     const info = props.values.info;
+    console.log(info);
 
     return (
       <div  className={classes.root}>

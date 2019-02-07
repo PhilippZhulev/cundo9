@@ -42,11 +42,8 @@ let indent = function(string, level, indent = "   ", firstLevel = 0){
     let res = "";
    for(let i = firstLevel; i <= level; i++) {
        res = res + indent;
-       console.log("+ indent");
    }
    res = res + string;
-   console.log(res);
-   console.log(level);
    return res
 };
 

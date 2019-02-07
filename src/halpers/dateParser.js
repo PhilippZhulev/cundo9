@@ -27,7 +27,6 @@ let constructStructure = function(odata, cat, group){
             obj.key = item.key;
         }
     });
-    console.log(obj);
     return [obj]
 };
 

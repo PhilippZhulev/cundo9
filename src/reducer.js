@@ -96,6 +96,11 @@ const ActiveBlock = {
   target: null
 };
 
+const values = {
+  value1: "",
+  value2: ""
+};
+
 export const handleApp = handleActions({
   [actions.bindApp](state, { payload }) {
     return { ...state, ...payload };
@@ -183,6 +188,12 @@ export const handlePreloader = handleActions({
     return { ...state, ...payload };
   },
 }, preloader);
+
+export const handleValues = handleActions({
+  [actions.bindValues](state, { payload }) {
+    return  { ...state, ...payload }
+  }
+}, values);
 
 
 

@@ -67,7 +67,6 @@ class ProgressChart extends Component {
 
   renderElement = (classes) => {//
     return this.props.items.map((item, i) => {
-        console.log(item);
       return (
         <div key={i} className={classes.item}>
           <div className={classes.title}>{indent(item.title, item.level)}</div>
