@@ -130,21 +130,21 @@ class DinTableForm extends Component {
           }
         </Menu>
         <div className={classes.table}>
-          <ReactIScroll iScroll={iScroll} options={{
-            mouseWheel: true,
-            scrollbars: true,
-            freeScroll: true,
-            scrollX: true,
-            scrollY: true,
-            click: false,
-            momentum: false,
-            fadeScrollbars: true,
-            invertWheelDirection: false,
-            preventDefault: true,
-            disableMouse: false,
-            disablePointer: false,
-            disableTouch: false,
-          }}>
+          {/*<ReactIScroll iScroll={iScroll} options={{*/}
+            {/*mouseWheel: true,*/}
+            {/*scrollbars: true,*/}
+            {/*freeScroll: true,*/}
+            {/*scrollX: true,*/}
+            {/*scrollY: true,*/}
+            {/*click: false,*/}
+            {/*momentum: false,*/}
+            {/*fadeScrollbars: true,*/}
+            {/*invertWheelDirection: false,*/}
+            {/*preventDefault: true,*/}
+            {/*disableMouse: false,*/}
+            {/*disablePointer: false,*/}
+            {/*disableTouch: false,*/}
+          {/*}}>*/}
             <div style={{minWidth: 560}}>
               <div className={classes.tableRow}>
                 <div className={classes.tableCol} />
@@ -167,7 +167,7 @@ class DinTableForm extends Component {
                   : this.getTable(props.items.p, classes)
               }
             </div>
-          </ReactIScroll>
+          {/*</ReactIScroll>*/}
         </div>
       </div>
     )
@@ -180,9 +180,9 @@ const styles = theme => ({
     maxHeight: "100%"
   },
   table : {
-    marginTop: 10,
+    marginTop: -20,
     overflow: "hidden",
-    height: 250
+    height: 380//300//
   },
   tableRow: {
     display: "flex",
@@ -192,7 +192,7 @@ const styles = theme => ({
     textAlign: "right",
     padding: "4px 2px 4px 8px",
     color: "#8797C0",
-    fontSize: 10,
+    fontSize: 12,
     borderLeft: "1px solid rgba(111, 132, 155, 0.3)",
     "&:first-child": {
       width: "24%",
@@ -201,6 +201,7 @@ const styles = theme => ({
     },
     "&:nth-child(2)": {
       width: "8%",
+        borderLeft: "0",
     }
   },
   ItemsLine1: {

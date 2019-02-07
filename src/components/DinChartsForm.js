@@ -5,6 +5,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Chart from '../components/Chart';
 import Arrow from "@material-ui/icons/ArrowDownward";
+import {thousandsSeparator, indent} from "../halpers/formHalper";
 
 class DinChartsForm extends Component {
 
@@ -30,46 +31,6 @@ class DinChartsForm extends Component {
       default : return null;
     }
   };
-
-    thousandsSeparator = (string) => {
-        let res = string;
-        let end = "";
-        let sign = "";
-        let perc = "";
-
-        if(string.indexOf(".") !== -1){
-            res = string.split(".")[0];
-            end = string.split(".")[1];
-        }
-        if(string.indexOf("-") !== -1){
-            sign = "-";
-            res = res.substr(1);
-        }
-        if(string.indexOf("%") !== -1){
-            perc = "%";
-            res = res.substr(0, res.length - 1);
-        }
-        let len = res.length;
-        while(true){
-            if(len <= 3){
-                break
-            }
-            res = res.substr(0, len - 3) + " " + res.substr(len - 3);
-            len = len - 3;
-
-        }
-        if(end !== ""){
-            res = [res,end].join(".");
-        }
-        if(sign !== ""){
-            res = sign + res;
-        }
-        if(perc !== ""){
-            res = res + perc;
-        }
-
-        return res//Number(string)
-    };
 
   getProvider = (data) => {
     let result = [], elms = [];
@@ -173,35 +134,32 @@ class DinChartsForm extends Component {
               <div className={classes.ItemsLine1}>
                   <span className={classes.row0}/>
                   <span className={classes.row1}>{2018}</span>
-                  <span className={classes.row2}>{2019}</span>
-                  <div className={classes.row3}>
-                    <span/>
+                  <span className={classes.row2}></span>
+                <div className={classes.row3}><span>{2019}</span>
                   </div>
-                  <span className={classes.row4}>{2020}</span>
-                  <div className={classes.row5}>
-                    <span/>
+                  <span className={classes.row4}></span>
+                <div className={classes.row5}><span>{2020}</span>
                   </div>
-                  <span className={classes.row4}>{2021}</span>
-                  <div className={classes.row5}>
-                    <span className={classes.lastRow}/>
+                  <span className={classes.row4}></span>
+                <div className={classes.row5}><span className={classes.lastRow}>{2021}</span>
                   </div>
               </div>
             <div className={classes.ItemsLine1}>
               <span className={classes.row0}><span className={classes.bullet} style={{background: "rgb(235, 87, 99)"}} /></span>
-              <span className={classes.row1}>{this.thousandsSeparator(String(dinamic[0].m))}</span>
-              <span className={classes.row2}>{this.thousandsSeparator(String(dinamic[1].m))}</span>
+              <span className={classes.row1}>{thousandsSeparator(String(dinamic[0].m))}</span>
+              <span className={classes.row2}>{thousandsSeparator(String(dinamic[1].m))}</span>
               <div className={classes.row3}>
                 <span>{dinamic[1].prirost_m}
                 </span>
                   {this.arrowController(classes, dinamic[1].arrow_m)}
               </div>
-              <span className={classes.row4}>{this.thousandsSeparator(String(dinamic[2].m))}</span>
+              <span className={classes.row4}>{thousandsSeparator(String(dinamic[2].m))}</span>
               <div className={classes.row5}>
                 <span>{dinamic[2].prirost_m}
                 </span>
                   {this.arrowController(classes, dinamic[2].arrow_m)}
               </div>
-              <span className={classes.row4}>{this.thousandsSeparator(String(dinamic[3].m))}</span>
+              <span className={classes.row4}>{thousandsSeparator(String(dinamic[3].m))}</span>
               <div className={classes.row5}>
                 <span className={classes.lastRow}>{dinamic[3].prirost_m}
                 </span>
@@ -210,20 +168,20 @@ class DinChartsForm extends Component {
             </div>
             <div className={classes.ItemsLine1}>
               <span className={classes.row0}><span className={classes.bullet} style={{background: "#3498DB"}} /></span>
-              <span className={classes.row1}>{this.thousandsSeparator(String(dinamic[0].p))}</span>
-              <span className={classes.row2}>{this.thousandsSeparator(String(dinamic[1].p))}</span>
+              <span className={classes.row1}>{thousandsSeparator(String(dinamic[0].p))}</span>
+              <span className={classes.row2}>{thousandsSeparator(String(dinamic[1].p))}</span>
               <div className={classes.row3}>
                 <span>{dinamic[1].prirost_p}
                 </span>
                   {this.arrowController(classes, dinamic[1].arrow_m)}
               </div>
-              <span className={classes.row4}>{this.thousandsSeparator(String(dinamic[2].p))}</span>
+              <span className={classes.row4}>{thousandsSeparator(String(dinamic[2].p))}</span>
               <div className={classes.row5}>
                 <span>{dinamic[2].prirost_p}
                 </span>
                 {this.arrowController(classes, dinamic[2].arrow_m)}
               </div>
-              <span className={classes.row4}>{this.thousandsSeparator(String(dinamic[3].p))}</span>
+              <span className={classes.row4}>{thousandsSeparator(String(dinamic[3].p))}</span>
               <div className={classes.row5}>
                 <span className={classes.lastRow}>{dinamic[3].prirost_p}
                 </span>

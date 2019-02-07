@@ -54,6 +54,7 @@ class Collapse extends Component {
         return (
           <div key={i} className={classes.CollapseItem} data-id={idx} style={_THIS.state[elemId] === true ? {background: _THIS.state[elemId + "_bg"]} : {}}>
               <div  className={`${classes.CollapseText} ${this.props.active === idx ? "active" : ""} ${(childrens) ? "childs" : ""}`}>
+                  {/*<div style={{position: "absolute", backgroundColor: "#1b2137", zIndex: "999", color: "#A2A6B9",top: 0, left: 0, right: 38,bottom: 7, padding: 8}}>{"Байкальский банк"}</div>*/}
                 <div onClick={(e) => this.hangleChange(e,idx, item)}>
                     {item.text}
                 </div>
@@ -106,6 +107,7 @@ const styles = theme => ({
     paddingLeft: 5,
     transition: "all 300ms ease-in-out",
     overflow: "hidden",
+    //position: "relative"
   },
   CollapseText: {
     color: theme.palette.primary.separator,

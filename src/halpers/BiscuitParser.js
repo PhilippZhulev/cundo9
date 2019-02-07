@@ -43,6 +43,7 @@ function getChartData (data, props) {
           an_din: target.m[ind].otnosit_vl + "%",
           arrow: target.m[ind].dinamika_flag,
           color: props.theme.palette.primary.blueBorder,
+          level: target.m[ind].level
         });
 
         p[target.p[ind].block].push({
@@ -51,6 +52,7 @@ function getChartData (data, props) {
           an_din: target.p[ind].otnosit_vl + "%",
           value: Number(target.p[ind].plan || target.p[ind].absolut_vl),
           color: props.theme.palette.primary.redBorder,
+          level: target.p[ind].level
         });
       }
 

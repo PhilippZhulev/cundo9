@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {withStyles} from '@material-ui/core/styles';
+import {thousandsSeparator, indent} from "../halpers/formHalper";
 
 class ProgressChart extends Component {
 
@@ -43,46 +44,6 @@ class ProgressChart extends Component {
     }
   };
 
-    thousandsSeparator = (string) => {
-        let res = string;
-        let end = "";
-        let sign = "";
-        let perc = "";
-
-        if(string.indexOf(".") !== -1){
-            res = string.split(".")[0];
-            end = string.split(".")[1];
-        }
-        if(string.indexOf("-") !== -1){
-          sign = "-";
-          res = res.substr(1);
-        }
-        if(string.indexOf("%") !== -1){
-          perc = "%";
-          res = res.substr(0, res.length - 1);
-        }
-        let len = res.length;
-        while(true){
-            if(len <= 3){
-                break
-            }
-            res = res.substr(0, len - 3) + " " + res.substr(len - 3);
-            len = len - 3;
-
-        }
-        if(end !== ""){
-            res = [res,end].join(".");
-        }
-        if(sign !== ""){
-          res = sign + res;
-        }
-        if(perc !== ""){
-          res = res + perc;
-        }
-
-        return res//Number(string)
-    };
-
 
   chartCalcWidth = (item) => {
     if(item < 0) {
@@ -104,11 +65,12 @@ class ProgressChart extends Component {
     }
   };
 
-  renderElement = (classes) => {
+  renderElement = (classes) => {//
     return this.props.items.map((item, i) => {
+        console.log(item);
       return (
         <div key={i} className={classes.item}>
-          <div className={classes.title}>{item.title}</div>
+          <div className={classes.title}>{indent(item.title, item.level)}</div>
           <div className={classes.chart}>
             <div
               style={{
@@ -125,9 +87,9 @@ class ProgressChart extends Component {
               />
             </div>
           </div>
-          <div className={classes.value}>{this.thousandsSeparator(String(this.insertValue(String(item.value))))}</div>
+          <div className={classes.value}>{thousandsSeparator(String(this.insertValue(String(item.value))))}</div>
           <div className={classes.din}>
-            {this.thousandsSeparator(String(item.an_din))}
+            {thousandsSeparator(String(item.an_din))}
           </div>
         </div>
         )
@@ -165,7 +127,8 @@ const styles = theme => ({
     color: theme.palette.primary.titles,
     fontSize: 14,
     textAlign: "left",
-    paddingRight: 10
+    paddingRight: 10,
+      whiteSpace: "pre"
   },
   chart: {
     width: "25%",
@@ -174,7 +137,7 @@ const styles = theme => ({
     margin: "4px 0"
   },
   chartInnerMinus: {
-    opacity: 0.3
+    opacity: 1.0//0.3
   },
   chartInner: {
     height: "100%",

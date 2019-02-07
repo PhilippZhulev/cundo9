@@ -45,16 +45,25 @@ class StepSlider extends Component {
     });
   };
 
+  handleFocus = (event) =>{
+      // if (event.target.value === "0" || event.target.value.length === 0){
+      //     event.target.select();
+      //     console.log(event.target);
+      // }
+      event.target.select();
+  };
+
   handleInput = (event) => {
 
     const offset = () => this.setState({offset: this.thumb.current.parentNode.parentNode.style.transform});
 
     if(event.target.value > this.props.settings.min && event.target.value <= 100) {
-      this.setState({value: event.target.value}, offset)
+      this.setState({value: event.target.value}, offset);
     }else if (event.target.value <= this.props.settings.min){
       this.setState({value: this.props.settings.min}, offset);
     }
     console.log([event.target]);
+    event.target.value = Number(event.target.value);
   };
 
   dragStart = () => {
@@ -112,7 +121,7 @@ class StepSlider extends Component {
               position={!fixPosRight ? "right" : "left"}
               text={props.settings.info}
             />
-            <input onKeyUp={(e) => this.bindEnter(e, 13, Number(value))} onChange={(event) => this.handleInput(event)} value={Number(value)} type="number"/>
+            <input onKeyUp={(e) => this.bindEnter(e, 13, Number(value))} onChange={(event) => this.handleInput(event)} value={Number(value)} onFocus={(event) => this.handleFocus(event)} type="number"/>
           </div>
         </div>
         <Slider

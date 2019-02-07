@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import Arrow from "@material-ui/icons/ArrowDownward";
+import {thousandsSeparator, indent} from "../halpers/formHalper";
 
 
 class ProgressChart extends Component {
@@ -15,62 +16,23 @@ class ProgressChart extends Component {
   // };
 
     chartCalc = (item) => {
-        console.log(item.value);
-        console.log(this.props.trueMain);
-        alert("Вопрос про базовое значение в графике");
-        const result = Math.abs(Number(item.value) / this.props.trueMain * 100); //<--- Здесь какое базовое значение? почему бралось this.props.mainValue?
+        // console.log(item.value);
+        // console.log(this.props.trueMain);
+        //alert("Вопрос про базовое значение в графике");
+        const result = Math.abs(Number(item.value) / this.props.mainValue * 100); //<--- Здесь какое базовое значение? почему бралось this.props.mainValue?
         if (Number(item.value) < 0){
             return result > 30 ? 30 : result
         }
         else{
-            return result > 100 ? 100 : result
+            return result > 100 ? "100%" : result+"%"
         }
-    };
-
-    thousandsSeparator = (string) => {
-        let res = string;
-        let end = "";
-        let sign = "";
-        let perc = "";
-
-        if(string.indexOf(".") !== -1){
-            res = string.split(".")[0];
-            end = string.split(".")[1];
-        }
-        if(string.indexOf("-") !== -1){
-            sign = "-";
-            res = res.substr(1);
-        }
-        if(string.indexOf("%") !== -1){
-            sign = "%";
-            res = res.substr(0, res.length - 1);
-        }
-        let len = res.length;
-        while(true){
-            if(len <= 3){
-                break
-            }
-            res = res.substr(0, len - 3) + " " + res.substr(len - 3);
-            len = len - 3;
-
-        }
-        if(end !== ""){
-            res = [res,end].join(".");
-        }
-        if(sign !== ""){
-            res = sign + res;
-        }
-        if(perc !== ""){
-            res = res + perc;
-        }
-
-        return res//Number(string)
     };
 
   renderElement = (classes) => {
     return this.props.items.map((item, i) => {
+        let show = (Number(item.value) === 0 && ((Number(item.din) === 0) || (item.din === undefined))) ? "none" : "";
       return (
-        <div key={i} className={classes.item}>
+        <div key={i} className={classes.item} style={{display: show}}>
           <div className={classes.title}>{item.title}</div>
           <div className={classes.chart}>
             <div
@@ -83,7 +45,7 @@ class ProgressChart extends Component {
             />
 
           </div>
-          <div className={classes.value}>{this.thousandsSeparator(String(item.value))}</div>
+          <div className={classes.value}>{thousandsSeparator(String(item.value.toFixed(2)))}</div>
           <div className={classes.din}>
             {item.din}
             {typeof item.din !== "undefined" ? "%" : ""}
@@ -137,10 +99,10 @@ const styles = theme => ({
     paddingRight: "6%",
     paddingLeft: "15%",
     margin: "4px 0",
-    boxSizing: "border-box"
+    boxSizing: "border-box",
   },
   chartInnerMinus: {
-    opacity: 0.3
+    opacity: 1.0//0.3
   },
   chartInner: {
     height: "100%",

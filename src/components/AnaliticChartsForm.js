@@ -33,6 +33,7 @@ class AnaliticChartsForm extends Component {
       {classes} = props,
       { anchorEl } = this.state;
 
+
     return (
       <div className={classes.root}>
         <div onClick={() => this.props.bindAnaliticSelect({trigger : !props.storeAnaliticChart.trigger})} className={classes.modWrap}>

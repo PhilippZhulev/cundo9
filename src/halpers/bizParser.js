@@ -34,7 +34,15 @@ let bizParse = function(data, cat, group) {
         pasteByAddr(mas, 1, item, mas);
     });
 
-    return mas
+    let res = {text: "Текущий выбор", group: group, cat: cat, children: mas};
+
+    for(let i = 0; i < data.length; i++){
+        if(data[i].key === cat){
+            res.text = data[i].text;
+        }
+    }
+
+    return [res]
     // for (let len = 4; i > 1; i++){
     //     let sameLength = {};
     //     for(let item of data){

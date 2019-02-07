@@ -48,6 +48,7 @@ const styles = theme => ({
     borderRadius: "50px",
     fontWeight: 300,
     color: "#fff",
+      fontSize: 14,
     transition: "all 300ms ease-in-out",
     marginBottom: 15,
     "&:focus": {
@@ -55,7 +56,7 @@ const styles = theme => ({
     },
     "&:hover": {
       background: theme.palette.primary.fade,
-    },
+    }
   },
   wrapper: {
     padding: "0 15px"

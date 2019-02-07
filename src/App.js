@@ -86,7 +86,8 @@ class App extends Component {//
             gv_dd_direction: window.bobrData["gv_dd_direction"],
             gv_sale_channel: window.bobrData["gv_sale_channel"],
             gv_ndo: window.bobrData["gv_ndo"],
-            gv_var_x_var_2: window.bobrData["X_var2"]
+            gv_var_x_var_2: window.bobrData["X_var2"],
+            planning_version: window.bobrData["X_pl_vers"]
           });
         };
 
@@ -179,8 +180,13 @@ class App extends Component {//
             : null
           }
           <header className={classes.appHeader}>
-            <div className={classes.appTitle}>
+            <div className={classes.titleWrapper}>
+              <div className={classes.appTitle}>
               {props.storeApp.title}
+              </div>
+              <div className={classes.headerAppVersion}>
+                Версия планирования: <span>{props.storeBlocks.planning_version}</span>
+              </div>
             </div>
             <div className={classes.appFilters}>
               <div className={`${classes.secondaryFilter} blue`}>Моделируемый вариант расчёта: <span>{props.storeBlocks.gv_var_x_var_2}</span></div>
@@ -286,6 +292,24 @@ class App extends Component {//
 }
 
 const styles = theme => ({
+      titleWrapper:{
+        //display: "flex",
+        borderBottom: `1px solid ${theme.palette.primary.headerSeparator}`,
+        position: "relative"
+      },
+  headerAppVersion:{
+    fontSize: 16,
+    //marginTop: 12,
+    fontWeight: 500,
+    color: theme.palette.primary.titles,
+    //paddingRight: 35,
+    padding: "15px 0 16px 0",
+    //marginLeft: "22%",
+    position: "absolute",
+    right:0,
+    top: 2
+
+},
   longLoad: {
     width: "100%",
     height: "100%",
@@ -459,7 +483,7 @@ const styles = theme => ({
     fontSize: 18,
     padding: "15px 0 16px 0",
     fontWeight: 400,
-    borderBottom: `1px solid ${theme.palette.primary.headerSeparator}`
+    //borderBottom: `1px solid ${theme.palette.primary.headerSeparator}`
   },
   appPlan: {
     color: theme.palette.primary.headerTitle,
@@ -578,6 +602,9 @@ const styles = theme => ({
     "&.blue:before": {
       background: theme.palette.primary.blueBorder
     },
+      "&.white:before": {
+          background: "#F3CF12"//"#FFFFFF"
+      },
     "& span": {
 
       fontWeight: 300

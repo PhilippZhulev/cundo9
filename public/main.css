@@ -22,6 +22,12 @@
     font-weight: 700;
     font-style: italic;
 }
+@font-face {
+    font-family: 'Open Sans';
+    src: local('Open Sans Light'), local('OpenSans-Light'),  url('fonts/OpenSansLight.woff') format('woff'), url('fonts/OpenSansLight.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
 
 html, body {
     font-family: "Open Sans", serif;
