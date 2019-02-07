@@ -33,6 +33,13 @@ class GroupForm extends Component {
         return "pr"
       }
     });
+
+    this.props.bindDriversData({
+        COM05: null,
+        COM06: null,
+        COM04: null,
+        CMP01: null,
+    });
   };
 
   render() {
