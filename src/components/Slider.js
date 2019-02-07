@@ -72,6 +72,7 @@ class StepSlider extends Component {
 
   lumiraEvent = (value) => {
     this.props.bindDriversData({[this.props.settings.id] : value});
+    console.log(value);
 
     setTimeout(() => {
       const REQ = LumiraRequest("DATA_UPDATE");

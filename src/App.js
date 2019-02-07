@@ -33,6 +33,8 @@ class App extends Component {//
           rasch: undefined,
           period: undefined,
           ndo: undefined,
+          direction: undefined,
+          channel: undefined,
             menu: true
         };
 
@@ -257,12 +259,18 @@ class App extends Component {//
                                   <Collapse
                                     active={this.state.ndo}
                                     onClick={(event, id, item) => this.handleBlock(event, id, item, "4", "ndo")}
-                                    items={[
-                                      ...ndoParse(props.storeBlocks.ndo, props.storeBlocks.gv_ndo, "gv_ndo"), //<---------------------- или gv_biz_block?
-                                      ...directionParse(props.storeBlocks.direction, props.storeBlocks.gv_dd_direction, "gv_dd_direction"),
-                                      ...channelParse(props.storeBlocks.channel, props.storeBlocks.gv_sale_channel, "gv_sale_channel")
-                                    ]}
+                                    items={ndoParse(props.storeBlocks.ndo, props.storeBlocks.gv_ndo, "gv_ndo")} //<---------------------- или gv_biz_block?}
                                   />
+                                <Collapse
+                                    active={this.state.direction}
+                                    onClick={(event, id, item) => this.handleBlock(event, id, item, "4", "direction")}
+                                    items={directionParse(props.storeBlocks.direction, props.storeBlocks.gv_dd_direction, "gv_dd_direction")}
+                                />
+                                <Collapse
+                                    active={this.state.channel}
+                                    onClick={(event, id, item) => this.handleBlock(event, id, item, "4", "channel")}
+                                    items={channelParse(props.storeBlocks.channel, props.storeBlocks.gv_sale_channel, "gv_sale_channel")}
+                                />
                               </div>
                             : null
                           }
