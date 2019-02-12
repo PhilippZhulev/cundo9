@@ -124,13 +124,14 @@ const styles = theme => ({
   title: {
     width: "45%",
     color: theme.palette.primary.titles,
-    fontSize: 14,
+    fontSize: 12,
     textAlign: "left",
     paddingRight: 10,
       whiteSpace: "pre"
   },
   chart: {
-    width: "25%",
+    //width: "25%",
+    width: "20%",
     height: 12,
     paddingRight: "10%",
     margin: "4px 0"
@@ -145,7 +146,7 @@ const styles = theme => ({
   value: {
     width: "22%",
     color: theme.palette.primary.titles,
-    fontSize: 14,
+    fontSize: 12,
     textAlign: "right",
     paddingLeft: 10
   },
@@ -159,7 +160,7 @@ const styles = theme => ({
     width: "13%",
     position: "relative",
     color: theme.palette.primary.titles,
-    fontSize: 14,
+    fontSize: 12,
     textAlign: "right"
   }
 });

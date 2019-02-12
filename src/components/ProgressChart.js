@@ -88,7 +88,7 @@ const styles = theme => ({
   title: {
     width: "25%",
     color: theme.palette.primary.titles,
-    fontSize: 14,
+    fontSize: 12,
     textAlign: "right",
     paddingRight: 10,
     boxSizing: "border-box"
@@ -111,7 +111,7 @@ const styles = theme => ({
   value: {
     width: "25%",
     color: theme.palette.primary.titles,
-    fontSize: 14,
+    fontSize: 12,
     textAlign: "right",
     paddingLeft: 10,
     boxSizing: "border-box"
@@ -127,7 +127,7 @@ const styles = theme => ({
     paddingRight: 20,
     position: "relative",
     color: theme.palette.primary.titles,
-    fontSize: 14,
+    fontSize: 12,
     textAlign: "right",
     boxSizing: "border-box"
   }

@@ -131,8 +131,8 @@ class DinChartsForm extends Component {
             Темпы прироста по годам:
           </div>
           <div className={classes.bottomBlockItemsLine}>
-              <div className={classes.ItemsLine1}>
-                  <span className={classes.row0}/>
+              <div className={`${classes.ItemsLine1} ${classes.years}`}>
+                <span className={classes.row0}><span className={classes.bullet} style={{background: "rgba(0, 0, 0,0)"}} /></span>
                   <span className={classes.row1}>{2018}</span>
                   <span className={classes.row2}></span>
                 <div className={classes.row3}><span>{2019}</span>
@@ -201,12 +201,12 @@ const styles = theme => ({
     maxHeight: "100%"
   },
   ItemsLine1: {
-    padding: "2px 0",
+    //padding: "2px 0",
     display: "flex",
     width: "100%",
     color: theme.palette.primary.titles,
-    fontSize: 14,
-
+    fontSize: 12,
+    lineHeight: "24px",
     fontWeight: 400,
   },
   row0: {
@@ -218,7 +218,9 @@ const styles = theme => ({
   },
   row2: {
     width: "20%",
-    textAlign: "right"
+    textAlign: "right",
+    borderLeft: "1px solid rgba(111, 132, 155, 0.3)",
+    marginLeft: 15
   },
   row3: {
     width: "20%",
@@ -230,7 +232,9 @@ const styles = theme => ({
   },
   row4: {
     width: "20%",
-    textAlign: "right"
+    textAlign: "right",
+    borderLeft: "1px solid rgba(111, 132, 155, 0.3)",
+    marginLeft: 15
   },
   row5: {
     width: "18%",
@@ -241,7 +245,7 @@ const styles = theme => ({
       }
   },
   lastRow: {
-    display: "unset"
+    display: "unset",
   },
   bullet: {
     width: 8,
@@ -351,7 +355,8 @@ const styles = theme => ({
     right: -20,
     marginTop: -2,
       width: 15,
-      height: 20
+      //height: 20
+    height: 25
   },
   bottomValueItemFirst: {
     margin: "10px -120px 10px auto!important",
@@ -386,6 +391,9 @@ const styles = theme => ({
         borderRadius: "50%"
       }
     }
+  },
+  years: {
+    fontWeight: "bolder"
   },
 });
 

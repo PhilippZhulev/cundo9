@@ -583,7 +583,7 @@ const styles = theme => ({
     width: "100%"
   },
   btnWrapper: {
-    marginBottom: 15
+    marginBottom: 25
   },
   primaryTitle: {
     padding: "15px 15px 5px 15px",
