@@ -86,9 +86,9 @@ class ProgressChart extends Component {
               />
             </div>
           </div>
-          <div className={classes.value}>{thousandsSeparator(String(this.insertValue(String(item.value))))}</div>
+          <div className={classes.value}>{thousandsSeparator(String(this.insertValue(String(item.value))), 2)}</div>
           <div className={classes.din}>
-            {thousandsSeparator(String(item.an_din))}
+            {thousandsSeparator(String(item.an_din), 1)}
           </div>
         </div>
         )

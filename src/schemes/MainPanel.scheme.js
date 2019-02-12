@@ -5,12 +5,12 @@ const MainScheme = function (props, data) {
   /*
   Схема структуры главного экрана
   */
-  console.log(data);
+  //console.log(data);
   return [
     {
       media: [
         {screen: 2000, width: "32%"},
-        {screen: 1700, width: "50%"},
+        {screen: 1800, width: "50%"},
         {screen: 1100, width: "100%"}
       ],
       height: "100%",
@@ -96,47 +96,53 @@ const MainScheme = function (props, data) {
               values: {
                 b_prirost:  data.driversData[3].plan_prirost,
                 m_prirost:  data.driversData[3].model_prirost,
-                base:  [
-                  data.driversData[3].plan_raschet,
-                  data.driversData[4].plan_raschet,
-                  data.driversData[5].plan_raschet,
-                  data.driversData[6].plan_raschet
+                baseArr:  [
+                  //data.driversData[3].plan_raschet,
+                  data.driversData[6].plan_raschet,
+                  data.driversData[7].plan_raschet,
+                  data.driversData[8].plan_raschet
                 ],
-                model: [
-                  data.driversData[3].model_raschet,
-                  data.driversData[4].model_raschet,
-                  data.driversData[5].model_raschet,
-                  data.driversData[6].model_raschet
+                base: data.driversData[3].plan_raschet,
+                modelArr: [
+                  //data.driversData[3].model_raschet,
+                  data.driversData[6].model_raschet,
+                  data.driversData[7].model_raschet,
+                  data.driversData[8].model_raschet
                 ],
-                baseLarge: [
-                  data.driversData[3].plan_baza,
-                  data.driversData[4].plan_baza,
-                  data.driversData[5].plan_baza,
-                  data.driversData[6].plan_baza,
-                ],
-                modelLarge: [
-                  data.driversData[3].model_baza,
-                  data.driversData[4].model_baza,
-                  data.driversData[5].model_baza,
-                  data.driversData[6].model_baza,
-                ],
-                arrowPlan: [
-                  data.driversData[3].plan_dinamika,
-                  data.driversData[4].plan_dinamika,
-                  data.driversData[5].plan_dinamika,
-                  data.driversData[6].plan_dinamika,
-                ],
-                arrowModel: [
-                  data.driversData[3].model_dinamika,
-                  data.driversData[4].model_dinamika,
-                  data.driversData[5].model_dinamika,
-                  data.driversData[6].model_dinamika,
-                ],
+                model: data.driversData[3].model_raschet,
+                // baseLarge: [
+                //   //data.driversData[3].plan_baza,
+                //   data.driversData[6].plan_baza,
+                //   data.driversData[7].plan_baza,
+                //   data.driversData[8].plan_baza,
+                // ],
+                baseLarge: data.driversData[3].plan_baza,
+                // modelLarge: [
+                //   //data.driversData[3].model_baza,
+                //   data.driversData[6].model_baza,
+                //   data.driversData[7].model_baza,
+                //   data.driversData[8].model_baza,
+                // ],
+                modelLarge: data.driversData[3].model_baza,
+                // arrowPlan: [
+                //   //data.driversData[3].plan_dinamika,
+                //   data.driversData[6].plan_dinamika,
+                //   data.driversData[7].plan_dinamika,
+                //   data.driversData[8].plan_dinamika,
+                // ],
+                arrowPlan: data.driversData[3].plan_dinamika,
+                // arrowModel: [
+                //   //data.driversData[3].model_dinamika,
+                //   data.driversData[6].model_dinamika,
+                //   data.driversData[7].model_dinamika,
+                //   data.driversData[8].model_dinamika,
+                // ],
+                arrowModel: data.driversData[3].model_dinamika,
                 info: [
-                  data.driversData[3].text,
-                  data.driversData[4].text,
-                  data.driversData[5].text,
+                  //data.driversData[3].text,
                   data.driversData[6].text,
+                  data.driversData[7].text,
+                  data.driversData[8].text,
                 ]
               },
               components: ["driverForm"]
@@ -148,7 +154,7 @@ const MainScheme = function (props, data) {
     {
       media: [
         {screen: 2000, width: "28%"},
-        {screen: 1700, width: "50%"},
+        {screen: 1800, width: "50%"},
         {screen: 1100, width: "100%"}
       ],
       height: "100%",
@@ -184,7 +190,7 @@ const MainScheme = function (props, data) {
     {
       media: [
         {screen: 2000, width: "40%"},
-        {screen: 1700, width: "100%"},
+        {screen: 1800, width: "100%"},
         {screen: 1100, width: "100%"}
       ],
       height: "100%",

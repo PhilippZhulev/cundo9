@@ -57,8 +57,8 @@ let constructObj = (data, cat) => {
   }
   else {
       for (let i = 0; i < data.length; i++) {
-          if (data[i].key === cat) {
-              res.text = data[i].text;
+          if (data[i].key_ndo === cat) {
+              res.text = data[i].text_ndo;
           }
       }
   }

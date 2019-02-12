@@ -75,7 +75,9 @@ class MainPage extends Component {
                     arrowModel: item.values.arrowModel,
                     b_prirost: item.values.b_prirost,
                     m_prirost: item.values.m_prirost,
-                    info: item.values.info
+                    info: item.values.info,
+                    baseArr: item.values.baseArr,
+                    modelArr: item.values.modelArr
                   }}
                   settings={{
                     title: "",

@@ -4,6 +4,7 @@ import StepSlider from "../containers/Slider";
 import Input from "./Input";
 import Arrow from "@material-ui/icons/ArrowDownward"
 import Info from './Info'
+import {thousandsSeparator} from "../halpers/formHalper";
 
 class DriverForm extends Component {
 
@@ -11,61 +12,61 @@ class DriverForm extends Component {
     ves: "0"
   };
 
-  valueLimit = (string, limit) => {
-    // if(typeof string !== "undefined") {
-    //   if(string.length > limit) {
-    //
-    //     let res = (Math.trunc(Number(string) * 100) / 10000).toFixed(0);
-    //     if(String(res).length < 3) {
-    //       return (Math.trunc(Number(string) * 100) / 1000).toFixed(0);
-    //     }else {
-    //       return res
-    //     }
-    //   }else if(string.indexOf(".") !== -1) {
-    //     return Number(string).toFixed(2);
-    //   }else {
-    //     return Number(string).toFixed(0);
-    //   }
-    // }
-      //string = "30000000";
-      let res = string;
-      let end = "";
-      let sign = "";
-      let perc = "";
-
-      if(string.indexOf(".") !== -1){
-          res = string.split(".")[0];
-          end = string.split(".")[1];
-      }
-      if(string.indexOf("-") !== -1){
-          sign = "-";
-          res = res.substr(1);
-      }
-      if(string.indexOf("%") !== -1){
-          sign = "%";
-          res = res.substr(0, res.length - 1);
-      }
-      let len = res.length;
-      while(true){
-          if(len <= 3){
-              break
-          }
-          res = res.substr(0, len - 3) + " " + res.substr(len - 3);
-          len = len - 3;
-
-      }
-      if(end !== ""){
-          res = [res,end].join(".");
-      }
-      if(sign !== ""){
-          res = sign + res;
-      }
-      if(perc !== ""){
-          res = res + perc;
-      }
-
-      return res//Number(string)
-  };
+  // valueLimit = (string, limit) => {
+  //   // if(typeof string !== "undefined") {
+  //   //   if(string.length > limit) {
+  //   //
+  //   //     let res = (Math.trunc(Number(string) * 100) / 10000).toFixed(0);
+  //   //     if(String(res).length < 3) {
+  //   //       return (Math.trunc(Number(string) * 100) / 1000).toFixed(0);
+  //   //     }else {
+  //   //       return res
+  //   //     }
+  //   //   }else if(string.indexOf(".") !== -1) {
+  //   //     return Number(string).toFixed(2);
+  //   //   }else {
+  //   //     return Number(string).toFixed(0);
+  //   //   }
+  //   // }
+  //     //string = "30000000";
+  //     let res = string;
+  //     let end = "";
+  //     let sign = "";
+  //     let perc = "";
+  //
+  //     if(string.indexOf(".") !== -1){
+  //         res = string.split(".")[0];
+  //         end = string.split(".")[1];
+  //     }
+  //     if(string.indexOf("-") !== -1){
+  //         sign = "-";
+  //         res = res.substr(1);
+  //     }
+  //     if(string.indexOf("%") !== -1){
+  //         sign = "%";
+  //         res = res.substr(0, res.length - 1);
+  //     }
+  //     let len = res.length;
+  //     while(true){
+  //         if(len <= 3){
+  //             break
+  //         }
+  //         res = res.substr(0, len - 3) + " " + res.substr(len - 3);
+  //         len = len - 3;
+  //
+  //     }
+  //     if(end !== ""){
+  //         res = [res,end].join(".");
+  //     }
+  //     if(sign !== ""){
+  //         res = sign + res;
+  //     }
+  //     if(perc !== ""){
+  //         res = res + perc;
+  //     }
+  //
+  //     return res//Number(string)
+  // };
 
   handleBinding = (value) => {
     if(typeof value === "string") {
@@ -104,8 +105,10 @@ class DriverForm extends Component {
     const props = this.props,
       {classes} = props;
 
+    const flag = (props.settings.id === "COM05" || props.settings.id === "COM06");
+
     const info = props.values.info;
-    console.log(info);
+    //console.log(props.values);
 
     return (
       <div  className={classes.root}>
@@ -130,9 +133,9 @@ class DriverForm extends Component {
                     <br/>
                     <br/>
                     <span>План: </span>
-                    <span>{this.valueLimit(props.values.base[i], 4)}</span><br/>
+                    <span>{thousandsSeparator(props.values.baseArr[i], -1)}</span><br/>
                     <span>Модель: </span>
-                    <span>{this.valueLimit(props.values.model[i], 4)}</span><br/>
+                    <span>{thousandsSeparator(props.values.modelArr[i], -1)}</span><br/>
                     <br/>
                     <br/>
                   </div>
@@ -144,12 +147,12 @@ class DriverForm extends Component {
             typeof props.values.baseLarge === "string"
               ? <div className={classes.rightValue}>
                   <div className={classes.rightValueItem}>
-                      <section><span style={{background: "#3498DB"}} /><div>{this.valueLimit(props.values.model, 4)}</div><Arrow style={this.arrowController(this.props.values.arrowModel)} className={classes.arrow} /></section>
-                    <section>{String(this.valueLimit(props.values.modelLarge, 4))}</section>
+                      <section><span style={{background: "#3498DB"}} /><div>{thousandsSeparator(props.values.model, flag ? 2 : -1)}</div><Arrow style={this.arrowController(this.props.values.arrowModel)} className={classes.arrow} /></section>
+                    <section>{thousandsSeparator(props.values.modelLarge, flag ? 2 : -1)}</section>
                   </div>
                   <div className={classes.rightValueItem}>
-                      <section><span style={{background: "#EB5763"}} /><div>{this.valueLimit(props.values.base, 4)}</div><Arrow style={this.arrowController(this.props.values.arrowPlan)} className={classes.arrow} /></section>
-                    <section>{String(this.valueLimit(props.values.baseLarge, 4))}</section>
+                      <section><span style={{background: "#EB5763"}} /><div>{thousandsSeparator(props.values.base, flag ? 2 : -1)}</div><Arrow style={this.arrowController(this.props.values.arrowPlan)} className={classes.arrow} /></section>
+                    <section>{thousandsSeparator(props.values.baseLarge, flag ? 2 : -1)}</section>
                   </div>
                 </div>
               : null
@@ -163,12 +166,12 @@ class DriverForm extends Component {
                       return (
                         <div key={i}>
                           <div className={classes.rightValueItem}>
-                              <section><span style={{background: "#3498DB"}} /><div>{this.valueLimit(props.values.model[i], 4)}</div><Arrow style={this.arrowController(this.props.values.arrowModel[i])} className={classes.arrow} /></section>
-                            <section>{String(this.valueLimit(props.values.modelLarge[i], 4))}</section>
+                              <section><span style={{background: "#3498DB"}} /><div>{thousandsSeparator(props.values.model[i], flag ? 2 : -1)}</div><Arrow style={this.arrowController(this.props.values.arrowModel[i])} className={classes.arrow} /></section>
+                            <section>{thousandsSeparator(props.values.modelLarge[i], flag ? 2 : -1)}</section>
                           </div>
                           <div className={classes.rightValueItem}>
-                              <section><span style={{background: "#EB5763"}} /><div>{this.valueLimit(props.values.base[i], 4)}</div><Arrow style={this.arrowController(this.props.values.arrowPlan[i])} className={classes.arrow} /></section>
-                            <section>{String(this.valueLimit(props.values.baseLarge[i], 4))}</section>
+                              <section><span style={{background: "#EB5763"}} /><div>{thousandsSeparator(props.values.base[i], flag ? 2 : -1)}</div><Arrow style={this.arrowController(this.props.values.arrowPlan[i])} className={classes.arrow} /></section>
+                            <section>{thousandsSeparator(props.values.baseLarge[i], flag ? 2 : -1)}</section>
                           </div>
                         </div>
                       )
@@ -190,7 +193,7 @@ class DriverForm extends Component {
         </div>
         <div className={classes.bottomInput}>
           <Input label={""} type={"text"} classes={{input: classes.input}} onKeyUp={(e) => console.log(e)} onChange={this.handleVes} value={this.state.ves}/>
-          <span className={classes.label}>Вес влияния драйвера (расчёт от КПЭ %)</span>
+          <span className={classes.label}>Вес влияния драйвера (расчёт от КПЭ, %)</span>
         </div>
       </div>
     )

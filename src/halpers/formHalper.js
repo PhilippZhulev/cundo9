@@ -1,4 +1,10 @@
-let thousandsSeparator = function(string){
+let thousandsSeparator = function(string, digits = -1){
+    if(typeof string === "undefined"){
+        return undefined
+    }
+    if(typeof string !== "string"){
+        string = String(string);
+    }
     let res = string;
     let end = "";
     let sign = "";
@@ -25,9 +31,20 @@ let thousandsSeparator = function(string){
         len = len - 3;
 
     }
+    if(end.length < digits && digits !== -1){
+        while(end.length !== digits){
+            end = end + "0";
+        }
+    }
+    if(end.length > digits && digits !== -1){
+        end = end.substr(0, digits);
+    }
     if(end !== ""){
         res = [res,end].join(".");
     }
+    // if(digits !== -1){
+    //     String(Number(res).toFixed(digits));
+    // }
     if(sign !== ""){
         res = sign + res;
     }

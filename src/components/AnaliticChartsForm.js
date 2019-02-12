@@ -80,9 +80,9 @@ class AnaliticChartsForm extends Component {
               ? <MenuItem onClick={() => this.handleBlock("КБ", "cb")}>КБ</MenuItem> :null
           }
         </Menu>
-        <div className={classes.tileTitle}>
-          Совокупного дохода за счет:
-        </div>
+        {/*<div className={classes.tileTitle}>*/}
+          {/*Совокупного дохода за счет:*/}
+        {/*</div>*/}
         <div className={classes.chartWrapper}>
           <ReactIScroll ref="iScroll" iScroll={iScroll} options={{
             mouseWheel: true,

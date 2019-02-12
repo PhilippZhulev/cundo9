@@ -25,10 +25,10 @@ class GroupForm extends Component {
 
     REQ.set("tech6", () => {
       console.log("ОТПРАВЛЕН ЗАПРОС В ЛЮМИРУ...");
-      if(this.state.value2.length !== 0) {
-        return `obr,komp,${this.state.value2},${this.props.storeDriversData["vesCOM04"]},${this.props.storeDriversData["vesCMP01"]}`
-      }else if(this.state.value1.length !== 0) {
-        return `obr,kd,${this.state.value1},${this.props.storeDriversData["vesCOM04"]},${this.props.storeDriversData["vesCOM05"]},${this.props.storeDriversData["vesCOM06"]}`
+      if(this.props.storeValues.value2.length !== 0) {
+        return `obr,komp,${this.props.storeValues.value2},${this.props.storeDriversData["vesCOM04"]},${this.props.storeDriversData["vesCMP01"]}`
+      }else if(this.props.storeValues.value1.length !== 0) {
+        return `obr,kd,${this.props.storeValues.value1},${this.props.storeDriversData["vesCOM04"]},${this.props.storeDriversData["vesCOM05"]},${this.props.storeDriversData["vesCOM06"]}`
       }else {
         return "pr"
       }
@@ -55,7 +55,7 @@ class GroupForm extends Component {
             disabled={this.props.storeGroup.inputKd}
             label={"КД"}
             type={"number"}
-            value={this.state.value1}/>
+            value={this.props.storeValues.value1}/>
         </div>
         <div className={classes.inputWrapperLast}>
             <Input
@@ -67,7 +67,7 @@ class GroupForm extends Component {
               disabled={this.props.storeGroup.inputKomp}
               label={"Компенсация"}
               type={"number"}
-              value={this.state.value2}/>
+              value={this.props.storeValues.value2}/>
         </div>
         {/*<div className={classes.btnWrapper}>*/}
           {/*<Button onClick={this.handleFilters} text={"Рассчитать"} classes={{root: classes.btn, wrapper: classes.wrapper}} />*/}

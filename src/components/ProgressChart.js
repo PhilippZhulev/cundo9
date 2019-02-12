@@ -45,9 +45,9 @@ class ProgressChart extends Component {
             />
 
           </div>
-          <div className={classes.value}>{thousandsSeparator(String(item.value.toFixed(2)))}</div>
+          <div className={classes.value}>{thousandsSeparator(item.value, 2)}</div>
           <div className={classes.din}>
-            {item.din}
+            {thousandsSeparator(item.din, 1)}
             {typeof item.din !== "undefined" ? "%" : ""}
             {
               typeof item.din !== "undefined"

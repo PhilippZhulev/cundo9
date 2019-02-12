@@ -169,17 +169,27 @@ class App extends Component {//
       }
     });
 
+
     this.props.bindDriversData({
       COM05: null,
       COM06: null,
       COM04: null,
       CMP01: null,
     });
+    this.props.bindValues({
+      value1: "",
+      value2: ""
+    });
+    this.props.bindGroup({
+      inputKd: false,
+      inputKomp: false
+    });
   };
 
     render() {
       const props = this.props,
         { classes } = props;
+      console.log(props.storeBlocks);
 
       let updateScroll = this.state.updateScroll;
 
@@ -286,12 +296,12 @@ class App extends Component {//
                                   />
                                 <Collapse
                                     active={this.state.direction}
-                                    onClick={(event, id, item) => this.handleBlock(event, id, item, "4", "direction")}
+                                    onClick={(event, id, item) => this.handleBlock(event, id, item, "5", "direction")}
                                     items={directionParse(props.storeBlocks.direction, props.storeBlocks.gv_dd_direction, "gv_dd_direction")}
                                 />
                                 <Collapse
                                     active={this.state.channel}
-                                    onClick={(event, id, item) => this.handleBlock(event, id, item, "4", "channel")}
+                                    onClick={(event, id, item) => this.handleBlock(event, id, item, "6", "channel")}
                                     items={channelParse(props.storeBlocks.channel, props.storeBlocks.gv_sale_channel, "gv_sale_channel")}
                                 />
                               </div>
@@ -303,8 +313,8 @@ class App extends Component {//
                     : null
                 }
                 <div className={classes.buttonPanel}>
-                  <Button onClick={() => this.handleButtons("save")} text={"Сохранить"}/>
                   <Button onClick={this.handleFilters} text={"Рассчитать"} />
+                  <Button onClick={() => this.handleButtons("save")} text={"Сохранить"}/>
                   <Button onClick={() => this.handleButtons("load")} classes={{wrapper: classes.btnWrapper}} text={"К последнему сохранению"}/>
                   <Button onClick={() => this.handleButtons("last_load")} type={"red"}  text={"Плановый вариант"}/>
                 </div>
