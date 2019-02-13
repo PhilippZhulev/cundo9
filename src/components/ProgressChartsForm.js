@@ -103,8 +103,8 @@ class ProgressChartsForm extends Component {
         <div className={classes.bottomBlock}>
           <div className={`${classes.bottomValueItem} ${classes.bottomValueItemFirst}`}>
             <section>
-              <span style={{background: props.items.mainColor}} />{thousandsSeparator(String(props.items.mainValue))}
-              <b>{String(props.items.smallValue)+" %"}</b>
+              <span style={{background: props.items.mainColor}} />{thousandsSeparator(String(props.items.mainValue), 2)}
+              <b>{thousandsSeparator(String(props.items.smallValue), 1)+" %"}</b>
               {
                 props.items.smallValue === 0
                   ? null
@@ -116,7 +116,7 @@ class ProgressChartsForm extends Component {
             </section>
           </div>
           <div className={classes.bottomValueItem}>
-            <section><span style={{background: props.items.secondaryColor}} />{thousandsSeparator(String(props.items.secondaryValue))}</section>
+            <section><span style={{background: props.items.secondaryColor}} />{thousandsSeparator(String(props.items.secondaryValue), 2)}</section>
           </div>
         </div>
       </div>

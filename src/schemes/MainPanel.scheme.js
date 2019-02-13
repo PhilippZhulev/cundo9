@@ -190,7 +190,7 @@ const MainScheme = function (props, data) {
     {
       media: [
         {screen: 2000, width: "40%"},
-        {screen: 1800, width: "100%"},
+        {screen: 1800, width: "75%"},
         {screen: 1100, width: "100%"}
       ],
       height: "100%",

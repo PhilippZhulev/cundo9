@@ -130,21 +130,21 @@ class DinTableForm extends Component {
           }
         </Menu>
         <div className={classes.table}>
-          {/*<ReactIScroll iScroll={iScroll} options={{*/}
-            {/*mouseWheel: true,*/}
-            {/*scrollbars: true,*/}
-            {/*freeScroll: true,*/}
-            {/*scrollX: true,*/}
-            {/*scrollY: true,*/}
-            {/*click: false,*/}
-            {/*momentum: false,*/}
-            {/*fadeScrollbars: true,*/}
-            {/*invertWheelDirection: false,*/}
-            {/*preventDefault: true,*/}
-            {/*disableMouse: false,*/}
-            {/*disablePointer: false,*/}
-            {/*disableTouch: false,*/}
-          {/*}}>*/}
+          <ReactIScroll iScroll={iScroll} options={{
+            mouseWheel: true,
+            scrollbars: true,
+            freeScroll: true,
+            scrollX: true,
+            scrollY: true,
+            click: false,
+            momentum: false,
+            fadeScrollbars: true,
+            invertWheelDirection: false,
+            preventDefault: true,
+            disableMouse: false,
+            disablePointer: false,
+            disableTouch: false,
+          }}>
             <div style={{minWidth: 560}}>
               <div className={classes.tableRow}>
                 <div className={classes.tableCol} />
@@ -167,14 +167,14 @@ class DinTableForm extends Component {
                   : this.getTable(props.items.p, classes)
               }
             </div>
-          {/*</ReactIScroll>*/}
+          </ReactIScroll>
         </div>
       </div>
     )
   }
 }
 
-const styles = theme => ({
+const styles = theme => ({//
   root: {
     width: "100%",
     maxHeight: "100%"

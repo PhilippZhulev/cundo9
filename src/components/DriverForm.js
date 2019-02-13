@@ -132,10 +132,10 @@ class DriverForm extends Component {
                     {item}
                     <br/>
                     <br/>
-                    <span>План: </span>
-                    <span>{thousandsSeparator(props.values.baseArr[i], -1)}</span><br/>
                     <span>Модель: </span>
                     <span>{thousandsSeparator(props.values.modelArr[i], -1)}</span><br/>
+                    <span>План: </span>
+                    <span>{thousandsSeparator(props.values.baseArr[i], -1)}</span><br/>
                     <br/>
                     <br/>
                   </div>
@@ -193,7 +193,7 @@ class DriverForm extends Component {
         </div>
         <div className={classes.bottomInput}>
           <Input label={""} type={"text"} classes={{input: classes.input}} onKeyUp={(e) => console.log(e)} onChange={this.handleVes} value={this.state.ves}/>
-          <span className={classes.label}>Вес влияния драйвера (расчёт от КПЭ, %)</span>
+          <span className={classes.label}>Вес влияния драйвера (расчёт от КПЭ), %</span>
         </div>
       </div>
     )
@@ -255,7 +255,7 @@ const styles = theme => ({
     background: "#273856"
   },
   SlderWrapper: {
-    marginTop: "17%"
+    marginTop: 56.547//"17%"
   },
   SlderWrapperLarge: {
     marginTop: "30%"

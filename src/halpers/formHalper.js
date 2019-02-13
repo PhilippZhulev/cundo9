@@ -18,10 +18,29 @@ let thousandsSeparator = function(string, digits = -1){
         sign = "-";
         res = res.substr(1);
     }
-    if(res.indexOf("%") !== -1){
-        perc = "%";
-        res = res.substr(0, res.length - 1);
+
+    // const parsedNum = String(parseFloat(res));
+    // if(res.length !== parsedNum.length){
+    //     perc = res.substr(parsedNum.length);
+    //     res = parsedNum;
+    // }
+
+    if(end.indexOf(" ") !== -1 && end.indexOf(" ") !== end.length - 1){
+        perc = end.substr(end.indexOf(" "));
+        end = end.substr(0, end.indexOf(" "));
     }
+    else{
+        if(end.indexOf("%") !== -1 || res.indexOf("%") !== -1){
+            perc = "%";
+            if (end.length > 0) {
+                end = end.substr(0, end.length - 1);
+            }
+            else{
+                res = res.substr(0, res.length - 1);
+            }
+        }
+    }
+
     let len = res.length;
     while(true){
         if(len <= 3){

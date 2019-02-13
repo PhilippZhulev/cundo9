@@ -134,56 +134,65 @@ class DinChartsForm extends Component {
               <div className={`${classes.ItemsLine1} ${classes.years}`}>
                 <span className={classes.row0}><span className={classes.bullet} style={{background: "rgba(0, 0, 0,0)"}} /></span>
                   <span className={classes.row1}>{2018}</span>
+                  <span className = {classes.separator} />
                   <span className={classes.row2}></span>
                 <div className={classes.row3}><span>{2019}</span>
                   </div>
+                <span className = {classes.separator} />
                   <span className={classes.row4}></span>
                 <div className={classes.row5}><span>{2020}</span>
                   </div>
+                <span className = {classes.separator} />
                   <span className={classes.row4}></span>
                 <div className={classes.row5}><span className={classes.lastRow}>{2021}</span>
                   </div>
               </div>
             <div className={classes.ItemsLine1}>
-              <span className={classes.row0}><span className={classes.bullet} style={{background: "rgb(235, 87, 99)"}} /></span>
-              <span className={classes.row1}>{thousandsSeparator(String(dinamic[0].m), 2)}</span>
-              <span className={classes.row2}>{thousandsSeparator(String(dinamic[1].m), 2)}</span>
-              <div className={classes.row3}>
-                <span>{thousandsSeparator(dinamic[1].prirost_m,1)}
-                </span>
-                  {this.arrowController(classes, dinamic[1].arrow_m)}
-              </div>
-              <span className={classes.row4}>{thousandsSeparator(String(dinamic[2].m),2)}</span>
-              <div className={classes.row5}>
-                <span>{thousandsSeparator(dinamic[2].prirost_m,1)}
-                </span>
-                  {this.arrowController(classes, dinamic[2].arrow_m)}
-              </div>
-              <span className={classes.row4}>{thousandsSeparator(String(dinamic[3].m),2)}</span>
-              <div className={classes.row5}>
-                <span className={classes.lastRow}>{thousandsSeparator(dinamic[3].prirost_m,1)}
-                </span>
-                  {this.arrowController(classes, dinamic[3].arrow_m)}
-              </div>
-            </div>
-            <div className={classes.ItemsLine1}>
               <span className={classes.row0}><span className={classes.bullet} style={{background: "#3498DB"}} /></span>
               <span className={classes.row1}>{thousandsSeparator(String(dinamic[0].p),2)}</span>
+              <span className = {classes.separator} />
               <span className={classes.row2}>{thousandsSeparator(String(dinamic[1].p),2)}</span>
               <div className={classes.row3}>
                 <span>{thousandsSeparator(dinamic[1].prirost_p,1)}
                 </span>
-                  {this.arrowController(classes, dinamic[1].arrow_m)}
+                {this.arrowController(classes, dinamic[1].arrow_m)}
               </div>
+              <span className = {classes.separator} />
               <span className={classes.row4}>{thousandsSeparator(String(dinamic[2].p),2)}</span>
               <div className={classes.row5}>
                 <span>{thousandsSeparator(dinamic[2].prirost_p,1)}
                 </span>
                 {this.arrowController(classes, dinamic[2].arrow_m)}
               </div>
+              <span className = {classes.separator} />
               <span className={classes.row4}>{thousandsSeparator(String(dinamic[3].p),2)}</span>
               <div className={classes.row5}>
                 <span className={classes.lastRow}>{thousandsSeparator(dinamic[3].prirost_p,1)}
+                </span>
+                {this.arrowController(classes, dinamic[3].arrow_m)}
+              </div>
+            </div>
+            <div className={classes.ItemsLine1}>
+              <span className={classes.row0}><span className={classes.bullet} style={{background: "rgb(235, 87, 99)"}} /></span>
+              <span className={classes.row1}>{thousandsSeparator(String(dinamic[0].m), 2)}</span>
+              <span className = {classes.separator} />
+              <span className={classes.row2}>{thousandsSeparator(String(dinamic[1].m), 2)}</span>
+              <div className={classes.row3}>
+                <span>{thousandsSeparator(dinamic[1].prirost_m,1)}
+                </span>
+                  {this.arrowController(classes, dinamic[1].arrow_m)}
+              </div>
+              <span className = {classes.separator} />
+              <span className={classes.row4}>{thousandsSeparator(String(dinamic[2].m),2)}</span>
+              <div className={classes.row5}>
+                <span>{thousandsSeparator(dinamic[2].prirost_m,1)}
+                </span>
+                  {this.arrowController(classes, dinamic[2].arrow_m)}
+              </div>
+              <span className = {classes.separator} />
+              <span className={classes.row4}>{thousandsSeparator(String(dinamic[3].m),2)}</span>
+              <div className={classes.row5}>
+                <span className={classes.lastRow}>{thousandsSeparator(dinamic[3].prirost_m,1)}
                 </span>
                   {this.arrowController(classes, dinamic[3].arrow_m)}
               </div>
@@ -196,6 +205,12 @@ class DinChartsForm extends Component {
 }
 
 const styles = theme => ({
+  separator:{
+    borderLeft: "1px solid rgba(111, 132, 155, 0.3)",
+    width: 1,
+    marginLeft: "3%",
+    marginRight: "1%"
+  },
   root: {
     width: "100%",
     maxHeight: "100%"
@@ -213,31 +228,31 @@ const styles = theme => ({
     width: "2%",
   },
   row1: {
-    width: "20%",
+    width: "14%",//"20%",
     textAlign: "right"
   },
   row2: {
-    width: "20%",
+    width: "15%",//"20%",
     textAlign: "right",
-    borderLeft: "1px solid rgba(111, 132, 155, 0.3)",
-    marginLeft: 15
+    // borderLeft: "1px solid rgba(111, 132, 155, 0.3)",
+    // marginLeft: 15
   },
   row3: {
-    width: "20%",
+    width: "16%",//"20%",
     display: "flex",
       "& span":{
       width: "100%",
-          textAlign: "right"
+        textAlign: "right"
       }
   },
   row4: {
-    width: "20%",
+    width: "16%",//"20%",
     textAlign: "right",
-    borderLeft: "1px solid rgba(111, 132, 155, 0.3)",
-    marginLeft: 15
+    // borderLeft: "1px solid rgba(111, 132, 155, 0.3)",
+    // marginLeft: 15
   },
   row5: {
-    width: "18%",
+    width: "12%",//"18%",
     display: "flex",
       "& span":{
           width: "100%",

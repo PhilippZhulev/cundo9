@@ -157,6 +157,7 @@ class StepSlider extends Component {
               className={baseClasses.defaultCircleWrapper}
           >
             <div className={baseClasses.defaultCircle} />
+            <div className={baseClasses.defaultValue}>{props.b_prirost}</div>
           </div>
           <span>{props.settings.max}</span>
         </div>
@@ -347,6 +348,11 @@ const styles = theme => ({
     height: 0,
     position: 'absolute',
     zIndex: 18,
+  },
+  defaultValue: {
+    position: "absolute",
+    top: -34,
+    left: -7.5
   },
   thumbWrapper: {
     zIndex: 99

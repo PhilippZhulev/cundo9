@@ -196,6 +196,8 @@ class MainPage extends Component {
     const props = this.props,
           {classes} = props;
 
+    console.log(props.storeDin);
+
     return (
       <TilesRender
         scheme={
