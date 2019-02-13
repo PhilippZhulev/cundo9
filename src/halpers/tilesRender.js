@@ -4,9 +4,13 @@ import {createStyled} from "./createStyled";
 import ReactIScroll from "react-iscroll";
 import iScroll from "iscroll/build/iscroll-probe";
 
-
+let y = 0;
 
 class TilesRender extends Component {
+
+  state = {
+    y: 0
+  };
 
   componentRender = (item, classes) => {
     if(typeof item.components !== "undefined") {
@@ -68,6 +72,12 @@ class TilesRender extends Component {
     return result;
   };
 
+  onScroll = (iScrollInstance) => {
+    if(this.state.y !== iScrollInstance.y) {
+      y = iScrollInstance.y;
+    }
+  };
+
   tilesGenerator = (items, rowIndex, props) => {
     const staticClasses = this.props.classes;
 
@@ -86,7 +96,8 @@ class TilesRender extends Component {
           height: item.height,
           padding: "5px 5px 5px 5px",
           boxSizing: "border-box",
-          position: rowIndex === 2 && i === 1 ? "relative" : "unset"
+          position: rowIndex === 2 && i === 1 ? "relative" : "unset",
+
         };
 
         myStyles[innerClass] = {
@@ -122,7 +133,8 @@ class TilesRender extends Component {
                   }
                   {
                     (typeof item.childrens !== "undefined")
-                    ? <ReactIScroll iScroll={iScroll} options={{
+                    ? <ReactIScroll onScrollEnd = {this.onScroll} iScroll={iScroll} options={{
+                        startY: y,
                         mouseWheel: true,
                         scrollbars: true,
                         freeScroll: true,

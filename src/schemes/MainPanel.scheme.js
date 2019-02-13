@@ -24,7 +24,7 @@ const MainScheme = function (props, data) {
         },
         {
           width: "100%",
-          height: "calc(100% - 133px)",
+          height: "calc(100% - 124px)",
           childrens: [
             {
               width: "100%",
