@@ -110,6 +110,8 @@ class DriverForm extends Component {
     const info = props.values.info;
     //console.log(props.values);
 
+    console.log(props);
+
     return (
       <div  className={classes.root}>
         <div
@@ -226,7 +228,7 @@ const styles = theme => ({
     color:" #8797C0",
     textAlign: "right",
     "& section:first-child": {
-      fontSize: 22,
+      fontSize: 20,//22,
       position: "relative",
       color:" #fff",
         display: "flex",

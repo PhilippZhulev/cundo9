@@ -220,7 +220,7 @@ class App extends Component {//
               {props.storeApp.title}
               </div>
               <div className={classes.headerAppVersion}>
-                Версия планирования: <span>{props.storeBlocks.planning_version}</span>
+                <span>{props.storeBlocks.planning_version}</span>
               </div>
             </div>
             <div className={classes.appFilters}>
@@ -230,10 +230,10 @@ class App extends Component {//
           </header>
           <div className={classes.appBody}>
             <aside className={`${classes.appSideBar} ${(this.state.menu === true) ? "active" : ""}`}>
-              <div className={classes.smartMenu}>
-                <div className={classes.btnMenu} onClick={() => {this.setState({menu: !this.state.menu}); console.log(this.props.storeValues)}}>
-                  <MenuIcon className={classes.menuArrow} />
-                </div>
+              {/*<div className={classes.smartMenu}>*/}
+                {/*<div className={classes.btnMenu} onClick={() => {this.setState({menu: !this.state.menu}); console.log(this.props.storeValues)}}>*/}
+                  {/*<MenuIcon className={classes.menuArrow} />*/}
+                {/*</div>*/}
                 {/*<div className={classes.btnMenu}>*/}
                   {/*<SettingsIcon className={classes.menuIcon} />*/}
                 {/*</div>*/}
@@ -243,7 +243,7 @@ class App extends Component {//
                 {/*<div className={classes.btnMenu}>*/}
                   {/*<FeedbackIcon className={classes.menuIcon} />*/}
                 {/*</div>*/}
-              </div>
+              {/*</div>*/}
               <div className={classes.appAsideInner}>
                 {/*<div className={classes.primaryTitle}>Фильтры</div>*/}
                 {
@@ -268,6 +268,7 @@ class App extends Component {//
                                       active={this.state.rasch}
                                       onClick={(event, id, item) => this.handleBlock(event, id, item, "1", "rasch")}
                                       items={versionParse(props.storeBlocks.version, props.storeBlocks.gv_var_rasch, "gv_var_rasch")}
+                                      isFirst={true}
                                   />
                                   <div className={classes.separatorWrapper}>
                                       <div className={classes.separator} />
@@ -277,32 +278,38 @@ class App extends Component {//
                                     active={this.state.blocksGosp}
                                     onClick={(event, id, item) => this.handleBlock(event, id, item, "0", "blocksGosp")}
                                     items={ierarchyParse(props.storeBlocks.gosb, props.storeBlocks.gv_gosb, "gv_gosb")}
+                                    isFirst={true}
                                   />
                                   <Collapse
                                     active={this.state.period}
                                     onClick={(event, id, item) => this.handleBlock(event, id, item, "2", "period")}
                                     items={dateParse(props.storeBlocks.period, props.storeBlocks.gv_period, "gv_period")}
+                                    isFirst={true}
                                   />
                                   <Collapse
                                     active={this.state.block}
                                     onClick={(event, id, item) => this.handleBlock(event, id, item, "3", "block")}
                                     items={bizParse(props.storeBlocks.biz, props.storeBlocks.gv_biz_block, "gv_biz_block")}
+                                    isFirst={true}
                                   />
                                   <div className={`${classes.secondaryTitle}`}>Дополнительные фильтры КД</div>
                                   <Collapse
                                     active={this.state.ndo}
                                     onClick={(event, id, item) => this.handleBlock(event, id, item, "4", "ndo")}
                                     items={ndoParse(props.storeBlocks.ndo, props.storeBlocks.gv_ndo, "gv_ndo")} //<---------------------- или gv_biz_block?
+                                    isFirst={true}
                                   />
                                 <Collapse
                                     active={this.state.direction}
                                     onClick={(event, id, item) => this.handleBlock(event, id, item, "5", "direction")}
                                     items={directionParse(props.storeBlocks.direction, props.storeBlocks.gv_dd_direction, "gv_dd_direction")}
+                                    isFirst={true}
                                 />
                                 <Collapse
                                     active={this.state.channel}
                                     onClick={(event, id, item) => this.handleBlock(event, id, item, "6", "channel")}
                                     items={channelParse(props.storeBlocks.channel, props.storeBlocks.gv_sale_channel, "gv_sale_channel")}
+                                    isFirst={true}
                                 />
                               </div>
                             : null
@@ -467,14 +474,14 @@ const styles = theme => ({
     height: "calc(100% - 100px)"
   },
   appSideBar: {
-    width: 354,
+    width: 320,//354,
     background: theme.palette.primary.main,
     height: "100%",
     position: "absolute",
     left: 0,
     paddingLeft: 15,
     paddingBottom: 15,
-    paddingRight: 40,
+    //paddingRight: 40,
     boxSizing: "border-box",
     transform: "translateX(-314px)",
     transition: "all 300ms ease-in-out",
@@ -505,7 +512,7 @@ const styles = theme => ({
     width: "calc(100% - 40px)",
     transition: "all 300ms ease-in-out",
     "&.full": {
-      width: "calc(100% - 354px)",
+      width: "calc(100% - 320px)",
     },
   },
   appHeader: {

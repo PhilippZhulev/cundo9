@@ -17,7 +17,7 @@ const MainScheme = function (props, data) {
       tiles: [
         {
           width: "100%",
-          title: "Целевой КПЭ, МЛН РУБ.",
+          title: "Целевой КПЭ, млн.руб",
           primaryTitle: "Драйверы",
           titleState: false,
           components: ["groupTitle", "tileTitle", "groupForm"]
@@ -163,14 +163,14 @@ const MainScheme = function (props, data) {
           width: "100%",
           height: "33.333333%",
           id: 1,
-          title: "Доход, МЛН РУБ.",
+          title: "Доход, млн.руб",
           components: ["progressChart"],
           chart: getChartData(data.income, props)
         },
         {
           width: "100%",
           height: "33.333333%",
-          title: "Комиссионный доход, МЛН РУБ.",
+          title: "Комиссионный доход, млн.руб",
           id: 2,
           components: ["customTabs"],
           chartSplit: typeof data.komDohSplit !== "undefined" && data.komDohSplit !== null ?  getChartData(data.komDohSplit, props) : null,
@@ -181,7 +181,7 @@ const MainScheme = function (props, data) {
           width: "100%",
           height: "33.333333%",
           id: 3,
-          title: "Компенсация, МЛН РУБ.",
+          title: "Компенсация, млн.руб",
           components: ["progressChart"],
           chart: getChartData(data.compensation, props)
         },
@@ -198,7 +198,7 @@ const MainScheme = function (props, data) {
         {
           width: "100%",
           height: "50%",
-          title: "Анализ влияния факторов на изменение доходов, МЛН РУБ.",
+          title: "Анализ влияния факторов на изменение доходов, млн.руб",
           components: ["analiticChart"],
           chartSd: typeof data.dataFactDohod1 !== "undefined" && data.dataFactDohod1 !== null ? getChartData(data.dataFactDohod1, props) : null,
           chartKd: typeof data.dataFactDohod2 !== "undefined" && data.dataFactDohod2 !== null ? getChartData(data.dataFactDohod2, props) : null,
@@ -207,7 +207,7 @@ const MainScheme = function (props, data) {
         {
           width: "100%",
           height: "50%",
-          title: "Динамика доходов, МЛН РУБ.",
+          title: "Динамика доходов, млн.руб",
           components: ["dinChart"],
           dinChart: data.dinChart,
           dinTable: data.dinTable,

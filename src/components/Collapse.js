@@ -16,7 +16,7 @@ class Collapse extends Component {
     this.setState({ [name]: !this.state[name] });
   };
 
-  generateChildrens = (arr, classes, id, idn) => {
+  generateChildrens = (arr, classes, id, idn, isFirst) => {
     const _THIS = this;
 
     if(typeof arr !== "undefined") {
@@ -50,12 +50,11 @@ class Collapse extends Component {
           _THIS.state[elemId + "_bg"] = getRandomColor();
         }
 
-
         return (
           <div key={i} className={classes.CollapseItem} data-id={idx} style={_THIS.state[elemId] === true ? {background: _THIS.state[elemId + "_bg"]} : {}}>
               <div  className={`${classes.CollapseText} ${this.props.active === idx ? "active" : ""} ${(childrens) ? "childs" : ""}`}>
                   {/*<div style={{position: "absolute", backgroundColor: "#1b2137", zIndex: "999", color: "#A2A6B9",top: 0, left: 0, right: 38,bottom: 7, padding: 8}}>{"Байкальский банк"}</div>*/}
-                <div onClick={(e) => this.hangleChange(e,idx, item)}>
+                <div onClick={(e) => this.hangleChange(e,idx, item)} style={(isFirst) ? {whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden"} : {}}>
                     {item.text}
                 </div>
                 {
@@ -91,7 +90,7 @@ class Collapse extends Component {
         {
           typeof this.props.label !== "undefined"
         }
-        {this.generateChildrens(this.props.items, classes, 0 ,0)}
+        {this.generateChildrens(this.props.items, classes, 0 ,0, props.isFirst)}
       </div>
     );
   }

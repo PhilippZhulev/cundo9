@@ -103,7 +103,8 @@ class StepSlider extends Component {
     let fixPosRight = value >= props.settings.max - 5,
         fixPosLeft = value <= props.settings.min + 5;
 
-      let circlePos = Number(props.b_prirost.replace("-", "")) * (props.settings.max - props.settings.min) / 100;
+      //let circlePos = Number(props.b_prirost.replace("-", "")) * (props.settings.max - props.settings.min) / 100;
+    let circlePos = (Number(props.b_prirost) - Number(props.settings.min)) / (props.settings.max - props.settings.min) * 100;
       if (circlePos < 0) {
         circlePos = 0;
       }
@@ -252,8 +253,10 @@ const styles = theme => ({
     border: "1px solid transparent",
     "& > div": {
 
-      width: 22,
-      height: 22,
+      //width: 22,
+      //height: 22,
+      width: 18,
+      height: 18,
       margin: "auto",
       top: 0,
       bottom: 0,
@@ -272,8 +275,10 @@ const styles = theme => ({
   },
   input : {
     width: 68,
-    height: 39,
-    top: -26,
+    //height: 39,
+    height: 32,
+    //top: -26,
+    top: -17,
     left: -34,
     right: 0,
     background: "#b4bbd8",
@@ -296,7 +301,8 @@ const styles = theme => ({
     },
     "& > input" : {
       width: 67,
-      height: 35,
+      //height: 35,
+      height: 30,
       touchAction: "none",
       position: "absolute",
       border: "none",
@@ -351,7 +357,7 @@ const styles = theme => ({
   },
   defaultValue: {
     position: "absolute",
-    top: -34,
+    top: -7,
     left: -7.5
   },
   thumbWrapper: {
