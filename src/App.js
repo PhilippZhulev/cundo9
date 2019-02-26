@@ -3,8 +3,9 @@ import {withStyles} from '@material-ui/core/styles';
 import ReactIScroll from "react-iscroll";
 import iScroll from "iscroll/build/iscroll-probe";
 import MainPage from "./containers/MainPage";
-import Collapse from "./components/Collapse";
+import Collapse from "./containers/Collapse";
 import MenuIcon from '@material-ui/icons/ArrowBack';
+import UnfoldLess from '@material-ui/icons/UnfoldLess';
 import SettingsIcon from '@material-ui/icons/Settings';
 import InfoIcon from '@material-ui/icons/Info';
 import FeedbackIcon from '@material-ui/icons/Feedback';
@@ -81,6 +82,7 @@ class App extends Component {//
             direction: window.bobrData["dd_direction"],
             channel: window.bobrData["dd_sale_channel"],
             ndo: window.bobrData["dd_ndo"],
+            gv_drivers_loaded: window.bobrData["gv_drivers_loaded"],
             gv_var_rasch: window.bobrData["X_var1"],
             gv_gosb: window.bobrData["gv_gosb"],
             gv_biz_block: window.bobrData["gv_biz_block"],
@@ -89,7 +91,8 @@ class App extends Component {//
             gv_sale_channel: window.bobrData["gv_sale_channel"],
             gv_ndo: window.bobrData["gv_ndo"],
             gv_var_x_var_2: window.bobrData["X_var2"],
-            planning_version: window.bobrData["X_pl_vers"]
+            planning_version: window.bobrData["X_pl_vers"],
+            planning_version_text: window.bobrData["planning_version"]
           });
         };
 
@@ -154,6 +157,11 @@ class App extends Component {//
       }
     };
 
+    handleCloseCollapses = () => {
+      this.props.closeCollapses({flag: true});
+      //console.log(this.props.storeCloseCollapses);
+    };
+
   handleFilters = () => {
     this.props.bindPreloader({longPreloader: true});
     const REQ = LumiraRequest("DATA_UPDATE");
@@ -189,7 +197,10 @@ class App extends Component {//
     render() {
       const props = this.props,
         { classes } = props;
-      console.log(props.storeBlocks);
+      console.log("Store:");
+      console.log(props);
+      console.log("LumiraData:");
+      console.log(window.bobrData);
 
       let updateScroll = this.state.updateScroll;
 
@@ -220,7 +231,7 @@ class App extends Component {//
               {props.storeApp.title}
               </div>
               <div className={classes.headerAppVersion}>
-                <span>{props.storeBlocks.planning_version}</span>
+                <span>{props.storeBlocks.planning_version_text}</span>
               </div>
             </div>
             <div className={classes.appFilters}>
@@ -230,20 +241,23 @@ class App extends Component {//
           </header>
           <div className={classes.appBody}>
             <aside className={`${classes.appSideBar} ${(this.state.menu === true) ? "active" : ""}`}>
-              {/*<div className={classes.smartMenu}>*/}
+              <div className={classes.smartMenu}>
                 {/*<div className={classes.btnMenu} onClick={() => {this.setState({menu: !this.state.menu}); console.log(this.props.storeValues)}}>*/}
                   {/*<MenuIcon className={classes.menuArrow} />*/}
                 {/*</div>*/}
+                <div className={classes.btnMenu} onClick={() => {console.log("Close collapses!"); this.handleCloseCollapses()}}>
+                  <UnfoldLess className={classes.menuIcon} />
+                </div>
                 {/*<div className={classes.btnMenu}>*/}
                   {/*<SettingsIcon className={classes.menuIcon} />*/}
                 {/*</div>*/}
-                {/*<div className={classes.btnMenu}>*/}
-                  {/*<InfoIcon className={classes.menuIcon} />*/}
-                {/*</div>*/}
+                <div className={classes.btnMenu}>
+                  <InfoIcon className={classes.menuIcon} />
+                </div>
                 {/*<div className={classes.btnMenu}>*/}
                   {/*<FeedbackIcon className={classes.menuIcon} />*/}
                 {/*</div>*/}
-              {/*</div>*/}
+              </div>
               <div className={classes.appAsideInner}>
                 {/*<div className={classes.primaryTitle}>Фильтры</div>*/}
                 {
@@ -263,12 +277,13 @@ class App extends Component {//
                           {
                             this.state.collapse === true  ?
                               <div>
-                                  <div className={`${classes.secondaryTitle} ${classes.secondaryTitleLegend}`}>Плановый вариант</div>
+                                  <div className={`${classes.secondaryTitle} ${classes.secondaryTitleLegend} ${classes.hiddenCircle}`}>Плановый вариант</div>
                                   <Collapse
                                       active={this.state.rasch}
                                       onClick={(event, id, item) => this.handleBlock(event, id, item, "1", "rasch")}
                                       items={versionParse(props.storeBlocks.version, props.storeBlocks.gv_var_rasch, "gv_var_rasch")}
                                       isFirst={true}
+                                      name={"rasch"}
                                   />
                                   <div className={classes.separatorWrapper}>
                                       <div className={classes.separator} />
@@ -279,18 +294,21 @@ class App extends Component {//
                                     onClick={(event, id, item) => this.handleBlock(event, id, item, "0", "blocksGosp")}
                                     items={ierarchyParse(props.storeBlocks.gosb, props.storeBlocks.gv_gosb, "gv_gosb")}
                                     isFirst={true}
+                                    name={"blocksGosp"}
                                   />
                                   <Collapse
                                     active={this.state.period}
                                     onClick={(event, id, item) => this.handleBlock(event, id, item, "2", "period")}
                                     items={dateParse(props.storeBlocks.period, props.storeBlocks.gv_period, "gv_period")}
                                     isFirst={true}
+                                    name={"period"}
                                   />
                                   <Collapse
                                     active={this.state.block}
                                     onClick={(event, id, item) => this.handleBlock(event, id, item, "3", "block")}
                                     items={bizParse(props.storeBlocks.biz, props.storeBlocks.gv_biz_block, "gv_biz_block")}
                                     isFirst={true}
+                                    name={"block"}
                                   />
                                   <div className={`${classes.secondaryTitle}`}>Дополнительные фильтры КД</div>
                                   <Collapse
@@ -298,18 +316,21 @@ class App extends Component {//
                                     onClick={(event, id, item) => this.handleBlock(event, id, item, "4", "ndo")}
                                     items={ndoParse(props.storeBlocks.ndo, props.storeBlocks.gv_ndo, "gv_ndo")} //<---------------------- или gv_biz_block?
                                     isFirst={true}
+                                    name={"ndo"}
                                   />
                                 <Collapse
                                     active={this.state.direction}
                                     onClick={(event, id, item) => this.handleBlock(event, id, item, "5", "direction")}
                                     items={directionParse(props.storeBlocks.direction, props.storeBlocks.gv_dd_direction, "gv_dd_direction")}
                                     isFirst={true}
+                                    name={"direction"}
                                 />
                                 <Collapse
                                     active={this.state.channel}
                                     onClick={(event, id, item) => this.handleBlock(event, id, item, "6", "channel")}
                                     items={channelParse(props.storeBlocks.channel, props.storeBlocks.gv_sale_channel, "gv_sale_channel")}
                                     isFirst={true}
+                                    name={"channel"}
                                 />
                               </div>
                             : null
@@ -499,7 +520,8 @@ const styles = theme => ({
     background: theme.palette.primary.blocks,
     height: "100%",
     borderRadius: "3px 0 0 3px",
-    position: "relative"
+    position: "relative",
+    width: "calc(100% - 40px)"
   },
   appContent: {
     display: "flex",
@@ -664,6 +686,11 @@ const styles = theme => ({
     "& span": {
 
       fontWeight: 300
+    }
+  },
+  hiddenCircle: {
+    "&:before":{
+      width: 0
     }
   }
 });

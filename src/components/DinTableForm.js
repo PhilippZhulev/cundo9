@@ -52,7 +52,6 @@ class DinTableForm extends Component {
 
   getTable = (data, classes) => {
     return data.map((item, i) => {
-      console.log();
       return (
         <div key={i} className={classes.tableRow}>
           <div className={classes.tableCol}>
@@ -62,17 +61,17 @@ class DinTableForm extends Component {
             {typeof (item["2018"] || item["dohod18"]) === "string" ? (item["2018"] || item["dohod18"]).replace(" RUB", "").split(",")[0] : "n/d"}
           </div>
           <div className={classes.tableCol}>
-            {typeof (item["2019"] || item["dohod19"]) === "string" ? (item["2019"] || item["dohod19"]).replace(" RUB", "").split(",")[0] : "n/d"} &nbsp;&nbsp;
+            {typeof (item["2019"] || item["dohod19"]) === "string" ? (item["2019"] || item["dohod19"]).replace(" RUB", "").split(",")[0] : "n/d"} &nbsp;&nbsp;&nbsp;
             {item["prirost19"].replace(",", ".").replace(" ", "")}
             {this.arrowController(classes, item["dyn_flag_19"])}
           </div>
           <div className={classes.tableCol}>
-            {typeof (item["2020"] || item["dohod18"]) === "string" ? (item["2020"] || item["dohod20"]).replace(" RUB", "").split(",")[0] : "n/d"} &nbsp;&nbsp;
+            {typeof (item["2020"] || item["dohod18"]) === "string" ? (item["2020"] || item["dohod20"]).replace(" RUB", "").split(",")[0] : "n/d"} &nbsp;&nbsp;&nbsp;
             {item["prirost20"].replace(",", ".").replace(" ", "")}
             {this.arrowController(classes, item["dyn_flag_20"])}
           </div>
           <div className={classes.tableCol}>
-            {typeof (item["2021"] || item["dohod18"]) === "string" ? (item["2021"] || item["dohod21"]).replace(" RUB", "").split(",")[0] : "n/d"} &nbsp;&nbsp;
+            {typeof (item["2021"] || item["dohod18"]) === "string" ? (item["2021"] || item["dohod21"]).replace(" RUB", "").split(",")[0] : "n/d"} &nbsp;&nbsp;&nbsp;
             {item["prirost21"].replace(",", ".").replace(" ", "")}
             {this.arrowController(classes, item["dyn_flag_21"])}
           </div>
@@ -85,7 +84,6 @@ class DinTableForm extends Component {
     const props = this.props,
       {classes} = props,
       { anchorEl } = this.state;
-      console.log(props.items.m);
     return (
       <div className={classes.root}>
         <div onClick={() => this.props.bindAnaliticSelect({tableDinTrigger : !props.storeAnaliticChart.tableDinTrigger})} className={classes.modWrap}>
@@ -145,7 +143,7 @@ class DinTableForm extends Component {
             disablePointer: false,
             disableTouch: false,
           }}>
-            <div style={{minWidth: 560}}>
+            <div style={{minWidth: 560, overflow: "hidden"}}>
               <div className={classes.tableRow}>
                 <div className={classes.tableCol} />
                 <div className={classes.tableCol}>
@@ -182,7 +180,7 @@ const styles = theme => ({//
   table : {
     marginTop: -20,
     overflow: "hidden",
-    height: 380//300//
+    height: 300
   },
   tableRow: {
     display: "flex",
@@ -193,7 +191,7 @@ const styles = theme => ({//
     padding: "4px 2px 4px 8px",
     color: "#8797C0",
     fontSize: 12,
-    borderLeft: "1px solid rgba(111, 132, 155, 0.3)",
+    //borderLeft: "1px solid rgba(111, 132, 155, 0.3)",
     "&:first-child": {
       width: "24%",
       borderLeft: "0",

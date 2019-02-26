@@ -73,9 +73,10 @@ class TilesRender extends Component {
   };
 
   onScroll = (iScrollInstance) => {
-    if(this.state.y !== iScrollInstance.y) {
+    //console.log(iScrollInstance);
+    //if(this.state.y !== iScrollInstance.y) {
       y = iScrollInstance.y;
-    }
+    //}
   };
 
   tilesGenerator = (items, rowIndex, props) => {
@@ -96,7 +97,7 @@ class TilesRender extends Component {
           height: item.height,
           padding: "5px 5px 5px 5px",
           boxSizing: "border-box",
-          position: rowIndex === 2 && i === 1 ? "relative" : "unset",
+          position: rowIndex === 2 ? "relative" : "unset",
 
         };
 
@@ -183,7 +184,8 @@ class TilesRender extends Component {
           position: "relative",
           margin: 0,
           width: el.width,
-          height: item.height
+          height: item.height,
+          maxWidth: item.maxWidth
         }
       });
 

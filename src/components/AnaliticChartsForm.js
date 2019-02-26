@@ -33,7 +33,6 @@ class AnaliticChartsForm extends Component {
       {classes} = props,
       { anchorEl } = this.state;
 
-
     return (
       <div className={classes.root}>
         <div onClick={() => this.props.bindAnaliticSelect({trigger : !props.storeAnaliticChart.trigger})} className={classes.modWrap}>
@@ -152,7 +151,9 @@ const styles = theme => ({
   },
   CollapseWrap: {
     display: "flex",
-    marginTop: -44
+    position: "absolute",
+    top: 20,
+    right: 10
 },
   CollapseText: {
     color: theme.palette.primary.separator,

@@ -11,6 +11,10 @@ const app = {
   scrollOff: false,
 };
 
+const close_collapses = {
+  flag: false
+};
+
 const data = {
   income : null,
   compensation: null,
@@ -100,6 +104,12 @@ const values = {
   value1: "",
   value2: ""
 };
+
+export const handleCloseCollapses = handleActions({
+  [actions.closeCollapses](state, { payload }) {
+    return {...state, ...payload };
+  }
+}, close_collapses);
 
 export const handleApp = handleActions({
   [actions.bindApp](state, { payload }) {

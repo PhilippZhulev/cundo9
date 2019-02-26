@@ -196,7 +196,7 @@ class MainPage extends Component {
     const props = this.props,
           {classes} = props;
 
-    console.log(props.storeDin);
+    //console.log(props.storeDrivers);
 
     return (
       <TilesRender

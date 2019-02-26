@@ -9,10 +9,14 @@ class StepSlider extends Component {
 
   constructor(props) {
     super(props);
+    //console.log(this.props.storeBlocks.gv_drivers_loaded);
     this.thumb = React.createRef();
-
-    if(this.props.storeDriversData[this.props.settings.id] === null) {
-      this.props.bindDriversData({[this.props.settings.id] :  isNaN(parseFloat(this.props.m_prirost)) ? 0 : parseFloat(this.props.m_prirost)})
+    if(this.props.storeBlocks.gv_drivers_loaded === "0"){
+      this.props.bindDriversData({[this.props.settings.id] : null, ["isFake"+this.props.settings.id] : true});
+    }
+    if((this.props.storeDriversData[this.props.settings.id] === null || isNaN(parseFloat(this.props.m_prirost)) || this.props.storeDriversData["isFake"+this.props.settings.id])&&(this.props.storeBlocks.gv_drivers_loaded === "1")) {
+      //console.log("drivers assign");
+      this.props.bindDriversData({[this.props.settings.id] :  isNaN(parseFloat(this.props.m_prirost)) ? 0 : parseFloat(this.props.m_prirost), ["isFake"+this.props.settings.id]: isNaN(parseFloat(this.props.m_prirost))});
     }
   }
 
@@ -62,7 +66,7 @@ class StepSlider extends Component {
     }else if (event.target.value <= this.props.settings.min){
       this.setState({value: this.props.settings.min}, offset);
     }
-    console.log([event.target]);
+    //console.log([event.target]);
     event.target.value = Number(event.target.value);
   };
 
@@ -104,12 +108,23 @@ class StepSlider extends Component {
         fixPosLeft = value <= props.settings.min + 5;
 
       //let circlePos = Number(props.b_prirost.replace("-", "")) * (props.settings.max - props.settings.min) / 100;
-    let circlePos = (Number(props.b_prirost) - Number(props.settings.min)) / (props.settings.max - props.settings.min) * 100;
+    let circlePos = (Number(props.b_prirost) - Number(props.settings.min)) / (props.settings.max - props.settings.min) * 100;// -50 так как считаем от середины НА СЕРВАКЕ
       if (circlePos < 0) {
         circlePos = 0;
       }
       if (circlePos > 100){
         circlePos = 100;
+      }
+      let ver = 0;
+      try {
+        ver = Number(navigator.userAgent.match(/Chrome\/[\d.]{2}/)[0].split("/")[1])
+      }
+      catch(e){
+        console.log("This is IE");
+        console.log(e);
+      }
+      if(ver < 60){
+        circlePos = circlePos - 50;
       }
 
     return (

@@ -110,7 +110,7 @@ class DriverForm extends Component {
     const info = props.values.info;
     //console.log(props.values);
 
-    console.log(props);
+
 
     return (
       <div  className={classes.root}>
@@ -189,8 +189,8 @@ class DriverForm extends Component {
         <div className={classes.SlderWrapper}>
           {
             typeof props.values.baseLarge === "object"
-              ? <StepSlider settings={props.settings} b_prirost={props.values.b_prirost[0]} m_prirost={props.values.m_prirost[0]} />
-              : <StepSlider settings={props.settings} b_prirost={props.values.b_prirost} m_prirost={props.values.m_prirost} />
+              ? <StepSlider settings={props.settings} b_prirost={props.values.b_prirost[0]} m_prirost={props.values.m_prirost[0]} flag={props.flag}/>
+              : <StepSlider settings={props.settings} b_prirost={props.values.b_prirost} m_prirost={props.values.m_prirost} flag={props.flag}/>
           }
         </div>
         <div className={classes.bottomInput}>

@@ -11,9 +11,10 @@ const MainScheme = function (props, data) {
       media: [
         {screen: 2000, width: "32%"},
         {screen: 1800, width: "50%"},
-        {screen: 1100, width: "100%"}
+        {screen: 1200, width: "100%"}
       ],
       height: "100%",
+      maxWidth: 505.6,
       tiles: [
         {
           width: "100%",
@@ -155,9 +156,10 @@ const MainScheme = function (props, data) {
       media: [
         {screen: 2000, width: "28%"},
         {screen: 1800, width: "50%"},
-        {screen: 1100, width: "100%"}
+        {screen: 1200, width: "100%"}
       ],
       height: "100%",
+      maxWidth: 442.4,
       tiles: [
         {
           width: "100%",
@@ -191,9 +193,10 @@ const MainScheme = function (props, data) {
       media: [
         {screen: 2000, width: "40%"},
         {screen: 1800, width: "75%"},
-        {screen: 1100, width: "100%"}
+        {screen: 1200, width: "100%"}
       ],
       height: "100%",
+      maxWidth: 632,
       tiles: [
         {
           width: "100%",

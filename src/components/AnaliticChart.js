@@ -4,6 +4,10 @@ import {thousandsSeparator, indent} from "../halpers/formHalper";
 
 class ProgressChart extends Component {
 
+  state = {
+    hover: false
+  };
+
   valueLimit = (string, limit) => {
     if(typeof string !== "undefined") {
       if(string.length > limit) {
@@ -45,18 +49,26 @@ class ProgressChart extends Component {
   };
 
 
+  // chartCalcWidth = (item) => {
+  //   if(item < 0) {
+  //     if(item < -45) {
+  //       return "45%"
+  //     }else {
+  //       return String(item).replace("-", "") + "%";
+  //     }
+  //   }else if(item > 100) {
+  //     return "100%"
+  //   }else {
+  //     return item
+  //   }
+  // };
+
   chartCalcWidth = (item) => {
-    if(item < 0) {
-      if(item < -30) {
-        return "30%"
-      }else {
-        return String(item).replace("-", "") + "%";
-      }
-    }else if(item > 100) {
-      return "100%"
-    }else {
-      return item
+    let res = Math.abs(item);
+    if (res > 100) {
+      res = 100
     }
+    return res + "%"
   };
 
   chartCalcTranslate = (item) => {
@@ -65,29 +77,52 @@ class ProgressChart extends Component {
     }
   };
 
+  findMax = (items) => {
+    let max = Number(items[0].value);
+    for(let i = 1; i < items.length; i++){
+      if (max < Number(items[i].value)){
+        max = Number(items[i].value);
+      }
+    }
+    return Math.abs(max)
+  };
+
+  onHover = (ind) => {
+    this.setState({[`hover${ind}`]: false});
+  };
+
+  offHover = (ind) => {
+    this.setState({[`hover${ind}`]: true});
+  };
+
   renderElement = (classes) => {//
+    const colors = ["#5BBFAC","#F5CC97","#EC9DA1","#6EA7FF","#A6D376"];
+    const max = this.findMax(this.props.items);
     return this.props.items.map((item, i) => {
+      const val = (max === 0) ? 0 : Number(item.value) / max * 100;
       return (
-        <div key={i} className={classes.item}>
-          <div className={classes.title}>{indent(item.title, item.level)}</div>
+        <div key={i} className={classes.item} onMouseOver={() => this.offHover(i)} onMouseLeave={() => this.onHover(i)} >
+          <div className={classes.title} style={(this.state[`hover${i}`]) ? {color: (item.level !== "") ? colors[Number(item.level)] :  colors[0]} : {}}>{indent(item.title, item.level)}</div>
           <div className={classes.chart}>
             <div
               style={{
-                width: this.chartCalcWidth(Number(item.an_din.split("%")[0])),
+                //width: this.chartCalcWidth(Number(item.an_din.split("%")[0])),
+                width: this.chartCalcWidth(val),
               }}
               className={classes.chartOffset}>
               <div
                 className={`${classes.chartInner} ${item.value < 0 ? classes.chartInnerMinus : ""}`}
                 style={{
-                  background: item.color,
+                  background: (item.level !== "") ? colors[Number(item.level)] : colors[0],
                   width: "100%",
-                  transform: `translateX(${this.chartCalcTranslate(Number(item.an_din.split("%")[0]))})`,
+                  //transform: `translateX(${this.chartCalcTranslate(Number(item.an_din.split("%")[0]))})`,
+                  transform: `translateX(${this.chartCalcTranslate(val)})`,
                 }}
               />
             </div>
           </div>
-          <div className={classes.value}>{thousandsSeparator(String(this.insertValue(String(item.value))), 2)}</div>
-          <div className={classes.din}>
+          <div className={classes.value} style={(this.state[`hover${i}`]) ? {color: (item.level !== "") ? colors[Number(item.level)] :  colors[0]} : {}}>{thousandsSeparator(String(this.insertValue(String(item.value))), 2)}</div>
+          <div className={classes.din} style={(this.state[`hover${i}`]) ? {color: (item.level !== "") ? colors[Number(item.level)] :  colors[0]} : {}}>
             {thousandsSeparator(String(item.an_din), 1)}
           </div>
         </div>
@@ -98,6 +133,7 @@ class ProgressChart extends Component {
   render() {
     const props = this.props,
       {classes} = props;
+    //console.log(props);
 
     return (
       <div className={classes.root}>
@@ -122,7 +158,9 @@ const styles = theme => ({
     height: 12,
   },
   title: {
-    width: "45%",
+    margin: "4px 0",
+    height: 12,
+    width: "50%",
     color: theme.palette.primary.titles,
     fontSize: 12,
     textAlign: "left",
@@ -131,9 +169,9 @@ const styles = theme => ({
   },
   chart: {
     //width: "25%",
-    width: "20%",
+    width: "15%",
     height: 12,
-    paddingRight: "10%",
+    //paddingRight: "10%",
     margin: "4px 0"
   },
   chartInnerMinus: {
@@ -148,7 +186,8 @@ const styles = theme => ({
     color: theme.palette.primary.titles,
     fontSize: 12,
     textAlign: "right",
-    paddingLeft: 10
+    //paddingLeft: 10
+    paddingLeft: 5
   },
   arrow: {
     fontSize: 18,

@@ -13,7 +13,37 @@ class Collapse extends Component {
   };
 
   hangleCollapse = (name) => {
+    console.log("CLICK!");
     this.setState({ [name]: !this.state[name] });
+    this.props.closeCollapses({[this.props.name]: true});
+    console.log(this.state);
+  };
+
+  handleCloseCollapses = (nextProps) => {
+    let obj = {};
+    for(let key in this.state){
+      if(key === "load"){
+        //obj[key] = this.state[key];
+        console.log("!");
+      }
+      else{
+        if(key.indexOf("_bg") === -1) {
+          obj[key] = false;
+        }
+      }
+    }
+    this.setState(obj);
+    let flag = false;
+    for(let key in nextProps.storeCloseCollapses) {
+      if (nextProps.storeCloseCollapses.hasOwnProperty(key)) {
+        if (nextProps.storeCloseCollapses[key] && key !== "flag" && key !== this.props.name) {
+          console.log(`${key}: ${nextProps.storeCloseCollapses[key]}`);
+          flag = true;
+        }
+      }
+    }
+
+    this.props.closeCollapses({[this.props.name]: false, flag: flag});
   };
 
   generateChildrens = (arr, classes, id, idn, isFirst) => {
@@ -51,7 +81,7 @@ class Collapse extends Component {
         }
 
         return (
-          <div key={i} className={classes.CollapseItem} data-id={idx} style={_THIS.state[elemId] === true ? {background: _THIS.state[elemId + "_bg"]} : {}}>
+          <div key={i} className={`${classes.CollapseItem} ${this.props.active === idx ? "active" : ""}`} data-id={idx} style={_THIS.state[elemId] === true ? {background: _THIS.state[elemId + "_bg"]} : {}}>
               <div  className={`${classes.CollapseText} ${this.props.active === idx ? "active" : ""} ${(childrens) ? "childs" : ""}`}>
                   {/*<div style={{position: "absolute", backgroundColor: "#1b2137", zIndex: "999", color: "#A2A6B9",top: 0, left: 0, right: 38,bottom: 7, padding: 8}}>{"Байкальский банк"}</div>*/}
                 <div onClick={(e) => this.hangleChange(e,idx, item)} style={(isFirst) ? {whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden"} : {}}>
@@ -81,9 +111,27 @@ class Collapse extends Component {
     }
   };
 
+  componentWillUpdate(nextProps, nextState, nextContext) {
+    if(this.props.isFirst) {
+      if (nextProps.storeCloseCollapses.flag && nextProps.storeCloseCollapses[this.props.name]) {
+        this.handleCloseCollapses(nextProps);
+        console.log("In collapse!");
+        console.log(nextProps.storeCloseCollapses);
+        console.log(this.props.storeCloseCollapses);
+      }
+    }
+  }
+
+  componentWillMount() {
+    if(this.props.storeCloseCollapses[this.props.name] === undefined){
+      this.props.closeCollapses({[this.props.name]: false});
+    }
+  }
+
   render() {
     const props = this.props,
       { classes } = props;
+    console.log(props);
 
     return (
       <div className={classes.CollapseWrapper}>
@@ -106,7 +154,10 @@ const styles = theme => ({
     paddingLeft: 5,
     transition: "all 300ms ease-in-out",
     overflow: "hidden",
-    //position: "relative"
+    //position: "relative",
+    "&.active": {
+      background: "#24262d"
+    }
   },
   CollapseText: {
     color: theme.palette.primary.separator,
@@ -119,7 +170,8 @@ const styles = theme => ({
       paddingRight: 36
     },
     "&.active": {
-      color: theme.palette.primary.group
+      color: theme.palette.primary.group,
+      background: "#24262d"
     }
   },
   separator: {
@@ -136,7 +188,7 @@ const styles = theme => ({
     position: "absolute",
     height: "100%",
     width: 36,
-    background: theme.palette.primary.main,
+    //background: theme.palette.primary.main,
     right: 0,
     top: 0,
     display: "flex",

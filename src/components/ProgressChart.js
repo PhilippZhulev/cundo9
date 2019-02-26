@@ -31,6 +31,9 @@ class ProgressChart extends Component {
   renderElement = (classes) => {
     return this.props.items.map((item, i) => {
         let show = (Number(item.value) === 0 && ((Number(item.din) === 0) || (item.din === undefined))) ? "none" : "";
+        if(i === this.props.items.length - 1){
+            return null
+        }
       return (
         <div key={i} className={classes.item} style={{display: show}}>
           <div className={classes.title}>{item.title}</div>
@@ -86,7 +89,7 @@ const styles = theme => ({
     flexWrap: "wrap"
   },
   title: {
-    width: "25%",
+    width: "29%",
     color: theme.palette.primary.titles,
     fontSize: 12,
     textAlign: "right",
@@ -94,7 +97,7 @@ const styles = theme => ({
     boxSizing: "border-box"
   },
   chart: {
-    width: "28%",
+    width: "27%",
     height: 12,
     paddingRight: "6%",
     paddingLeft: "15%",
@@ -109,7 +112,7 @@ const styles = theme => ({
     borderRadius: "2px"
   },
   value: {
-    width: "25%",
+    width: "21%",
     color: theme.palette.primary.titles,
     fontSize: 12,
     textAlign: "right",

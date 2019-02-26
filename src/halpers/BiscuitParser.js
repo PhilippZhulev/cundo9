@@ -72,7 +72,8 @@ function getChartData (data, props) {
               target.push(item);
             }
           }else {
-            if(i < group[key].length - 1) {
+            //if(i < group[key].length - 1) {
+            if(i < group[key].length) {
               target.push(item);
             }
           }
