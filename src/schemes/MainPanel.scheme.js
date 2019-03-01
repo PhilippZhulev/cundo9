@@ -5,7 +5,7 @@ const MainScheme = function (props, data) {
   /*
   Схема структуры главного экрана
   */
-  //console.log(data);
+  console.log(data);
   return [
     {
       media: [
@@ -67,84 +67,84 @@ const MainScheme = function (props, data) {
               },
               components: ["driverForm"]
             },
-              {
-                  width: "100%",
-                  height: 255,
-                  titleState: false,
-                  slider: data.drivers[0],
-                  binding: "inputKd",
-                  title: data.driversData[2].text,
-                  values: {
-                      base:  data.driversData[2].plan_raschet,
-                      model:  data.driversData[2].model_raschet,
-                      baseLarge: data.driversData[2].plan_baza,
-                      modelLarge: data.driversData[2].model_baza,
-                      arrowPlan: data.driversData[2].plan_dinamika,
-                      arrowModel: data.driversData[2].model_dinamika,
-                      b_prirost:  data.driversData[2].plan_prirost,
-                      m_prirost:  data.driversData[2].model_prirost,
-                      info: data.driversData[2].text,
-                  },
-                  components: ["driverForm"]
-              },
             {
               width: "100%",
               height: 255,
               titleState: false,
               slider: data.drivers[2],
               binding: "inputKd",
-              title: data.driversData[3].text,
+              title: data.driversData[2].text,
               values: {
-                b_prirost:  data.driversData[3].plan_prirost,
-                m_prirost:  data.driversData[3].model_prirost,
+                b_prirost:  data.driversData[2].plan_prirost,
+                m_prirost:  data.driversData[2].model_prirost,
                 baseArr:  [
                   //data.driversData[3].plan_raschet,
                   data.driversData[6].plan_raschet,
                   data.driversData[7].plan_raschet,
                   data.driversData[8].plan_raschet
                 ],
-                base: data.driversData[3].plan_raschet,
+                base: data.driversData[2].plan_raschet,
                 modelArr: [
                   //data.driversData[3].model_raschet,
                   data.driversData[6].model_raschet,
                   data.driversData[7].model_raschet,
                   data.driversData[8].model_raschet
                 ],
-                model: data.driversData[3].model_raschet,
+                model: data.driversData[2].model_raschet,
                 // baseLarge: [
                 //   //data.driversData[3].plan_baza,
                 //   data.driversData[6].plan_baza,
                 //   data.driversData[7].plan_baza,
                 //   data.driversData[8].plan_baza,
                 // ],
-                baseLarge: data.driversData[3].plan_baza,
+                baseLarge: data.driversData[2].plan_baza,
                 // modelLarge: [
                 //   //data.driversData[3].model_baza,
                 //   data.driversData[6].model_baza,
                 //   data.driversData[7].model_baza,
                 //   data.driversData[8].model_baza,
                 // ],
-                modelLarge: data.driversData[3].model_baza,
+                modelLarge: data.driversData[2].model_baza,
                 // arrowPlan: [
                 //   //data.driversData[3].plan_dinamika,
                 //   data.driversData[6].plan_dinamika,
                 //   data.driversData[7].plan_dinamika,
                 //   data.driversData[8].plan_dinamika,
                 // ],
-                arrowPlan: data.driversData[3].plan_dinamika,
+                arrowPlan: data.driversData[2].plan_dinamika,
                 // arrowModel: [
                 //   //data.driversData[3].model_dinamika,
                 //   data.driversData[6].model_dinamika,
                 //   data.driversData[7].model_dinamika,
                 //   data.driversData[8].model_dinamika,
                 // ],
-                arrowModel: data.driversData[3].model_dinamika,
+                arrowModel: data.driversData[2].model_dinamika,
                 info: [
                   //data.driversData[3].text,
                   data.driversData[6].text,
                   data.driversData[7].text,
                   data.driversData[8].text,
                 ]
+              },
+              components: ["driverForm"]
+            },
+            {
+              width: "100%",
+              height: 255,
+              titleState: false,
+              slider: data.drivers[0],
+              binding: "inputKd",
+              title: data.driversData[5].text,
+              values: {
+                base:  data.driversData[5].plan_raschet,
+                model:  data.driversData[5].model_raschet,
+                baseLarge: data.driversData[5].plan_baza,
+                modelLarge: data.driversData[5].model_baza,
+                arrowPlan: data.driversData[5].plan_dinamika,
+                arrowModel: data.driversData[5].model_dinamika,
+                b_prirost:  data.driversData[5].plan_prirost,
+                m_prirost:  data.driversData[5].model_prirost,
+                info: data.driversData[5].text,
               },
               components: ["driverForm"]
             }

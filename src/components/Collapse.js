@@ -13,20 +13,14 @@ class Collapse extends Component {
   };
 
   hangleCollapse = (name) => {
-    console.log("CLICK!");
     this.setState({ [name]: !this.state[name] });
     this.props.closeCollapses({[this.props.name]: true});
-    console.log(this.state);
   };
 
   handleCloseCollapses = (nextProps) => {
     let obj = {};
     for(let key in this.state){
-      if(key === "load"){
-        //obj[key] = this.state[key];
-        console.log("!");
-      }
-      else{
+      if(key !== "load"){
         if(key.indexOf("_bg") === -1) {
           obj[key] = false;
         }
@@ -37,7 +31,6 @@ class Collapse extends Component {
     for(let key in nextProps.storeCloseCollapses) {
       if (nextProps.storeCloseCollapses.hasOwnProperty(key)) {
         if (nextProps.storeCloseCollapses[key] && key !== "flag" && key !== this.props.name) {
-          console.log(`${key}: ${nextProps.storeCloseCollapses[key]}`);
           flag = true;
         }
       }
@@ -115,9 +108,6 @@ class Collapse extends Component {
     if(this.props.isFirst) {
       if (nextProps.storeCloseCollapses.flag && nextProps.storeCloseCollapses[this.props.name]) {
         this.handleCloseCollapses(nextProps);
-        console.log("In collapse!");
-        console.log(nextProps.storeCloseCollapses);
-        console.log(this.props.storeCloseCollapses);
       }
     }
   }
@@ -131,7 +121,6 @@ class Collapse extends Component {
   render() {
     const props = this.props,
       { classes } = props;
-    console.log(props);
 
     return (
       <div className={classes.CollapseWrapper}>
