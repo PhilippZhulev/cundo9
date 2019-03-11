@@ -108,7 +108,8 @@ class DriverForm extends Component {
     const flag = (props.settings.id === "COM05" || props.settings.id === "COM06");
 
     const info = props.values.info;
-    //console.log(props.values);
+    console.log(props);
+    console.log(this.state);
 
 
 
@@ -144,6 +145,7 @@ class DriverForm extends Component {
                 )
               })
             }
+              show_info={props.show_info}
           />
           {
             typeof props.values.baseLarge === "string"
@@ -207,8 +209,10 @@ const styles = theme => ({
     width: "calc(100% - 122px)"
   },
   infoPos: {
-    marginTop: -350,
-    marginLeft: "-140px!important"
+    //marginTop: -350,
+    marginTop: -50,
+    //marginLeft: "-140px!important"
+    marginLeft: "-270px!important"
   },
   arrow: {
     fontSize: 18,
@@ -217,7 +221,8 @@ const styles = theme => ({
     top: 8
   },
   rightValue: {
-    margin: "auto"
+    margin: "auto",
+    marginTop: 54
   },
   rightValueItem: {
     fontStyle: "normal",

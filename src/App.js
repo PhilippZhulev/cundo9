@@ -8,6 +8,7 @@ import MenuIcon from '@material-ui/icons/ArrowBack';
 import UnfoldLess from '@material-ui/icons/UnfoldLess';
 import SettingsIcon from '@material-ui/icons/Settings';
 import InfoIcon from '@material-ui/icons/Info';
+import HelpIcon from '@material-ui/icons/Help';
 import FeedbackIcon from '@material-ui/icons/Feedback';
 import Button from './components/Button';
 import {ierarchyParse} from './halpers/ierarchyParser';
@@ -20,6 +21,7 @@ import {bizParse} from "./halpers/bizParser";
 import {LumiraRequest} from "./halpers/LumiraRequest"
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Slide from "@material-ui/core/Slide/Slide";
+import SnackbarContentWrapper from "./components/Snackbar";
 
 class App extends Component {//
     constructor(props) {
@@ -213,6 +215,11 @@ class App extends Component {//
               <div className={classes.longLoadTime}>{`Это может занять примерно 10 мин.`}</div>
             </div>
           </div>
+          <SnackbarContentWrapper
+              variant="error"
+              className={classes.margin}
+              message="This is an error message!"
+          />
           {
             props.storePreloader.preloader === true ?
               <div className={classes.preloader}>
@@ -252,7 +259,7 @@ class App extends Component {//
                   {/*<SettingsIcon className={classes.menuIcon} />*/}
                 {/*</div>*/}
                 <div className={classes.btnMenu}>
-                  <InfoIcon className={classes.menuIcon} />
+                  <HelpIcon className={classes.menuIcon} />
                 </div>
                 {/*<div className={classes.btnMenu}>*/}
                   {/*<FeedbackIcon className={classes.menuIcon} />*/}
@@ -466,8 +473,9 @@ const styles = theme => ({
     zIndex: 999
   },
   loadText: {
-    margin: "auto",
-    fontWeight: 300
+    //margin: "auto",
+    fontWeight: 300,
+    margin: "21px 16px"
   },
   progress: {
     margin: "auto",

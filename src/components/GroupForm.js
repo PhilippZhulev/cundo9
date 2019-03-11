@@ -12,6 +12,7 @@ class GroupForm extends Component {
   };
 
   keyUpInput = (e, target) => {
+    console.log(e.target.value);
     if(e.target.value.length > 0) {
       this.props.bindGroup({[target]: true});
     }else {
@@ -50,7 +51,10 @@ class GroupForm extends Component {
       <div className={classes.root}>
         <div className={classes.inputWrapperFirst}>
           <Input
-            onChange={(e) => {this.setState({value1 : e.target.value}); this.props.bindValues({value1 : e.target.value})}}
+            onChange={(e) => {if(Number(e.target.value) > 100){e.target.value = "100";}
+              this.setState({value1 : e.target.value}); this.props.bindValues({value1 : e.target.value})
+            }
+            }
             onKeyUp={(e) => this.keyUpInput(e, "inputKomp")}
             disabled={this.props.storeGroup.inputKd}
             label={"КД"}

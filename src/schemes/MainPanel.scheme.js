@@ -52,7 +52,7 @@ const MainScheme = function (props, data) {
               height: 255,
               titleState: false,
               slider: data.drivers[3],
-              binding: "inputKomp",
+              binding: "inputKd",
               title: data.driversData[1].text,
               values: {
                 base:  data.driversData[1].plan_raschet,
@@ -74,6 +74,7 @@ const MainScheme = function (props, data) {
               slider: data.drivers[2],
               binding: "inputKd",
               title: data.driversData[2].text,
+              show_info:true,
               values: {
                 b_prirost:  data.driversData[2].plan_prirost,
                 m_prirost:  data.driversData[2].model_prirost,
@@ -133,7 +134,7 @@ const MainScheme = function (props, data) {
               height: 255,
               titleState: false,
               slider: data.drivers[0],
-              binding: "inputKd",
+              binding: "inputKomp",
               title: data.driversData[5].text,
               values: {
                 base:  data.driversData[5].plan_raschet,

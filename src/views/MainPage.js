@@ -66,6 +66,7 @@ class MainPage extends Component {
                 ? <DriverForm
                   title={item.title}
                   binding={item.binding}
+                  show_info={item.show_info}
                   values={{
                     base: item.values.base,
                     model: item.values.model,
