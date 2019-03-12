@@ -22,6 +22,9 @@ import {LumiraRequest} from "./halpers/LumiraRequest"
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Slide from "@material-ui/core/Slide/Slide";
 import SnackbarContentWrapper from "./components/Snackbar";
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 class App extends Component {//
     constructor(props) {
@@ -38,7 +41,9 @@ class App extends Component {//
           ndo: undefined,
           direction: undefined,
           channel: undefined,
-            menu: true
+            menu: true,
+          open: false,
+          sum: 0
         };
 
         //Отключить дотошный скролл на ipad
@@ -165,6 +170,26 @@ class App extends Component {//
     };
 
   handleFilters = () => {
+
+    if(this.props.storeValues.value1 !== ""){
+      const drivers = ["CMP01","COM04","COM06"];
+      const weights = this.props.storeDriversData;
+      const cur_weight = drivers.reduce((sum, currVal) => sum + Number(weights["ves"+currVal]),0);
+      if(cur_weight !== 100){
+        this.setState({open: true, sum: cur_weight});
+        return
+      }
+    }
+    if (this.props.storeValues.value2 !== ""){
+      const drivers = ["COM04","COM05"];
+      const weights = this.props.storeDriversData;
+      const cur_weight = drivers.reduce((sum, currVal) => sum + Number(weights["ves"+currVal]),0);
+      if(cur_weight !== 100){
+        this.setState({open: true, sum: cur_weight});
+        return
+      }
+    }
+
     this.props.bindPreloader({longPreloader: true});
     const REQ = LumiraRequest("DATA_UPDATE");
 
@@ -196,7 +221,13 @@ class App extends Component {//
     });
   };
 
+  triggerSnackbar = () => {
+    this.setState({open: !this.state.open});
+    console.log("hover!");
+};
+
     render() {
+      console.log(this.state);
       const props = this.props,
         { classes } = props;
       console.log("Store:");
@@ -215,10 +246,32 @@ class App extends Component {//
               <div className={classes.longLoadTime}>{`Это может занять примерно 10 мин.`}</div>
             </div>
           </div>
-          <SnackbarContentWrapper
-              variant="error"
-              className={classes.margin}
-              message="This is an error message!"
+          <Snackbar
+              key={0}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              open={this.state.open}
+              autoHideDuration={4000}
+              onClose={this.triggerSnackbar}
+              //classes={{ root: classes.snackbarRoot}}
+              ContentProps={{
+                'aria-describedby': 'message-id',
+                className: classes.snackbarRoot,
+              }}
+              message={<span id="message-id">{`Некорректно введены веса, сумма не равна 100%. Текущая сумма: ${this.state.sum}%`}</span>}
+              action={[
+                <IconButton
+                    key="close"
+                    aria-label="Close"
+                    color="inherit"
+                    className={classes.close}
+                    onClick={this.triggerSnackbar}
+                >
+                  <CloseIcon />
+                </IconButton>,
+              ]}
           />
           {
             props.storePreloader.preloader === true ?
@@ -369,12 +422,20 @@ class App extends Component {//
 }
 
 const styles = theme => ({
+  snackbarRoot: {
+    fontFamily: "Open Sans, serif",
+    fontWeight: "400",
+    background: "#273856"
+  },
   btn: {
     width: 128,
     height: 40
   },
   wrapper: {
     padding: "0 0"
+  },
+  close: {
+    padding: theme.spacing.unit / 2,
   },
       titleWrapper:{
         //display: "flex",

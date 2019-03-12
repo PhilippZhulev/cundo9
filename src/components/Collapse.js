@@ -6,13 +6,13 @@ class Collapse extends Component {
 
   state = {load: false};
 
-  hangleChange = (event,id, item) => {
+  handleChange = (event,id, item) => {
     if(typeof this.props.onClick !== "undefined") {
-      this.props.onClick(event,id, item)
+      this.props.onClick(event, id, item)
     }
   };
 
-  hangleCollapse = (name) => {
+  handleCollapse = (name) => {
     this.setState({ [name]: !this.state[name] });
     this.props.closeCollapses({[this.props.name]: true});
   };
@@ -77,12 +77,12 @@ class Collapse extends Component {
           <div key={i} className={`${classes.CollapseItem} ${this.props.active === idx ? "active" : ""}`} data-id={idx} style={_THIS.state[elemId] === true ? {background: _THIS.state[elemId + "_bg"]} : {}}>
               <div  className={`${classes.CollapseText} ${this.props.active === idx ? "active" : ""} ${(childrens) ? "childs" : ""}`}>
                   {/*<div style={{position: "absolute", backgroundColor: "#1b2137", zIndex: "999", color: "#A2A6B9",top: 0, left: 0, right: 38,bottom: 7, padding: 8}}>{"Байкальский банк"}</div>*/}
-                <div onClick={(e) => this.hangleChange(e,idx, item)} style={(isFirst) ? {whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden"} : {}}>
+                <div onClick={(e) => this.handleChange(e,idx, item)} style={(isFirst) ? {whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden"} : {}}>
                     {item.text}
                 </div>
                 {
                   (childrens)
-                    ? <div onClick={() => this.hangleCollapse(elemId)} className={`${classes.CollapseBtn} ${_THIS.state[elemId] === true ? "active" : ""}`}><ArrowBottom /></div>
+                    ? <div onClick={() => this.handleCollapse(elemId)} className={`${classes.CollapseBtn} ${_THIS.state[elemId] === true ? "active" : ""}`}><ArrowBottom /></div>
                     : null
                 }
               </div>
