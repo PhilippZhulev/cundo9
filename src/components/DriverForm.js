@@ -9,7 +9,8 @@ import {thousandsSeparator} from "../halpers/formHalper";
 class DriverForm extends Component {
 
   state = {
-    ves: "0"
+    ves: "0",
+    currInput: "0"
   };
 
   // valueLimit = (string, limit) => {
@@ -85,6 +86,19 @@ class DriverForm extends Component {
     }
   };
 
+  handleValues = (prevProps) => {
+    const v = this.props.storeValues;
+    let ves = 0;
+    if(this.props.storeValues.value1 !== "" || this.props.storeValues.value2 !== "") {
+      //console.log(this.props.storeValues);
+      //console.log(`value1 = ${v.value1}; value2 = ${v.value2}; vesKd = ${this.props.values.vesKd}; vesKomp = ${this.props.values.vesKomp}`);
+      ves = Number(v.value1 !== "") * this.props.values.vesKd + Number(v.value2 !== "") * this.props.values.vesKomp;
+      //console.log(Number(v.value1 !== "") * this.props.values.vesKd + Number(v.value2 !== "") * this.props.values.vesKomp);
+    }
+    this.setState({ves: ves, currInput: String(ves).replace(".", ",")});
+    this.props.bindDriversData({[`ves${this.props.settings.id}`]: ves});
+  };
+
   arrowController = (param) => {
     if(param === "1") {
       return {fill: "#7ED321", transform: `rotate(${180}deg)`}
@@ -96,10 +110,29 @@ class DriverForm extends Component {
   };
 
   handleVes = (event) => {
-    this.setState({ves: event.target.value}, () => {
-      this.props.bindDriversData({[`ves${this.props.settings.id}`] : this.state.ves})
-    })
+    console.log(`${event.target.value}; ${this.state.currInput}`)
+    if(this.state.currInput === "0" && event.target.value[0] === "0"){
+      event.target.value = event.target.value.substring(1);
+    }
+    if(event.target.value.match(/\d+[,.]{0,1}\d*/) !== null && event.target.value.match(/\d+[,.]{0,1}\d*/)[0].length === event.target.value.length) {
+      this.setState({currInput: event.target.value.replace(".", ","), ves: Number(event.target.value.replace(",", "."))}, () => {
+        this.props.bindDriversData({[`ves${this.props.settings.id}`]: this.state.ves})
+      })
+    }
+    if(event.target.value === ""){
+      this.setState({currInput: "0", ves: 0}, () => {
+        this.props.bindDriversData({[`ves${this.props.settings.id}`]: this.state.ves})
+      })
+    }
+    console.log(`ves: ${event.target.value}, id: ${this.props.settings.id}, callback value: ${this.state.ves}`);
   };
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const v = this.props.storeValues;
+    if(prevProps.storeValues.value1 !== v.value1 || prevProps.storeValues.value2 !== v.value2){
+      this.handleValues(prevProps);
+    }
+  }
 
   render() {
     const props = this.props,
@@ -196,7 +229,7 @@ class DriverForm extends Component {
           }
         </div>
         <div className={classes.bottomInput}>
-          <Input label={""} type={"text"} classes={{input: classes.input}} onKeyUp={(e) => console.log(e)} onChange={this.handleVes} value={this.state.ves}/>
+          <Input label={""} type={"text"} classes={{input: classes.input}} onKeyUp={(e) => console.log(e)} onChange={this.handleVes} value={this.state.currInput} disabled={this.props.storeValues.value1 === "" && this.props.storeValues.value2 === ""}/>
           <span className={classes.label}>Вес влияния драйвера (расчёт от КПЭ), %</span>
         </div>
       </div>

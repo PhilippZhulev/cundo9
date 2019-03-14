@@ -12,11 +12,14 @@ class Root extends Component {
 
   render() {
 
+    console.log(this);
+    console.log(this.props);
+
     const myTheme = createMuiTheme({
       typography : {
         useNextVariants :  true ,
       },
-      palette: this.template(this.props.storeApp.template)
+      //palette: this.template(this.props.storeApp.template)
     });
 
     return (

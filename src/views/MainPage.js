@@ -78,17 +78,19 @@ class MainPage extends Component {
                     m_prirost: item.values.m_prirost,
                     info: item.values.info,
                     baseArr: item.values.baseArr,
-                    modelArr: item.values.modelArr
+                    modelArr: item.values.modelArr,
+                    vesKd: item.values.vesKd,
+                    vesKomp: item.values.vesKomp
                   }}
                   settings={{
                     title: "",
-                    value: Number(item.slider.base),
-                    min: Number(item.slider.min),
-                    max: Number(item.slider.max),
+                    value: Number(item.slider.base.replace(",", ".")),
+                    min: Number(item.slider.min.replace(",", ".")),
+                    max: Number(item.slider.max.replace(",", ".")),
                     id: item.slider.key,
                     step: Number(item.slider.step.replace(",", ".")),
                     info: item.slider.text,
-                    baseValue: Number(item.slider.base),
+                    baseValue: Number(item.slider.base.replace(",", ".")),
                   }}
                 /> : null
             }
@@ -230,6 +232,8 @@ class MainPage extends Component {
             },
             drivers: props.storeDrivers.drivers,
             driversData: props.storeDrivers.driversData,
+            vesKd: props.storeDrivers.vesKd,
+            vesKomp: props.storeDrivers.vesKomp
           })
         }
         components={this.components(classes)}

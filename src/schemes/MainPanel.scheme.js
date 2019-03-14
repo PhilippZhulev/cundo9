@@ -44,6 +44,8 @@ const MainScheme = function (props, data) {
                 b_prirost:  data.driversData[0].plan_prirost,
                 m_prirost:  data.driversData[0].model_prirost,
                 info: data.driversData[0].text,
+                vesKd: Number(data.vesKd[0].var2),
+                vesKomp: Number(data.vesKomp[0].var2)
               },
               components: ["driverForm"]
             },
@@ -51,7 +53,7 @@ const MainScheme = function (props, data) {
               width: "100%",
               height: 255,
               titleState: false,
-              slider: data.drivers[3],
+              slider: data.drivers[0],
               binding: "inputKd",
               title: data.driversData[1].text,
               values: {
@@ -64,6 +66,8 @@ const MainScheme = function (props, data) {
                 b_prirost:  data.driversData[1].plan_prirost,
                 m_prirost:  data.driversData[1].model_prirost,
                 info: data.driversData[1].text,
+                vesKd: Number(data.vesKd[1].var2),
+                vesKomp: 0
               },
               components: ["driverForm"]
             },
@@ -125,7 +129,9 @@ const MainScheme = function (props, data) {
                   data.driversData[6].text,
                   data.driversData[7].text,
                   data.driversData[8].text,
-                ]
+                ],
+                vesKd: Number(data.vesKd[2].var2),
+                vesKomp: 0
               },
               components: ["driverForm"]
             },
@@ -133,7 +139,7 @@ const MainScheme = function (props, data) {
               width: "100%",
               height: 255,
               titleState: false,
-              slider: data.drivers[0],
+              slider: data.drivers[3],
               binding: "inputKomp",
               title: data.driversData[5].text,
               values: {
@@ -146,6 +152,8 @@ const MainScheme = function (props, data) {
                 b_prirost:  data.driversData[5].plan_prirost,
                 m_prirost:  data.driversData[5].model_prirost,
                 info: data.driversData[5].text,
+                vesKd: 0,
+                vesKomp: Number(data.vesKomp[1].var2)
               },
               components: ["driverForm"]
             }

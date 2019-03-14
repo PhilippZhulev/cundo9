@@ -113,6 +113,8 @@ export const handleCloseCollapses = handleActions({
 
 export const handleApp = handleActions({
   [actions.bindApp](state, { payload }) {
+    console.log(payload);
+    console.log(app);
     return { ...state, ...payload };
   },
 }, app);

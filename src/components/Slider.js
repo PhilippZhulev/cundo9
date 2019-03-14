@@ -21,7 +21,10 @@ class StepSlider extends Component {
   }
 
   state = {
-    value: this.props.storeDriversData[this.props.settings.id],
+    //value: this.props.storeDriversData[this.props.settings.id],
+    value: this.props.settings.baseValue.toFixed(2),
+    //currInput: String(this.props.storeDriversData[this.props.settings.id]),
+    currInput: String(this.props.settings.baseValue.toFixed(2).replace(".",",")),
     prev: null,
     thumb: 0,
     offset: "",
@@ -44,6 +47,7 @@ class StepSlider extends Component {
   handleChange = (event, value) => {
     this.setState({
       value : Number(value).toFixed(2),
+      currInput: String(Number(value).toFixed(2).replace(".",","))
     }, () => {
       this.setState({offset: this.thumb.current.parentNode.parentNode.style.transform});
     });
@@ -61,13 +65,20 @@ class StepSlider extends Component {
 
     const offset = () => this.setState({offset: this.thumb.current.parentNode.parentNode.style.transform});
 
-    if(event.target.value > this.props.settings.min && event.target.value <= 100) {
-      this.setState({value: event.target.value}, offset);
-    }else if (event.target.value <= this.props.settings.min){
-      this.setState({value: this.props.settings.min}, offset);
+    // if(event.target.value > this.props.settings.min && event.target.value <= 100) {
+    //   this.setState({value: event.target.value}, offset);
+    // }else if (event.target.value <= this.props.settings.min){
+    //   this.setState({value: this.props.settings.min}, offset);
+    // }
+    console.log(`value: ${event.target.value}; event.target.value.search(/[^0-9]*/): ${event.target.value.search(/[^0-9]*/)}; search("-"): ${event.target.value.search("-")}, state_value: ${this.state.value}`);
+    //if(event.target.value.search(/[^-,.0-9]/) === -1 && event.target.value.search("-") <= 0 && event.target.value !== "-"){
+    if(event.target.value.match(/-{0,1}\d+[,.]{0,1}\d*/) !== null && event.target.value.match(/-{0,1}\d+[,.]{0,1}\d*/)[0].length === event.target.value.length){
+      this.setState({value: Number(event.target.value.replace(",", "."))}, offset);
+      // if(event.target.value !== "") {
+      //   event.target.value = Number(event.target.value);
+      // }
     }
-    //console.log([event.target]);
-    event.target.value = Number(event.target.value);
+    this.setState({currInput: event.target.value.replace(".", ",")})
   };
 
   dragStart = () => {
@@ -102,7 +113,7 @@ class StepSlider extends Component {
   render() {
     const props = this.props,
       baseClasses = props.classes,
-      { value } = this.state;
+      { value, currInput } = this.state;
 
     let fixPosRight = value >= props.settings.max - 5,
         fixPosLeft = value <= props.settings.min + 5;
@@ -137,7 +148,7 @@ class StepSlider extends Component {
               position={!fixPosRight ? "right" : "left"}
               text={props.settings.info}
             />
-            <input onKeyUp={(e) => this.bindEnter(e, 13, Number(value))} onChange={(event) => this.handleInput(event)} value={Number(value)} onFocus={(event) => this.handleFocus(event)} type="number"/>
+            <input type={"text"} onKeyUp={(e) => this.bindEnter(e, 13, Number(value))} onChange={(event) => this.handleInput(event)} value={this.state.currInput} onFocus={(event) => this.handleFocus(event)} />
           </div>
         </div>
         <Slider

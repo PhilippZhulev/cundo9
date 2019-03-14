@@ -8,11 +8,12 @@ class GroupForm extends Component {
 
   state = {
     value1: "",
-    value2: ""
+    value2: "",
+    currInput1: "",
+    currInput2: ""
   };
 
   keyUpInput = (e, target) => {
-    console.log(e.target.value);
     if(e.target.value.length > 0) {
       this.props.bindGroup({[target]: true});
     }else {
@@ -43,9 +44,37 @@ class GroupForm extends Component {
     });
   };
 
+  handleInput1 = (event) => {
+    if(event.target.value.match(/\d+[,.]{0,1}\d*/) !== null && event.target.value.match(/\d+[,.]{0,1}\d*/)[0].length === event.target.value.length) {
+      this.setState({currInput1: event.target.value.replace(".", ","), value1: event.target.value.replace(",", ".")}, () => {
+        this.props.bindValues({value1: this.state.value1})
+      })
+    }
+    if(event.target.value === ""){
+      this.setState({currInput1: "", value1: ""}, () => {
+        this.props.bindValues({value1: this.state.value1})
+      })
+    }
+  };
+
+  handleInput2 = (event) => {
+    if(event.target.value.match(/\d+[,.]{0,1}\d*/) !== null && event.target.value.match(/\d+[,.]{0,1}\d*/)[0].length === event.target.value.length) {
+      this.setState({currInput2: event.target.value.replace(".", ","), value2: event.target.value.replace(",", ".")}, () => {
+        this.props.bindValues({value2: this.state.value2})
+      })
+    }
+    if(event.target.value === ""){
+      this.setState({currInput2: "", value2: ""}, () => {
+        this.props.bindValues({value2: this.state.value2})
+      })
+    }
+  };
+
   render() {
     const props = this.props,
           classes = props.classes;
+
+    console.log(this.state);
 
     return(
       <div className={classes.root}>

@@ -25,6 +25,7 @@ import SnackbarContentWrapper from "./components/Snackbar";
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import ArrowBottom from '@material-ui/icons/ExpandMore'
 
 class App extends Component {//
     constructor(props) {
@@ -78,7 +79,9 @@ class App extends Component {//
 
           this.props.bindDrivers({
             drivers: window.bobrData["drivers"],
-            driversData: window.bobrData["drivers_data"]
+            driversData: window.bobrData["drivers_data"],
+            vesKd: window.bobrData["data_ves_factor_kd"],
+            vesKomp: window.bobrData["data_ves_factor_komp"]
           });
 
           this.props.bindBlocks({
@@ -172,7 +175,7 @@ class App extends Component {//
   handleFilters = () => {
 
     if(this.props.storeValues.value1 !== ""){
-      const drivers = ["CMP01","COM04","COM06"];
+      const drivers = ["COM04","COM05","COM06"];
       const weights = this.props.storeDriversData;
       const cur_weight = drivers.reduce((sum, currVal) => sum + Number(weights["ves"+currVal]),0);
       if(cur_weight !== 100){
@@ -181,7 +184,7 @@ class App extends Component {//
       }
     }
     if (this.props.storeValues.value2 !== ""){
-      const drivers = ["COM04","COM05"];
+      const drivers = ["COM04","CMP01"];
       const weights = this.props.storeDriversData;
       const cur_weight = drivers.reduce((sum, currVal) => sum + Number(weights["ves"+currVal]),0);
       if(cur_weight !== 100){
@@ -196,8 +199,10 @@ class App extends Component {//
     REQ.set("tech6", () => {
       console.log("ОТПРАВЛЕН ЗАПРОС В ЛЮМИРУ...");
       if(this.props.storeValues.value2.length !== 0) {
+        console.log(`obr,komp,${this.props.storeValues.value2},${this.props.storeDriversData["vesCOM04"]},${this.props.storeDriversData["vesCMP01"]}`);
         return `obr,komp,${this.props.storeValues.value2},${this.props.storeDriversData["vesCOM04"]},${this.props.storeDriversData["vesCMP01"]}`
       }else if(this.props.storeValues.value1.length !== 0) {
+        console.log(`obr,kd,${this.props.storeValues.value1},${this.props.storeDriversData["vesCOM04"]},${this.props.storeDriversData["vesCOM05"]},${this.props.storeDriversData["vesCOM06"]}`);
         return `obr,kd,${this.props.storeValues.value1},${this.props.storeDriversData["vesCOM04"]},${this.props.storeDriversData["vesCOM05"]},${this.props.storeDriversData["vesCOM06"]}`
       }else {
         return "pr"
@@ -224,6 +229,19 @@ class App extends Component {//
   triggerSnackbar = () => {
     this.setState({open: !this.state.open});
     console.log("hover!");
+};
+
+  anyCollapseOpen = () => {
+    let flag = false;
+    const collapses = this.props.storeCloseCollapses;
+    for(let key in collapses){
+      if(collapses.hasOwnProperty(key)) {
+        if (collapses[key] && key !== "flag") {
+          flag = true;
+        }
+      }
+    }
+    return flag
 };
 
     render() {
@@ -306,7 +324,7 @@ class App extends Component {//
                   {/*<MenuIcon className={classes.menuArrow} />*/}
                 {/*</div>*/}
                 <div className={classes.btnMenu} onClick={() => {console.log("Close collapses!"); this.handleCloseCollapses()}}>
-                  <UnfoldLess className={classes.menuIcon} />
+                  <div className={`${classes.CollapseBtn} ${this.anyCollapseOpen() === true ? "active" : ""}`}><ArrowBottom /></div>
                 </div>
                 {/*<div className={classes.btnMenu}>*/}
                   {/*<SettingsIcon className={classes.menuIcon} />*/}
@@ -422,6 +440,19 @@ class App extends Component {//
 }
 
 const styles = theme => ({
+  CollapseBtn: {
+    alignContent: "center",
+    justifyContent: "center",
+    "& svg": {
+      fill: theme.palette.primary.separator,
+      marginTop: 8,
+      transition: "all 300ms ease-in-out",
+      transform: "rotate(0deg)",
+    },
+    "&.active svg": {
+      transform: "rotate(180deg)",
+    },
+  },
   snackbarRoot: {
     fontFamily: "Open Sans, serif",
     fontWeight: "400",
