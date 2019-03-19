@@ -1,6 +1,6 @@
 import connect from "react-redux/es/connect/connect";
 import App from '../App';
-import {bindApp, bindIncomeData, bindCompensation, bindKomDoh, bindDataFactDohod, bindBlocks, bindDrivers, bindActiveBlock, bindPreloader, bindDin, bindValues, bindDriversData, bindGroup, closeCollapses} from "../actions";
+import {bindApp, bindIncomeData, bindCompensation, bindKomDoh, bindDataFactDohod, bindBlocks, bindDrivers, bindActiveBlock, bindPreloader, bindDin, bindValues, bindDriversData, bindGroup, closeCollapses, bindInfoId} from "../actions";
 
 function mapStateToProps (payload) {
   return {
@@ -16,8 +16,9 @@ function mapStateToProps (payload) {
     storeValues: payload.handleValues,
     storeDriversData: payload.handleDriversData,
     storeDin: payload.handleDin,
-    storeCloseCollapses: payload.handleCloseCollapses
+    storeCloseCollapses: payload.handleCloseCollapses,
+    storeInfoId: payload.handleInfoId
   }
 }
 
-export default connect(mapStateToProps, {bindApp, bindIncomeData, bindCompensation, bindKomDoh, bindDataFactDohod, bindBlocks, bindDrivers, bindActiveBlock, bindPreloader, bindDin, bindValues, bindDriversData,bindGroup, closeCollapses})(App);
+export default connect(mapStateToProps, {bindApp, bindIncomeData, bindCompensation, bindKomDoh, bindDataFactDohod, bindBlocks, bindDrivers, bindActiveBlock, bindPreloader, bindDin, bindValues, bindDriversData,bindGroup, closeCollapses, bindInfoId})(App);

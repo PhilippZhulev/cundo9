@@ -68,7 +68,8 @@ class ProgressChart extends Component {
     if (res > 100) {
       res = 100
     }
-    return res + "%"
+    //return res + "%"
+    return 100*res/100
   };
 
   chartCalcTranslate = (item) => {
@@ -97,9 +98,9 @@ class ProgressChart extends Component {
 
   renderElement = (classes) => {//
     const colors = ["#5BBFAC","#F5CC97","#EC9DA1","#6EA7FF","#A6D376"];
-    const max = this.findMax(this.props.items);
+    //const max = this.findMax(this.props.items);
     return this.props.items.map((item, i) => {
-      const val = (max === 0) ? 0 : Number(item.value) / max * 100;
+      const val = (this.props.trueMain === 0) ? 0 : Number(item.value) / this.props.trueMain * 100;
       return (
         <div key={i} className={classes.item} onMouseOver={() => this.offHover(i)} onMouseLeave={() => this.onHover(i)} >
           <div className={classes.title} style={(this.state[`hover${i}`]) ? {color: (item.level !== "") ? colors[Number(item.level)] :  colors[0]} : {}}>{indent(item.title, item.level)}</div>
@@ -133,7 +134,8 @@ class ProgressChart extends Component {
   render() {
     const props = this.props,
       {classes} = props;
-    //console.log(props);
+    console.log("Analitic Chart Props!");
+    console.log(props);
 
     return (
       <div className={classes.root}>

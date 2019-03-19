@@ -17,15 +17,18 @@ class ProgressChart extends Component {
 
     chartCalc = (item) => {
         // console.log(item.value);
-        // console.log(this.props.trueMain);
         //alert("Вопрос про базовое значение в графике");
-        const result = Math.abs(Number(item.value) / this.props.mainValue * 100); //<--- Здесь какое базовое значение? почему бралось this.props.mainValue?
-        if (Number(item.value) < 0){
-            return result > 30 ? 30 : result
+        if(this.props.trueMain === 0){
+            return 0
         }
-        else{
-            return result > 100 ? "100%" : result+"%"
-        }
+        let result = Math.abs(Number(item.value) / this.props.trueMain * 100); //<--- Здесь какое базовое значение? почему бралось this.props.mainValue?
+        // if (Number(item.value) < 0){
+        //     return result > 30 ? 30 : result
+        // }
+        // else{
+        //     return result > 100 ? "100%" : result+"%"
+        // }
+        return result > 100 ? "50" : result/2
     };
 
   renderElement = (classes) => {
@@ -43,7 +46,8 @@ class ProgressChart extends Component {
               style={{
                 background: item.color,
                 width: this.chartCalc(item),
-                transform: item.value < 0 ? `translateX(-${this.chartCalc(item)}px)` : "",
+                //transform: item.value < 0 ? `translateX(-${this.chartCalc(item)}px)` : "",
+                  transform: item.value < 0 ? `translateX(-${this.chartCalc(item)}px)` : "",
               }}
             />
 

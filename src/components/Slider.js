@@ -11,20 +11,27 @@ class StepSlider extends Component {
     super(props);
     //console.log(this.props.storeBlocks.gv_drivers_loaded);
     this.thumb = React.createRef();
-    if(this.props.storeBlocks.gv_drivers_loaded === "0"){
+    // console.log(this.props);
+    // console.log(this.props.settings.baseValue);
+    // console.log(this.props.storeDriversData[this.props.settings.id] === null);
+    // console.log(this.props.storeBlocks.gv_drivers_loaded);
+    if(this.props.storeBlocks.gv_drivers_loaded === "0" && this.props.storeDriversData[this.props.settings.id] === null){
       this.props.bindDriversData({[this.props.settings.id] : null, ["isFake"+this.props.settings.id] : true});
     }
-    if((this.props.storeDriversData[this.props.settings.id] === null || isNaN(parseFloat(this.props.m_prirost)) || this.props.storeDriversData["isFake"+this.props.settings.id])&&(this.props.storeBlocks.gv_drivers_loaded === "1")) {
+    if((this.props.storeDriversData[this.props.settings.id] === null || isNaN(parseFloat(this.props.m_prirost)) || this.props.storeDriversData["isFake"+this.props.settings.id])&&(this.props.storeBlocks.gv_drivers_loaded === "1" || this.props.storeBlocks.gv_drivers_loaded === 1)) {
       //console.log("drivers assign");
-      this.props.bindDriversData({[this.props.settings.id] :  isNaN(parseFloat(this.props.m_prirost)) ? 0 : parseFloat(this.props.m_prirost), ["isFake"+this.props.settings.id]: isNaN(parseFloat(this.props.m_prirost))});
+      console.log(parseFloat(this.props.m_prirost));
+      this.props.bindDriversData({[this.props.settings.id] :  isNaN(parseFloat(this.props.m_prirost)) ? 0 : parseFloat(this.props.m_prirost).toFixed(this.props.digits), ["isFake"+this.props.settings.id]: isNaN(parseFloat(this.props.m_prirost))});
     }
   }
 
   state = {
     //value: this.props.storeDriversData[this.props.settings.id],
-    value: this.props.settings.baseValue.toFixed(2),
+    //value: this.props.settings.baseValue.toFixed(this.props.digits),
+    value: this.props.storeDriversData[this.props.settings.id],
     //currInput: String(this.props.storeDriversData[this.props.settings.id]),
-    currInput: String(this.props.settings.baseValue.toFixed(2).replace(".",",")),
+    //currInput: String(this.props.settings.baseValue.toFixed(this.props.digits).replace(".",",")),
+    currInput: String(this.props.storeDriversData[this.props.settings.id]).replace(".",","),
     prev: null,
     thumb: 0,
     offset: "",
@@ -46,8 +53,8 @@ class StepSlider extends Component {
   /*Функция изменения состояния ползунка и записи измененного массива драйверов в store*/
   handleChange = (event, value) => {
     this.setState({
-      value : Number(value).toFixed(2),
-      currInput: String(Number(value).toFixed(2).replace(".",","))
+      value : Number(value).toFixed(this.props.digits),
+      currInput: String(Number(value).toFixed(this.props.digits).replace(".",","))
     }, () => {
       this.setState({offset: this.thumb.current.parentNode.parentNode.style.transform});
     });
@@ -70,15 +77,17 @@ class StepSlider extends Component {
     // }else if (event.target.value <= this.props.settings.min){
     //   this.setState({value: this.props.settings.min}, offset);
     // }
-    console.log(`value: ${event.target.value}; event.target.value.search(/[^0-9]*/): ${event.target.value.search(/[^0-9]*/)}; search("-"): ${event.target.value.search("-")}, state_value: ${this.state.value}`);
-    //if(event.target.value.search(/[^-,.0-9]/) === -1 && event.target.value.search("-") <= 0 && event.target.value !== "-"){
-    if(event.target.value.match(/-{0,1}\d+[,.]{0,1}\d*/) !== null && event.target.value.match(/-{0,1}\d+[,.]{0,1}\d*/)[0].length === event.target.value.length){
-      this.setState({value: Number(event.target.value.replace(",", "."))}, offset);
-      // if(event.target.value !== "") {
-      //   event.target.value = Number(event.target.value);
-      // }
+    //console.log(`value: ${event.target.value}; event.target.value.search(/[^0-9]*/): ${event.target.value.search(/[^0-9]*/)}; search("-"): ${event.target.value.search("-")}, state_value: ${this.state.value}`);
+    //if(event.target.value.search(/[^-,.0-9]/) === -1 && event.target.value.search("-") <= 0 && event.target.value !== "-") {
+    if(event.target.value.search(/[^-,.0-9]/) === -1) {
+      if (event.target.value.match(/-{0,1}\d+[,.]{0,1}\d*/) !== null && event.target.value.match(/-{0,1}\d+[,.]{0,1}\d*/)[0].length === event.target.value.length) {
+        this.setState({value: Number(event.target.value.replace(",", "."))}, offset);
+        // if(event.target.value !== "") {
+        //   event.target.value = Number(event.target.value);
+        // }
+      }
+      this.setState({currInput: event.target.value.replace(".", ",")})
     }
-    this.setState({currInput: event.target.value.replace(".", ",")})
   };
 
   dragStart = () => {
@@ -101,7 +110,7 @@ class StepSlider extends Component {
   };
 
   dragEnd = (value) => {
-    this.lumiraEvent(value)
+    this.lumiraEvent(Number(value.replace(",", ".")))
   };
 
   bindEnter = (e, key, value) => {
@@ -111,6 +120,7 @@ class StepSlider extends Component {
   };
 
   render() {
+    //console.log(this.state.value);
     const props = this.props,
       baseClasses = props.classes,
       { value, currInput } = this.state;
@@ -348,7 +358,7 @@ const styles = theme => ({
     color: "#8797C0",
     marginBottom: 16,
     position: "relative",
-    marginTop: -28,
+    marginTop: -14,
     paddingBottom: 15,
     fontSize: 16,
     "& > span:first-child": {
@@ -371,7 +381,7 @@ const styles = theme => ({
     width: 12,
     height: 12,
     left: -2,
-    top: -15,
+    top: -28,
     borderRadius: "50%",
     position: 'absolute'
   },
@@ -383,8 +393,10 @@ const styles = theme => ({
   },
   defaultValue: {
     position: "absolute",
-    top: -7,
-    left: -7.5
+    top: -17,
+    left: -46.5,
+    width: 100,
+    textAlign: "center"
   },
   thumbWrapper: {
     zIndex: 99

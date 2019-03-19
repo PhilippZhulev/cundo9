@@ -14,9 +14,13 @@ class Collapse extends Component {
 
   handleCollapse = (name) => {
     this.setState({ [name]: !this.state[name] });
-    this.props.closeCollapses({[this.props.name]: true});
+    if(name === "collapseElement000"){
+      this.props.closeCollapses({[this.props.name]: !this.props.storeCloseCollapses[this.props.name]});
+    }
+    //this.props.closeCollapses({[this.props.name]: true});
     console.log(this.state);
     console.log(name);
+    console.log([this.props.name]);
   };
 
   handleCloseCollapses = (nextProps) => {

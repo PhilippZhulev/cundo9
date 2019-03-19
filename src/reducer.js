@@ -89,6 +89,10 @@ const driversData = {
   vesCOM06: 0,
   vesCOM04: 0,
   vesCMP01: 0,
+  currInputCOM05: "0",
+  currInputCOM06: "0",
+  currInputCOM04: "0",
+  currInputCMP01: "0",
 };
 
 const preloader = {
@@ -102,7 +106,13 @@ const ActiveBlock = {
 
 const values = {
   value1: "",
-  value2: ""
+  value2: "",
+  currInput1 : "",
+  currInput2 : ""
+};
+
+const infoId = {
+  infoId : "filtr_panel"
 };
 
 export const handleCloseCollapses = handleActions({
@@ -206,6 +216,12 @@ export const handleValues = handleActions({
     return  { ...state, ...payload }
   }
 }, values);
+
+export const handleInfoId = handleActions({
+  [actions.bindInfoId](state, { payload }) {
+    return  { ...state, ...payload }
+  }
+}, infoId);
 
 
 

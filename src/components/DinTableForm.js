@@ -161,8 +161,8 @@ class DinTableForm extends Component {
               </div>
               {
                 props.storeAnaliticChart.tableDinTrigger  === false
-                  ? this.getTable(props.items.m, classes)
-                  : this.getTable(props.items.p, classes)
+                  ? this.getTable(props.items.p, classes)
+                  : this.getTable(props.items.m, classes)
               }
             </div>
           </ReactIScroll>

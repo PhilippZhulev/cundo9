@@ -24,7 +24,7 @@ class ProgressChartsForm extends Component {
               max = Math.abs(item.value);
           }
       });
-      return max
+      return (max > 0) ? max : 0
 
   };
 

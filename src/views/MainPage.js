@@ -160,12 +160,12 @@ class MainPage extends Component {
               bind={this.props.bindkomDohTabs}
               bindName={"analiticDefault"}
               tabs={[
-                item.chartSd !== null ? <TabsButton text={"Совокупный доход"} /> : null,
+                //item.chartSd !== null ? <TabsButton text={"Совокупный доход"} /> : null,
                 item.chartKd !== null ? <TabsButton text={"Комиссионный доход"} /> : null,
                 item.chartComp !== null ? <TabsButton text={"Компенсация"} /> : null
               ].filter(item => item !== null)}
               content={[
-                item.chartSd !== null ? <AnaliticChartsForm id={1} items={item.chartSd} /> : null,
+                //item.chartSd !== null ? <AnaliticChartsForm id={1} items={item.chartSd} /> : null,
                 item.chartKd !== null ? <AnaliticChartsForm id={2} items={item.chartKd} /> : null,
                 item.chartComp !== null ? <AnaliticChartsForm id={3} items={item.chartComp} /> : null
               ].filter(item => item !== null)}

@@ -153,31 +153,6 @@ class DinChartsForm extends Component {
               </div>
             <div className={classes.ItemsLine1}>
               <span className={classes.row0}><span className={classes.bullet} style={{background: "#3498DB"}} /></span>
-              <span className={classes.row1}>{thousandsSeparator(String(dinamic[0].m), 2)}</span>
-              {/*<span className = {classes.separator} />*/}
-              <span className={classes.row2}>{thousandsSeparator(String(dinamic[1].m), 2)}</span>
-              <div className={classes.row3}>
-                <span>{thousandsSeparator(dinamic[1].prirost_m,1)}
-                </span>
-                  {this.arrowController(classes, dinamic[1].arrow_m)}
-              </div>
-              {/*<span className = {classes.separator} />*/}
-              <span className={classes.row4}>{thousandsSeparator(String(dinamic[2].m),2)}</span>
-              <div className={classes.row5}>
-                <span>{thousandsSeparator(dinamic[2].prirost_m,1)}
-                </span>
-                  {this.arrowController(classes, dinamic[2].arrow_m)}
-              </div>
-              {/*<span className = {classes.separator} />*/}
-              <span className={classes.row4}>{thousandsSeparator(String(dinamic[3].m),2)}</span>
-              <div className={classes.row5}>
-                <span className={classes.lastRow}>{thousandsSeparator(dinamic[3].prirost_m,1)}
-                </span>
-                  {this.arrowController(classes, dinamic[3].arrow_m)}
-              </div>
-            </div>
-            <div className={classes.ItemsLine1}>
-              <span className={classes.row0}><span className={classes.bullet} style={{background: "rgb(235, 87, 99)"}} /></span>
               <span className={classes.row1}>{thousandsSeparator(String(dinamic[0].p),2)}</span>
               {/*<span className = {classes.separator} />*/}
               <span className={classes.row2}>{thousandsSeparator(String(dinamic[1].p),2)}</span>
@@ -199,6 +174,31 @@ class DinChartsForm extends Component {
                 <span className={classes.lastRow}>{thousandsSeparator(dinamic[3].prirost_p,1)}
                 </span>
                 {this.arrowController(classes, dinamic[3].arrow_m)}
+              </div>
+            </div>
+            <div className={classes.ItemsLine1}>
+              <span className={classes.row0}><span className={classes.bullet} style={{background: "rgb(235, 87, 99)"}} /></span>
+              <span className={classes.row1}>{thousandsSeparator(String(dinamic[0].m), 2)}</span>
+              {/*<span className = {classes.separator} />*/}
+              <span className={classes.row2}>{thousandsSeparator(String(dinamic[1].m), 2)}</span>
+              <div className={classes.row3}>
+                <span>{thousandsSeparator(dinamic[1].prirost_m,1)}
+                </span>
+                  {this.arrowController(classes, dinamic[1].arrow_m)}
+              </div>
+              {/*<span className = {classes.separator} />*/}
+              <span className={classes.row4}>{thousandsSeparator(String(dinamic[2].m),2)}</span>
+              <div className={classes.row5}>
+                <span>{thousandsSeparator(dinamic[2].prirost_m,1)}
+                </span>
+                  {this.arrowController(classes, dinamic[2].arrow_m)}
+              </div>
+              {/*<span className = {classes.separator} />*/}
+              <span className={classes.row4}>{thousandsSeparator(String(dinamic[3].m),2)}</span>
+              <div className={classes.row5}>
+                <span className={classes.lastRow}>{thousandsSeparator(dinamic[3].prirost_m,1)}
+                </span>
+                  {this.arrowController(classes, dinamic[3].arrow_m)}
               </div>
             </div>
           </div>

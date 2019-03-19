@@ -27,6 +27,17 @@ class AnaliticChartsForm extends Component {
     this.setState({ anchorEl: null });
   };
 
+  trueMain = items => {
+    let max = -1;
+    items.forEach((item) => {
+      if(Math.abs(item.value) > max){
+        max = Math.abs(item.value);
+      }
+    });
+    return (max > 0) ? max : 0
+
+  };
+
 
   render() {
     const props = this.props,
@@ -101,8 +112,8 @@ class AnaliticChartsForm extends Component {
             <div className={classes.chartItem}>
               {
                 props.storeAnaliticChart.trigger === false
-                  ? <AnaliticChart mainValue={props.items.mainValue} secondaryValue={props.items.secondaryValue} items={props.items.m}/>
-                  : <AnaliticChart mainValue={props.items.mainValue} secondaryValue={props.items.secondaryValue} items={props.items.p}/>
+                  ? <AnaliticChart mainValue={props.items.mainValue} secondaryValue={props.items.secondaryValue} items={props.items.p} trueMain={this.trueMain(props.items.p)}/>
+                  : <AnaliticChart mainValue={props.items.mainValue} secondaryValue={props.items.secondaryValue} items={props.items.m} trueMain={this.trueMain(props.items.m)}/>
               }
             </div>
           </ReactIScroll>

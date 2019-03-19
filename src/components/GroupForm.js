@@ -7,10 +7,10 @@ import {LumiraRequest} from "../halpers/LumiraRequest";
 class GroupForm extends Component {
 
   state = {
-    value1: "",
-    value2: "",
-    currInput1: "",
-    currInput2: ""
+    value1: this.props.storeValues.value1,
+    value2: this.props.storeValues.value2,
+    currInput1: this.props.storeValues.currInput1,
+    currInput2: this.props.storeValues.currInput2
   };
 
   keyUpInput = (e, target) => {
@@ -44,63 +44,82 @@ class GroupForm extends Component {
     });
   };
 
-  handleInput1 = (event) => {
+  handleInput1 = (event, target) => {
     if(event.target.value.match(/\d+[,.]{0,1}\d*/) !== null && event.target.value.match(/\d+[,.]{0,1}\d*/)[0].length === event.target.value.length) {
+      console.log("case 1");
       this.setState({currInput1: event.target.value.replace(".", ","), value1: event.target.value.replace(",", ".")}, () => {
-        this.props.bindValues({value1: this.state.value1})
+        this.props.bindValues({value1: this.state.value1, currInput1: this.state.currInput1})
       })
     }
-    if(event.target.value === ""){
+    else if(event.target.value === ""){
+      console.log("case 2");
       this.setState({currInput1: "", value1: ""}, () => {
-        this.props.bindValues({value1: this.state.value1})
+        this.props.bindValues({value1: this.state.value1, currInput1: this.state.currInput1})
       })
     }
+    else{
+      console.log("case 3");
+      event.target.value = "";
+    }
+    console.log(`${event.target.value}; ${this.state.currInput1}; ${this.state.value1}`);
+    console.log(target);
+    // if(event.target.value.length > 0) {
+    //   this.props.bindGroup({[target]: true});
+    // }else {
+    //   this.props.bindGroup({[target]: false});
+    // }
+
   };
 
-  handleInput2 = (event) => {
+  handleInput2 = (event, target) => {
     if(event.target.value.match(/\d+[,.]{0,1}\d*/) !== null && event.target.value.match(/\d+[,.]{0,1}\d*/)[0].length === event.target.value.length) {
       this.setState({currInput2: event.target.value.replace(".", ","), value2: event.target.value.replace(",", ".")}, () => {
-        this.props.bindValues({value2: this.state.value2})
+        this.props.bindValues({value2: this.state.value2, currInput2: this.state.currInput2})
       })
     }
     if(event.target.value === ""){
       this.setState({currInput2: "", value2: ""}, () => {
-        this.props.bindValues({value2: this.state.value2})
+        this.props.bindValues({value2: this.state.value2, currInput2: this.state.currInput2})
       })
     }
+    else{
+      console.log("case 3");
+      event.target.value = "";
+    }
+    console.log(`${event.target.value}; ${this.state.currInput2}; ${this.state.value2}`);
+    console.log(target);
+    // if(event.target.value.length > 0) {
+    //   this.props.bindGroup({[target]: true});
+    // }else {
+    //   this.props.bindGroup({[target]: false});
+    // }
   };
 
   render() {
     const props = this.props,
           classes = props.classes;
 
-    console.log(this.state);
-
     return(
       <div className={classes.root}>
         <div className={classes.inputWrapperFirst}>
           <Input
-            onChange={(e) => {if(Number(e.target.value) > 100){e.target.value = "100";}
-              this.setState({value1 : e.target.value}); this.props.bindValues({value1 : e.target.value})
-            }
-            }
+            onChange={(e) => this.handleInput1(e, "inputKomp")}
             onKeyUp={(e) => this.keyUpInput(e, "inputKomp")}
-            disabled={this.props.storeGroup.inputKd}
+            //disabled={this.props.storeGroup.inputKd}
+            disabled={this.props.storeValues.currInput2.length > 0}
             label={"КД"}
-            type={"number"}
-            value={this.props.storeValues.value1}/>
+            type={"text"}
+            value={this.state.currInput1}/>
         </div>
         <div className={classes.inputWrapperLast}>
             <Input
-              onChange={(e) => {
-                this.setState({value2 : e.target.value});
-                this.props.bindValues({value2 : e.target.value});
-              }}
+              onChange={(e) => this.handleInput2(e, "inputKd")}
               onKeyUp={(e) => this.keyUpInput(e, "inputKd")}
-              disabled={this.props.storeGroup.inputKomp}
+              //disabled={this.props.storeGroup.inputKomp}
+              disabled={this.props.storeValues.currInput1.length > 0}
               label={"Компенсация"}
-              type={"number"}
-              value={this.props.storeValues.value2}/>
+              type={"text"}
+              value={this.state.currInput2}/>
         </div>
         {/*<div className={classes.btnWrapper}>*/}
           {/*<Button onClick={this.handleFilters} text={"Рассчитать"} classes={{root: classes.btn, wrapper: classes.wrapper}} />*/}

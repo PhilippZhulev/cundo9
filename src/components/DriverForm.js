@@ -9,8 +9,8 @@ import {thousandsSeparator} from "../halpers/formHalper";
 class DriverForm extends Component {
 
   state = {
-    ves: "0",
-    currInput: "0"
+    ves: this.props.storeDriversData[`ves${this.props.settings.id}`],
+    currInput: this.props.storeDriversData[`currInput${this.props.settings.id}`]
   };
 
   // valueLimit = (string, limit) => {
@@ -70,13 +70,21 @@ class DriverForm extends Component {
   // };
 
   handleBinding = (value) => {
+    // console.log(this.props.storeGroup);
+    // console.log(value);
     if(typeof value === "string") {
-      return this.props.storeGroup[value]
+      const groupInput = (value === "inputKd") ? this.props.storeValues.currInput2 : this.props.storeValues.currInput1;
+      return (groupInput.length > 0)//this.props.storeGroup[value]
     }else {
       const result = [];
       value.forEach((item) => {
-        if(this.props.storeGroup[item] === true) {
-          result.push(this.props.storeGroup[item])
+        const groupInput = (item === "inputKd") ? this.props.storeValues.currInput2 : this.props.storeValues.currInput1;
+        //if(this.props.storeGroup[item] === true) {
+        // if(this.props.storeGroup[item] === true) {
+        //   result.push(this.props.storeGroup[item])
+        // }
+        if(groupInput.length > 0) {
+          result.push(groupInput.length > 0)
         }
       });
 
@@ -95,8 +103,10 @@ class DriverForm extends Component {
       ves = Number(v.value1 !== "") * this.props.values.vesKd + Number(v.value2 !== "") * this.props.values.vesKomp;
       //console.log(Number(v.value1 !== "") * this.props.values.vesKd + Number(v.value2 !== "") * this.props.values.vesKomp);
     }
-    this.setState({ves: ves, currInput: String(ves).replace(".", ",")});
-    this.props.bindDriversData({[`ves${this.props.settings.id}`]: ves});
+    this.setState({ves: ves, currInput: String(ves).replace(".", ",")},
+        ()=>{
+          this.props.bindDriversData({[`ves${this.props.settings.id}`]: ves, [`currInput${this.props.settings.id}`]: String(ves).replace(".", ",")});
+        });
   };
 
   arrowController = (param) => {
@@ -110,21 +120,24 @@ class DriverForm extends Component {
   };
 
   handleVes = (event) => {
-    console.log(`${event.target.value}; ${this.state.currInput}`)
+    //console.log(`${event.target.value}; ${this.state.currInput}`);
     if(this.state.currInput === "0" && event.target.value[0] === "0"){
       event.target.value = event.target.value.substring(1);
     }
     if(event.target.value.match(/\d+[,.]{0,1}\d*/) !== null && event.target.value.match(/\d+[,.]{0,1}\d*/)[0].length === event.target.value.length) {
+      if(Number(event.target.value.replace(",", ".")) > 100){
+        event.target.value = "100";
+      }
       this.setState({currInput: event.target.value.replace(".", ","), ves: Number(event.target.value.replace(",", "."))}, () => {
-        this.props.bindDriversData({[`ves${this.props.settings.id}`]: this.state.ves})
+        this.props.bindDriversData({[`ves${this.props.settings.id}`]: this.state.ves, [`currInput${this.props.settings.id}`]: this.state.currInput})
       })
     }
     if(event.target.value === ""){
       this.setState({currInput: "0", ves: 0}, () => {
-        this.props.bindDriversData({[`ves${this.props.settings.id}`]: this.state.ves})
+        this.props.bindDriversData({[`ves${this.props.settings.id}`]: this.state.ves, [`currInput${this.props.settings.id}`]: this.state.currInput})
       })
     }
-    console.log(`ves: ${event.target.value}, id: ${this.props.settings.id}, callback value: ${this.state.ves}`);
+    //console.log(`ves: ${event.target.value}, id: ${this.props.settings.id}, callback value: ${this.state.ves}`);
   };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -134,6 +147,17 @@ class DriverForm extends Component {
     }
   }
 
+  getPrec = () => {
+    //console.log(this.props);
+    const digits = String(this.props.settings.step).split(/[,.]/);
+    if(digits.length === 1){
+      return 0
+    }
+    else{
+      return digits[1].length
+    }
+  };
+
   render() {
     const props = this.props,
       {classes} = props;
@@ -141,10 +165,10 @@ class DriverForm extends Component {
     const flag = (props.settings.id === "COM05" || props.settings.id === "COM06");
 
     const info = props.values.info;
-    console.log(props);
-    console.log(this.state);
-
-
+    //console.log(props);
+    //console.log(this.state);
+    //console.log("STORE VALUES");
+    //console.log(this.props.storeValues);
 
     return (
       <div  className={classes.root}>
@@ -224,12 +248,12 @@ class DriverForm extends Component {
         <div className={classes.SlderWrapper}>
           {
             typeof props.values.baseLarge === "object"
-              ? <StepSlider settings={props.settings} b_prirost={props.values.b_prirost[0]} m_prirost={props.values.m_prirost[0]} flag={props.flag}/>
-              : <StepSlider settings={props.settings} b_prirost={props.values.b_prirost} m_prirost={props.values.m_prirost} flag={props.flag}/>
+              ? <StepSlider settings={props.settings} b_prirost={props.values.b_prirost[0]} m_prirost={props.values.m_prirost[0]} flag={props.flag} digits={this.getPrec()} />
+              : <StepSlider settings={props.settings} b_prirost={props.values.b_prirost} m_prirost={props.values.m_prirost} flag={props.flag} digits={this.getPrec()}/>
           }
         </div>
         <div className={classes.bottomInput}>
-          <Input label={""} type={"text"} classes={{input: classes.input}} onKeyUp={(e) => console.log(e)} onChange={this.handleVes} value={this.state.currInput} disabled={this.props.storeValues.value1 === "" && this.props.storeValues.value2 === ""}/>
+          <Input label={""} type={"text"} classes={{input: classes.input}} onKeyUp={(e) => console.log(e)} onChange={this.handleVes} value={this.state.currInput} disabled={this.props.storeValues.currInput1 === "" && this.props.storeValues.currInput2 === ""}/>
           <span className={classes.label}>Вес влияния драйвера (расчёт от КПЭ), %</span>
         </div>
       </div>

@@ -25,7 +25,8 @@ import SnackbarContentWrapper from "./components/Snackbar";
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import ArrowBottom from '@material-ui/icons/ExpandMore'
+import ArrowBottom from '@material-ui/icons/ExpandMore';
+import InfoButton from "./containers/InfoButton";
 
 class App extends Component {//
     constructor(props) {
@@ -44,7 +45,9 @@ class App extends Component {//
           channel: undefined,
             menu: true,
           open: false,
-          sum: 0
+          sum: 0,
+          info: false,
+          spaceHover: false
         };
 
         //Отключить дотошный скролл на ipad
@@ -178,7 +181,7 @@ class App extends Component {//
       const drivers = ["COM04","COM05","COM06"];
       const weights = this.props.storeDriversData;
       const cur_weight = drivers.reduce((sum, currVal) => sum + Number(weights["ves"+currVal]),0);
-      if(cur_weight !== 100){
+      if(Math.abs(cur_weight - 100) >= 0.0001){
         this.setState({open: true, sum: cur_weight});
         return
       }
@@ -187,7 +190,7 @@ class App extends Component {//
       const drivers = ["COM04","CMP01"];
       const weights = this.props.storeDriversData;
       const cur_weight = drivers.reduce((sum, currVal) => sum + Number(weights["ves"+currVal]),0);
-      if(cur_weight !== 100){
+      if(Math.abs(cur_weight - 100) >= 0.0001){
         this.setState({open: true, sum: cur_weight});
         return
       }
@@ -210,20 +213,20 @@ class App extends Component {//
     });
 
 
-    this.props.bindDriversData({
-      COM05: null,
-      COM06: null,
-      COM04: null,
-      CMP01: null,
-    });
-    this.props.bindValues({
-      value1: "",
-      value2: ""
-    });
-    this.props.bindGroup({
-      inputKd: false,
-      inputKomp: false
-    });
+    // this.props.bindDriversData({
+    //   COM05: null,
+    //   COM06: null,
+    //   COM04: null,
+    //   CMP01: null,
+    // });
+    // this.props.bindValues({
+    //   value1: "",
+    //   value2: ""
+    // });
+    // this.props.bindGroup({
+    //   inputKd: false,
+    //   inputKomp: false
+    // });
   };
 
   triggerSnackbar = () => {
@@ -243,6 +246,9 @@ class App extends Component {//
     }
     return flag
 };
+  handleInfo = () => {
+    this.setState({info: !this.state.info});
+  };
 
     render() {
       console.log(this.state);
@@ -252,6 +258,118 @@ class App extends Component {//
       console.log(props);
       console.log("LumiraData:");
       console.log(window.bobrData);
+      // let path = "";
+      // if(typeof window.bobrPath !== "undefined"){
+      //   path = window.bobrPath+"/img/"+this.props.storeInfoId.infoId+".png";
+      // }
+      // else{
+      //   path = "../public/img/"+this.props.storeInfoId.infoId+".png";
+      // }
+      const path = (typeof window.bobrPath !== "undefined") ? (window.bobrPath+"/img/"+this.props.storeInfoId.infoId+".png") : ("/img/"+this.props.storeInfoId.infoId+".png");
+
+      // console.log(typeof path);
+      // console.log(typeof ("../public/img/"+this.props.storeInfoId.infoId+".png"));
+      //
+      //const img = require(("../public/img/"+this.props.storeInfoId.infoId+".png"));
+
+      console.log(require(("../public/img/"+this.props.storeInfoId.infoId+".png")));
+
+      const data = {
+        filtr_panel:{
+          title:"Панель фильтрации",
+          text:"По выбранным фильтрам отображается вся информация в WEB-интерфейсе планирования, кроме динамики доходов. Динамика доходов всегда отображается одинаково."},
+        hide_filters:{
+          title:"Скрыть все фильтры",
+          text:"Сворачивает все иерархии фильтрации."
+        },
+        target_kpe:{
+          title:"Целевой КПЭ",
+          text: "Указание целевого КПЭ, который необходимо достичь. Система рассчитает необходимые значения приростов драйверов для достижения целевого КПЭ. Вводится отдельно для комиссионного дохода и компенсации. При вводе подсвечивает драйверы, влияющие на вводимый КПЭ и их предрассчитанные веса влияния (%). При необходимости веса влияния можно ввести вручную. Сумма весов влияния драйверов должна быть равна 100%."
+        },
+        income:{
+          title:"Доход",
+          text:"Отображает совокупный доход (Комиссионный доход и Компенсацию) в разрезе бизнес-блоков по кассово-инкассаторскому обслуживанию сторонних объектов, в соответствии с заданной фильтрацией."
+        },
+        komm_income:{
+          title:"Комисионный доход",
+          text:"Отображает комиссионный доход по конкретному бизнес-блоку в разрезе аналитик в соответствии с заданной фильтрацией."
+        },
+        compensation:{
+          title:"Компенсация",
+          text:"Отображает компенсацию за кассово-инкассаторское обслуживание сторонних объектов по нерыночным тарифам в соответствии с заданной фильтрацией."
+        },
+        fact_an:{
+          title:"Факторный анализ",
+          text:"Отображает изменение доходов от базового уровня за счет изменения показателей разного уровня. Для каждого уровня показателей применяется своя расцветка."
+        },
+        start:{
+          title:"Запустить расчёт",
+          text:"Запуск расчета по заданным моделируемым значениям драйверов и/или значений целевого КПЭ. Занимает около 10 минут. После завершения расчета отобразятся значения финансового результата в соответствии с заданными значениями драйверов и/или значений целевого КПЭ."
+        },
+        save:{
+          title:"Сохранить",
+          text:"Сохранить моделируемый вариант в системе. При сохранении моделируемого варианта он будет перезаписан, включая значения драйверов, их приросты и финансовые показатели."
+        },
+        last_saved:{
+          title:"К последнему сохранению",
+          text:"Вернуться к последнему сохраненному варианту моделируемого варианта расчета. Будут отображены сохраненные значения приростов драйверов и финансовых показателей."
+        },
+        plan_var:{
+          title:"Плановый вариант",
+          text:"Вернуться к плановому варианту расчета. Моделируемый вариант расчета будет равен плановому – значения приростов драйверов и финансовых показателей."
+        },
+      };
+
+      let infoDisplay = [<div key={0} className={classes.infoScreenWrapper} onClick={()=>{this.handleInfo()}} />,
+        <div className={classes.infoScreenMenu} key={1} onMouseEnter={()=>{this.setState({spaceHover: false}); console.log("ENTER")}} onMouseLeave={()=>{this.setState({spaceHover: true})}}>
+          <div className={classes.infoScreenMenuWrapper}>
+            <div className={classes.crossWrapperWrapper}>
+              <div className = {classes.crossWrapper} onClick={()=>{this.handleInfo()}} >
+                <div style={(this.state.spaceHover) ? {background: "white"} : {}}/>
+                <div style={(this.state.spaceHover) ? {background: "white"} : {}}/>
+              </div>
+            </div>
+          <div className={classes.infoMenuTitle}>
+            {"Руководство пользователя"}
+          </div>
+            <div className={classes.hline} style={{marginTop: 15}}/>
+            <div className={classes.infoMenuButtonColumnsWrapper}>
+              <div className={classes.infoMenuButtonColumn}>
+                <InfoButton id={"filtr_panel"} data={data} />
+                <InfoButton id={"hide_filters"} data={data} />
+              </div>
+              <div className={classes.infoMenuButtonColumn}>
+                <InfoButton id={"target_kpe"} data={data} />
+              </div>
+              <div className={classes.infoMenuButtonColumn}>
+                <InfoButton id={"income"} data={data} />
+                <InfoButton id={"komm_income"} data={data} />
+                <InfoButton id={"compensation"} data={data} />
+              </div>
+              <div className={classes.infoMenuButtonColumn}>
+                <InfoButton id={"fact_an"} data={data} />
+              </div>
+              <div className={classes.infoMenuButtonColumn}>
+                <InfoButton id={"start"} data={data} />
+                <InfoButton id={"save"} data={data} />
+                <InfoButton id={"last_saved"} data={data} />
+                <InfoButton id={"plan_var"} data={data} />
+              </div>
+            </div>
+            <div className={classes.hline} />
+            <div className={classes.infoMenuDataWrapper}>
+              <div className={classes.infoMenuImgBorder}>
+                <div className={classes.infoMenuImgWrapper}>
+                  <img src={path} style={{display: "block"}}/>
+                </div>
+              </div>
+              <div className={classes.infoMenuDataTextWrapper}>
+                <div className={classes.infoMenuDataTitle}>{data[this.props.storeInfoId.infoId].title}</div>
+                <div className={classes.infoMenuDataText}>{data[this.props.storeInfoId.infoId].text}</div>
+              </div>
+            </div>
+          </div>
+          </div>];
 
       let updateScroll = this.state.updateScroll;
 
@@ -264,6 +382,7 @@ class App extends Component {//
               <div className={classes.longLoadTime}>{`Это может занять примерно 10 мин.`}</div>
             </div>
           </div>
+          {(this.state.info) ? infoDisplay : null}
           <Snackbar
               key={0}
               anchorOrigin={{
@@ -271,14 +390,14 @@ class App extends Component {//
                 horizontal: 'left',
               }}
               open={this.state.open}
-              autoHideDuration={4000}
+              autoHideDuration={5000}
               onClose={this.triggerSnackbar}
               //classes={{ root: classes.snackbarRoot}}
               ContentProps={{
                 'aria-describedby': 'message-id',
                 className: classes.snackbarRoot,
               }}
-              message={<span id="message-id">{`Некорректно введены веса, сумма не равна 100%. Текущая сумма: ${this.state.sum}%`}</span>}
+              message={<span id="message-id">{`Расчет целевого КПЭ невозможен. Сумма весов влияния драйверов не равна 100%.     Текущая сумма: ${this.state.sum}%`}</span>}
               action={[
                 <IconButton
                     key="close"
@@ -329,7 +448,7 @@ class App extends Component {//
                 {/*<div className={classes.btnMenu}>*/}
                   {/*<SettingsIcon className={classes.menuIcon} />*/}
                 {/*</div>*/}
-                <div className={classes.btnMenu}>
+                <div className={classes.btnMenu} onClick={()=>{console.log("Information screen activated"); this.handleInfo();}}>
                   <HelpIcon className={classes.menuIcon} />
                 </div>
                 {/*<div className={classes.btnMenu}>*/}
@@ -440,6 +559,125 @@ class App extends Component {//
 }
 
 const styles = theme => ({
+      infoMenuImgWrapper:{
+        borderRadius: 8,
+        boxShadow: "0px 14px 30px rgba(52, 152, 219, 0.36)",
+        maxWidth:"100%",
+        "& img":{
+          maxHeight: 400
+        }
+      },
+      infoMenuImgBorder:{
+        background: "#395377",
+        padding: 31,
+        borderRadius: 8,
+        height: "100%"
+      },
+      infoMenuDataTitle:{
+        fontSize: 36,
+        lineHeight: "normal",
+        color: "#CACFDD",
+        marginBottom: 26
+      },
+      infoMenuDataTextWrapper:{
+        display: "block",
+        padding: "0 50px",
+        paddingRight: 0
+      },
+      infoMenuButtonColumnsWrapper:{
+        display: "flex",
+        height: 120
+      },
+      infoMenuButtonColumn:{
+        display: "block",
+        width: "20%"
+      },
+      infoMenuDataText:{
+        fontSize: 18,
+        lineHeight: "32px",
+        color: "#CACFDD",
+        fontStyle: "normal",
+        fontWeight: "300"
+
+},
+      infoMenuDataWrapper:{
+        display: "flex",
+        transition: "all 300ms ease-in-out",
+      },
+    hline:{
+      height: 1,
+      width: "100%",
+      backgroundColor: "#536086",
+      marginTop: 60,
+      marginBottom: 60
+    },
+      infoScreenMenuWrapper:{
+        position: "relative"
+      },
+      infoMenuTitle:{
+        fontSize: 24,
+        color: "#CACFDD"
+      },
+      crossWrapperWrapper:{
+        position: "absolute",
+        top: 0,
+        right: -40
+      },
+      crossWrapper:{
+        //background: "white",
+        width: 55,
+        height: 55,
+        marginLeft: "100%",
+        position: "relative",
+        "& div:nth-child(2)":{
+          background: "#81C8F8",
+          width: 27.5,
+          height: 1,
+          margin: 13.75,
+          marginTop: 24,
+          transform: "rotate(45deg)",
+          position: "absolute"
+        },
+        "& div:nth-child(1)":{
+          background: "#81C8F8",
+          width: 27.5,
+          height: 1,
+          margin: 13.75,
+          marginTop: 24,
+          transform: "rotate(-45deg)",
+          position: "absolute"
+
+        },
+        "&:hover":{
+          "& div":{
+            background: "white"
+          }
+        }
+      },
+      infoScreenMenu:{
+        position: "absolute",
+        top: 0,
+        left: "10%",
+        width: "80%",
+        height: "90%",
+        background: "radial-gradient(880.00px at 50% 0%, #212F64 0%, #1B2137 100%)",
+        zIndex: 990,
+        padding: "20px 40px"
+      },
+      infoScreenWrapper:{
+        position: "absolute",
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        //background: "black",
+        //opacity: "0.7",
+        background: "rgba(39, 56, 86, 0.5)",
+        backdropFilter: "blur(20px)",
+        zIndex: 900,
+        transition: "all 300ms ease-in-out",
+
+      },
   CollapseBtn: {
     alignContent: "center",
     justifyContent: "center",
@@ -456,7 +694,10 @@ const styles = theme => ({
   snackbarRoot: {
     fontFamily: "Open Sans, serif",
     fontWeight: "400",
-    background: "#273856"
+    background: "white",
+    maxWidth: "none",
+    color: theme.palette.primary.main,
+    whiteSpace: "pre"
   },
   btn: {
     width: 128,

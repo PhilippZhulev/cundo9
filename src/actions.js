@@ -17,3 +17,4 @@ export const bindDriversData = createAction('ACTION_DRIVERS_DATA');
 export const bindPreloader = createAction('ACTION_PRELOADER');
 export const bindValues = createAction("ACTION_VALUES");
 export const closeCollapses = createAction("CLOSE_COLLAPSES");
+export const bindInfoId = createAction("INFO_ID");

@@ -36,25 +36,26 @@ class Chart extends Component {
       },
       "trendLines": [],
       "graphs": [
+          {
+              "balloonText": "[[title]] of [[category]]:[[value]]",
+              "bulletBorderThickness": 0,
+              "id": "AmGraph-1",
+              "lineColor": "#EB5763",
+              "lineThickness": 2,
+              "title": "graph 1",
+              "type": "smoothedLine",
+              "valueField": "column-1"
+          },
         {
           "balloonText": "[[title]] of [[category]]:[[value]]",
           "id": "AmGraph-2",
-          "lineColor": "#EB5763",//"#FEC400",
+          //"lineColor": "#EB5763",//"#FEC400",
+            "lineColor": "#3498DB",
           "lineThickness": 2,
           "title": "graph 2",
           "type": "smoothedLine",
           "valueField": "column-2"
         },
-          {
-              "balloonText": "[[title]] of [[category]]:[[value]]",
-              "bulletBorderThickness": 0,
-              "id": "AmGraph-1",
-              "lineColor": "#3498DB",
-              "lineThickness": 2,
-              "title": "graph 1",
-              "type": "smoothedLine",
-              "valueField": "column-1"
-          }
       ],
       "guides": [],
       "valueAxes": [
