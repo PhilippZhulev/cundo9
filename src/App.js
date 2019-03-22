@@ -27,6 +27,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import ArrowBottom from '@material-ui/icons/ExpandMore';
 import InfoButton from "./containers/InfoButton";
+import {bindDriversData} from "./actions";
 
 class App extends Component {//
     constructor(props) {
@@ -107,7 +108,9 @@ class App extends Component {//
             planning_version: window.bobrData["X_pl_vers"],
             planning_version_text: window.bobrData["planning_version"]
           });
+
         };
+
 
         this.getStoreData();
 
@@ -117,13 +120,85 @@ class App extends Component {//
           console.log("ОБНОВЛЕННЫЙ ОБЪЕКТ:");
           console.log(data);
           this.getStoreData();
+            console.log("Weights set right now"); // <--- More greedy one
+            //if(this.props.storeDriversData.vesNeedUpdate === true){
+            if (this.props.storeValues.value1 !== "") {
+              this.props.bindDriversData({
+                vesCOM04: Number(window.bobrData["data_ves_factor_kd"][0].var2.replace(",", ".")),
+                vesCOM05: Number(window.bobrData["data_ves_factor_kd"][1].var2.replace(",", ".")),
+                vesCOM06: Number(window.bobrData["data_ves_factor_kd"][2].var2.replace(",", ".")),
+                vesCMP01: 0,
+                currInputCOM04: window.bobrData["data_ves_factor_kd"][0].var2.replace(".", ","),
+                currInputCOM05: window.bobrData["data_ves_factor_kd"][1].var2.replace(".", ","),
+                currInputCOM06: window.bobrData["data_ves_factor_kd"][2].var2.replace(".", ","),
+                currInputCMP01: "0",
+                vesNeedUpdate: false
+              });
+            } else if (this.props.storeValues.value2 !== "") {
+              this.props.bindDriversData({
+                vesCOM04: Number(window.bobrData["data_ves_factor_komp"][0].var2.replace(",", ".")),
+                vesCOM05: 0,
+                vesCOM06: 0,
+                vesCMP01: Number(window.bobrData["data_ves_factor_komp"][1].var2.replace(",", ".")),
+                currInputCOM05: window.bobrData["data_ves_factor_komp"][0].var2.replace(".", ","),
+                currInputCOM06: "0",
+                currInputCOM04: "0",
+                currInputCMP01: window.bobrData["data_ves_factor_komp"][1].var2.replace(".", ","),
+                vesNeedUpdate: false
+              });
+            } else {
+              this.props.bindDriversData({vesNeedUpdate: false});
+            }
+          this.props.bindDriversData({
+            COM05: null,
+            COM06: null,
+            COM04: null,
+            CMP01: null,
+          });
         });
+      // let timer = this.setInterval((timer)=>{
+      //
+      // }, 5000)
+      //}
     };
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-      if(this.props.storeBlocks !== prevProps.storeBlocks) {
+      if (this.props.storeBlocks !== prevProps.storeBlocks) {
         this.setState({collapse: true});
       }
+      // console.log(this.props); <--- Less greedy weight assign
+      // console.log(prevProps);
+      // if (this.props.storeDrivers.vesKd !== undefined && prevProps.storeDrivers.vesKd !== undefined && (this.props.storeDrivers.vesKd[0].var2 !== prevProps.storeDrivers.vesKd[0].var2 || this.props.storeDrivers.vesKomp[0].var2 !== prevProps.storeDrivers.vesKomp[0].var2)) {
+      //   console.log("Weights set right now");
+      //   //if(this.props.storeDriversData.vesNeedUpdate === true){
+      //   if (this.props.storeValues.value1 !== "") {
+      //     this.props.bindDriversData({
+      //       vesCOM04: Number(window.bobrData["data_ves_factor_kd"][0].var2.replace(",", ".")),
+      //       vesCOM05: Number(window.bobrData["data_ves_factor_kd"][1].var2.replace(",", ".")),
+      //       vesCOM06: Number(window.bobrData["data_ves_factor_kd"][2].var2.replace(",", ".")),
+      //       vesCMP01: 0,
+      //       currInputCOM04: window.bobrData["data_ves_factor_kd"][0].var2.replace(".", ","),
+      //       currInputCOM05: window.bobrData["data_ves_factor_kd"][1].var2.replace(".", ","),
+      //       currInputCOM06: window.bobrData["data_ves_factor_kd"][2].var2.replace(".", ","),
+      //       currInputCMP01: "0",
+      //       vesNeedUpdate: false
+      //     });
+      //   } else if (this.props.storeValues.value2 !== "") {
+      //     this.props.bindDriversData({
+      //       vesCOM04: Number(window.bobrData["data_ves_factor_komp"][0].var2.replace(",", ".")),
+      //       vesCOM05: 0,
+      //       vesCOM06: 0,
+      //       vesCMP01: Number(window.bobrData["data_ves_factor_komp"][1].var2.replace(",", ".")),
+      //       currInputCOM05: window.bobrData["data_ves_factor_komp"][0].var2.replace(".", ","),
+      //       currInputCOM06: "0",
+      //       currInputCOM04: "0",
+      //       currInputCMP01: window.bobrData["data_ves_factor_komp"][1].var2.replace(".", ","),
+      //       vesNeedUpdate: false
+      //     });
+      //   } else {
+      //     this.props.bindDriversData({vesNeedUpdate: false});
+      //   }
+      // }
     }
 
     handleBlock = (event, id, item, group, name) => {
@@ -147,6 +222,14 @@ class App extends Component {//
         this.props.bindPreloader({preloader: true});
         console.log("ОТПРАВЛЕН ЗАПРОС В ЛЮМИРУ...");
         return `${item.group},${item.key_block || item.key}`
+      });
+
+      this.props.bindDriversData({vesNeedUpdate: true});
+      this.props.bindDriversData({
+        COM05: null,
+        COM06: null,
+        COM04: null,
+        CMP01: null,
       });
     };
 
@@ -212,6 +295,12 @@ class App extends Component {//
       }
     });
 
+    this.props.bindDriversData({
+      COM05: null,
+      COM06: null,
+      COM04: null,
+      CMP01: null,
+    });
 
     // this.props.bindDriversData({
     //   COM05: null,

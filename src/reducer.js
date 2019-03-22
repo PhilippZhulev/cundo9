@@ -93,6 +93,7 @@ const driversData = {
   currInputCOM06: "0",
   currInputCOM04: "0",
   currInputCMP01: "0",
+  vesNeedUpdate: true,
 };
 
 const preloader = {
@@ -195,6 +196,7 @@ export const handleDrivers = handleActions({
 
 export const handleDriversData = handleActions({
   [actions.bindDriversData](state, { payload }) {
+    console.log(payload);
     return { ...state, ...payload };
   },
 }, driversData);

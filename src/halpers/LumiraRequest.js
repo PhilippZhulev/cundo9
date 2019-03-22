@@ -8,9 +8,12 @@ const LumiraRequest = (action) => {
       }
     },
     get: (callback) => {
-      document.addEventListener("React.update", () => {
+      document.addEventListener("React.update", (e) => {
+        e.preventDefault();
         if(action) {
-          callback(action, window.bobrSettings);
+          setTimeout(()=> {
+            callback(action, window.bobrSettings);
+          }, 0);
         }
       });
     }
