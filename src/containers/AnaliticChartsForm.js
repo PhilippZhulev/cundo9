@@ -1,6 +1,6 @@
 import connect from "react-redux/es/connect/connect";
 import AnaliticChartsForm from '../components/AnaliticChartsForm';
-import {bindApp, bindAnaliticSelect, bindDataFactDohod} from "../actions";
+import {bindApp, bindAnaliticSelect, bindDataFactDohod, bindPreloader} from "../actions";
 
 function mapStateToProps (payload) {
   return {
@@ -10,4 +10,4 @@ function mapStateToProps (payload) {
   }
 }
 
-export default connect(mapStateToProps, {bindApp, bindAnaliticSelect, bindDataFactDohod})(AnaliticChartsForm);
+export default connect(mapStateToProps, {bindApp, bindAnaliticSelect, bindDataFactDohod, bindPreloader})(AnaliticChartsForm);

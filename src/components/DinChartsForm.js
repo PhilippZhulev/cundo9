@@ -75,6 +75,8 @@ class DinChartsForm extends Component {
   };
 
   arrowController = (classes, type) => {
+    console.log(classes);
+    console.log(type);
     switch (type) {
       case "-1" : return (
         <Arrow
@@ -97,7 +99,7 @@ class DinChartsForm extends Component {
       {classes} = props,
       { anchorEl } = this.state;
 
-    //console.log(props);
+    console.log(props);
 
     const dinamic = this.getProvider(props.items).din;
 

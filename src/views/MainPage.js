@@ -10,7 +10,7 @@ import AnaliticChartsForm from "../containers/AnaliticChartsForm";
 import DinChartsForm from "../containers/DinChartsForm";
 import DinTableForm from "../containers/DinTableForm";
 import CustomTabs from "../components/CustomTabs";
-import TabsButton from "../components/TabsButton";
+import TabsButton from "../containers/TabsButton";
 
 const getKey = (data) => {
   let result = [];
@@ -161,13 +161,13 @@ class MainPage extends Component {
               bindName={"analiticDefault"}
               tabs={[
                 //item.chartSd !== null ? <TabsButton text={"Совокупный доход"} /> : null,
-                item.chartKd !== null ? <TabsButton text={"Комиссионный доход"} /> : null,
-                item.chartComp !== null ? <TabsButton text={"Компенсация"} /> : null
+                item.chartKd !== null ? <TabsButton text={"Комиссионный доход"} title={"kd"} id={2} anChart={this.props.storeAnaliticChart}/> : null,
+                item.chartComp !== null ? <TabsButton text={"Компенсация"} title={"komp"} id={3} anChart={this.props.storeAnaliticChart}/> : null
               ].filter(item => item !== null)}
               content={[
                 //item.chartSd !== null ? <AnaliticChartsForm id={1} items={item.chartSd} /> : null,
-                item.chartKd !== null ? <AnaliticChartsForm id={2} items={item.chartKd} /> : null,
-                item.chartComp !== null ? <AnaliticChartsForm id={3} items={item.chartComp} /> : null
+                item.chartKd !== null ? <AnaliticChartsForm id={2} items={item.chartKd} title={"kd"} /> : null,
+                item.chartComp !== null ? <AnaliticChartsForm id={3} items={item.chartComp} title={"komp"} /> : null
               ].filter(item => item !== null)}
             />
           </div>

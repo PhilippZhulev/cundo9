@@ -7,6 +7,7 @@ import ArrowBottom from "@material-ui/icons/ExpandMore";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Arrow from "@material-ui/icons/ArrowDownward";
+import {LumiraRequest} from "../halpers/LumiraRequest";
 
 class AnaliticChartsForm extends Component {
 
@@ -19,7 +20,14 @@ class AnaliticChartsForm extends Component {
   };
 
   handleBlock = (name, val) => {
+    const REQ = LumiraRequest("DATA_UPDATE");
     this.props.bindAnaliticSelect({[`analitic${this.props.id}Value`]: val, [`analitic${this.props.id}Name`]: name});
+    REQ.set("tech8", () => {
+      this.props.bindPreloader({preloader: true});
+      console.log("ОТПРАВЛЕН ЗАПРОС В ЛЮМИРУ...");
+      return `${this.props.title}$$_$$${val}`
+    });
+    //console.log(`${this.props.title}$$_$$${val}`);
     this.setState({ anchorEl: null });
   };
 

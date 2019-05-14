@@ -15,23 +15,24 @@ class StepSlider extends Component {
     // console.log(this.props.settings.baseValue);
     // console.log(this.props.storeDriversData[this.props.settings.id] === null);
     // console.log(this.props.storeBlocks.gv_drivers_loaded);
-    if(this.props.storeBlocks.gv_drivers_loaded === "0" && this.props.storeDriversData[this.props.settings.id] === null){
-      this.props.bindDriversData({[this.props.settings.id] : null, ["isFake"+this.props.settings.id] : true});
-    }
-    if((this.props.storeDriversData[this.props.settings.id] === null || isNaN(parseFloat(this.props.m_prirost)) || this.props.storeDriversData["isFake"+this.props.settings.id])&&(this.props.storeBlocks.gv_drivers_loaded === "1" || this.props.storeBlocks.gv_drivers_loaded === 1)) {
+
+    // if(this.props.storeBlocks.gv_drivers_loaded === "0" && this.props.storeDriversData[this.props.settings.id] === null){
+    //   this.props.bindDriversData({[this.props.settings.id] : null, ["isFake"+this.props.settings.id] : true});
+    // }
+    //if((this.props.storeDriversData[this.props.settings.id] === null || isNaN(parseFloat(this.props.m_prirost)) || this.props.storeDriversData["isFake"+this.props.settings.id])&&(this.props.storeBlocks.gv_drivers_loaded === "1" || this.props.storeBlocks.gv_drivers_loaded === 1)) {
       //console.log("drivers assign");
       console.log(parseFloat(this.props.m_prirost));
       this.props.bindDriversData({[this.props.settings.id] :  isNaN(parseFloat(this.props.m_prirost)) ? 0 : parseFloat(this.props.m_prirost).toFixed(this.props.digits), ["isFake"+this.props.settings.id]: isNaN(parseFloat(this.props.m_prirost))});
-    }
+    //}
   }
 
   state = {
     //value: this.props.storeDriversData[this.props.settings.id],
     //value: this.props.settings.baseValue.toFixed(this.props.digits),
-    value: this.props.storeDriversData[this.props.settings.id],
+    value: parseFloat(this.props.m_prirost).toFixed(this.props.digits),//this.props.storeDriversData[this.props.settings.id],
     //currInput: String(this.props.storeDriversData[this.props.settings.id]),
     //currInput: String(this.props.settings.baseValue.toFixed(this.props.digits).replace(".",",")),
-    currInput: String(this.props.storeDriversData[this.props.settings.id]).replace(".",","),
+    currInput: String(this.props.m_prirost).replace(".",","),
     prev: null,
     thumb: 0,
     offset: "",
@@ -106,6 +107,7 @@ class StepSlider extends Component {
         console.log("ОТПРАВЛЕН ЗАПРОС В ЛЮМИРУ...");
         return `${this.props.settings.id},gv_period,gv_sale_channel,gv_gosb,gv_dd_direction,gv_ndo,gv_biz_block,X_var1|${this.props.storeDriversData[this.props.settings.id]},${this.props.storeBlocks.gv_period},${this.props.storeBlocks.gv_sale_channel},${this.props.storeBlocks.gv_gosb},${this.props.storeBlocks.gv_dd_direction},${this.props.storeBlocks.gv_ndo},${this.props.storeBlocks.gv_biz_block},${this.props.storeBlocks.gv_var_rasch}`;
       });
+      setTimeout(()=>{this.props.bindPreloader({preloader: false});}, 1000);
     }, 100)
   };
 

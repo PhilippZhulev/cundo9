@@ -18,7 +18,7 @@ import {directionParse} from './halpers/directionParser';
 import {channelParse} from "./halpers/channelParser";
 import {versionParse} from "./halpers/versionParser";
 import {bizParse} from "./halpers/bizParser";
-import {LumiraRequest} from "./halpers/LumiraRequest"
+import {LumiraRequest} from "./halpers/LumiraRequest";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Slide from "@material-ui/core/Slide/Slide";
 import SnackbarContentWrapper from "./components/Snackbar";
@@ -156,9 +156,6 @@ class App extends Component {//
             CMP01: null,
           });
         });
-      // let timer = this.setInterval((timer)=>{
-      //
-      // }, 5000)
       //}
     };
 
@@ -371,6 +368,10 @@ class App extends Component {//
           title:"Скрыть все фильтры",
           text:"Сворачивает все иерархии фильтрации."
         },
+        drivers:{
+          title:"Панель драйверов",
+          text:"Панель драйверов. Отображает драйверы, на основании которых строится расчет плановых значений финансового результата. Моделирование происходит путем задания процента прироста драйвера. Прирост можно задать путем движения ползунка на шкале драйвера или ввести вручную. На шкале драйвера всегда отображаются положения и значения как моделируемого прироста, так и планового прироста драйвера в соответствии с заданной фильтрацией."
+        },
         target_kpe:{
           title:"Целевой КПЭ",
           text: "Указание целевого КПЭ, который необходимо достичь. Система рассчитает необходимые значения приростов драйверов для достижения целевого КПЭ. Вводится отдельно для комиссионного дохода и компенсации. При вводе подсвечивает драйверы, влияющие на вводимый КПЭ и их предрассчитанные веса влияния (%). При необходимости веса влияния можно ввести вручную. Сумма весов влияния драйверов должна быть равна 100%."
@@ -380,7 +381,7 @@ class App extends Component {//
           text:"Отображает совокупный доход (Комиссионный доход и Компенсацию) в разрезе бизнес-блоков по кассово-инкассаторскому обслуживанию сторонних объектов, в соответствии с заданной фильтрацией."
         },
         komm_income:{
-          title:"Комисионный доход",
+          title:"Комиссионный доход",
           text:"Отображает комиссионный доход по конкретному бизнес-блоку в разрезе аналитик в соответствии с заданной фильтрацией."
         },
         compensation:{
@@ -429,6 +430,7 @@ class App extends Component {//
               </div>
               <div className={classes.infoMenuButtonColumn}>
                 <InfoButton id={"target_kpe"} data={data} />
+                <InfoButton id={"drivers"} data={data} />
               </div>
               <div className={classes.infoMenuButtonColumn}>
                 <InfoButton id={"income"} data={data} />

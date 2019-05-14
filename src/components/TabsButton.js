@@ -1,14 +1,26 @@
 import React, {Component} from 'react';
 import {withStyles} from '@material-ui/core/styles';
+import {LumiraRequest} from "../halpers/LumiraRequest";
 
 class TabsButton extends Component {
 
   render() {
     const props = this.props,
       {classes} = props;
+    const REQ = LumiraRequest("DATA_UPDATE");
 
     return (
-      <div className={classes.tabBtn}>
+      <div className={classes.tabBtn} onClick={()=>{
+        if(this.props.title !== undefined){
+          REQ.set("tech8", () => {
+            this.props.bindPreloader({preloader: true});
+            console.log("ОТПРАВЛЕН ЗАПРОС В ЛЮМИРУ...");
+            return `${this.props.title}$$_$$${this.props.anChart["analitic"+this.props.id+"Value"]}`
+          });
+          //console.log(`${this.props.title}$$_$$${this.props.anChart["analitic"+this.props.id+"Value"]}`);
+          //console.log(this.props.anChart);
+        }
+      }}>
         {props.text}
       </div>
     )
